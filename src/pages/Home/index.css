@@ -95,6 +95,14 @@
 	vertical-align: top;
 }
 
+.features {
+	transform: translateY(-100px);
+	display: inline-block;
+	background-color: #fff;
+	border-radius: 5px;
+	min-height: 400px;
+}
+
 @media screen and (max-width: 700px) {
 	.landing > div:nth-child(1) {
 		width: 100%;
@@ -106,5 +114,8 @@
 	}
 	.landing > div:nth-child(2) {
 		display: none;
+	}
+	.features {
+		width: 90%;
 	}
 }

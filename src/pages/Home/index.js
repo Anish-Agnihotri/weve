@@ -11,6 +11,43 @@ import './index.css';
 // Footer
 
 export default class Home extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			width: 90
+		}
+	}
+	handleLandingScroll = () => {
+		let position = window.pageYOffset;
+		console.log(position);
+		/*if (position > 150) {
+			if (this.state.width < 100) {
+				this.setState({
+					width: 90 + ((position - 150) / 15)
+				})
+			} 
+			else if (this.state.width >= 100) {
+				this.setState({
+					width: 100
+				})
+			}
+		} else {
+			if (this.state.width <= 80) {
+				this.setState({
+					width: 90
+				})
+			} else {
+				this.setState({
+					width: this.state.width + ((position - 150) / 30)
+				})
+			}
+		}*/
+		console.log(this.state.width);
+	}
+	componentDidMount() {
+		window.addEventListener('scroll', this.handleLandingScroll);
+	}
 	render() {
 		return (
 			<div className="home">
@@ -37,6 +74,11 @@ export default class Home extends React.Component {
 								
 							</div>
 						</div>
+					</div>
+				</div>
+				<div>
+					<div className="features sizer" style={{width: this.state.width + "vw"}}>
+						<span>Test</span>
 					</div>
 				</div>
 			</div>
