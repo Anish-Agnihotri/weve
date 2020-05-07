@@ -1,0 +1,165 @@
+.homeheader {
+	width: 100%;
+	height: 65px;
+	margin-top: 7.5px;
+	display: inline-block;
+}
+
+.homeheader > div {
+	text-align: left;
+}
+
+.homeheader > div > div {
+	display: inline-block;
+	vertical-align: top;
+	height: 100%;
+}
+
+.logo {
+	width: 200px;
+}
+
+.logo > a {
+	text-decoration: none;
+}
+
+.logo > a > h1 {
+	font-size: 37px;
+	color: #AC80FF;
+	margin-block-start: 0px;
+	margin-top: 7px;
+}
+
+.menu {
+	width: calc(100% - 200px);
+	text-align: right;
+}
+
+.menu > nav {
+	margin-top: 22.5px;
+}
+
+.menu > nav > ul {
+	list-style-type: none;
+}
+
+.menu > nav > ul > li {
+	display: inline-block;
+	margin: 0px 5px;
+}
+
+.menu > nav > ul > li > a {
+	font-size: 16px;
+	font-weight: 500;
+	color: rgb(151, 160, 185);
+	text-decoration: none;
+	padding: 10px 10px;
+}
+
+.menu > nav > ul > li > a:hover {
+	color: #fff;
+}
+
+.menu > nav > ul > li:last-child {
+	margin-right: 0px !important;
+}
+
+.menu > nav > ul > li:last-child > a {
+	background-color: rgba(172, 128, 255, 0.144);
+	padding: 8px 18px;
+	border-radius: 25px;
+	color: #fff;
+	transition: 200ms ease-in-out;
+	border: 2px solid #AC80FF;
+}
+
+.menu > nav > ul > li:last-child > a:hover {
+	background-color: rgba(172, 128, 255, 0.3);
+	color: #fff;
+}
+
+.hamburger {
+	display: none;
+	height: 100%;
+}
+
+.hamburger > div {
+	margin-top: 26.5px;
+	cursor: pointer;
+}
+
+.menu-mobile {
+	position: absolute;
+	top: 120px;
+	left: 5vw;
+	width: 90vw;
+	text-align: left;
+	border-radius: 5px;
+	height: auto !important;
+	background-color: #fff;
+	box-shadow: 0 0px 18px 2px rgba(151,164,175,.2);
+	z-index: 9999;
+}
+
+.menu-mobile > nav > ul {
+	list-style-type: none;
+	padding-left: 25px;
+}
+
+.menu-mobile > nav > ul > li {
+	padding: 2px;
+}
+
+.menu-mobile > nav > ul > li > a {
+	text-decoration: none;
+	color: #000;
+	font-weight: 500;
+	font-size: 16px;
+	padding: 5px 0px;
+	display: inline-block;
+	transition: 100ms ease-in-out;
+}
+
+.menu-mobile > nav > ul > li:last-child > a {
+	background-color: rgba(172, 128, 255, 0.144);
+	color: #AC80FF !important;
+	border-radius: 5px;
+	padding: 8px 18px;
+	margin-top: 5px;
+	border: 2px solid #AC80FF;
+}
+
+.menu-mobile > nav > ul > li:last-child > a:hover {
+	background-color: rgba(172, 128, 255, 0.3);
+	color: #fff;
+}
+
+.menu-mobile > nav > ul > li > a:hover {
+	color: #AC80FF;
+}
+
+.hidden {
+	display: none !important;
+	opacity: 1;
+}
+
+.shown {
+	display: inline-block !important;
+}
+
+@media screen and (max-width: 700px) {
+	.menu > nav {
+		display: none;
+	}
+	.hamburger {
+		display: inline-block;
+	}
+}
+
+@media screen and (min-width: 700px) {
+	.menu-mobile {
+		display: none !important;
+		left: 2.5vw;
+		width: 95vw;
+	}
+}
