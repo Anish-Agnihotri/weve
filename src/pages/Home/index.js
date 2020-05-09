@@ -5,6 +5,7 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import Dropzone from 'react-dropzone'
+import { withRouter } from 'react-router-dom';
 import './index.css';
 
 import featureOneImage from '../../static/images/private.png';
@@ -12,22 +13,54 @@ import featureTwoImage from '../../static/images/uncensorable.png';
 import featureThreeImage from '../../static/images/decentralized.png';
 import upload from '../../static/images/upload.png';
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
 			modalState: false,
-			keyFileName: "Upload keyfile"
+			keyFileName: "Upload keyfile",
+			isLoading: false,
 		};
 	}
 
 	toggleModal = () => {
-		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile"}));
+		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
 	}
 
 	keyFile = file => {
-		this.setState({keyFileName: file[0].name});
+		if (file[0].name.split('.').pop().toLowerCase() === "json") {
+			const upload = file[0];
+			let fileName = upload.name.length > 15 ? upload.name.substring(0, 10) + "....json" : upload.name;
+
+			this.setState({
+				keyFileName: fileName,
+				isLoading: true,
+			});
+
+			const reader = new FileReader();
+			reader.readAsText(upload);
+			reader.onload = () => {
+				const keyfile = JSON.parse(reader.result);
+
+
+				if (keyfile.kty === "RSA") {
+					sessionStorage.setItem('keyfile', reader.result);
+					this.toggleModal();
+					// TODO: moddle better way to do this
+					window.location.reload()
+				} else {
+					this.setState({
+						keyFileName: "Error: Not a keyfile",
+						isLoading: false
+					});
+				}
+			}
+		} else {
+			this.setState({
+				keyFileName: "Error: Not a keyfile"
+			})
+		}
 	}
 
 	render() {
@@ -40,7 +73,7 @@ export default class Home extends React.Component {
 					showCloseIcon={false}>
 					<div className="login-modal">
 						<div>
-							<h1>weve.</h1>
+							<h1 className="unselectable">weve.</h1>
 							<p>Drop a <span>keyfile</span> to login</p>
 						</div>
 						<div>
@@ -49,7 +82,7 @@ export default class Home extends React.Component {
 									<section>
 										<div {...getRootProps()}>
 											<input {...getInputProps()} />
-											<img src={upload} alt="Upload" />
+											{this.state.isLoading ? <i className="fa fa-spinner fa-spin"></i> : <img src={upload} alt="Upload" />}
 											<p>{this.state.keyFileName}</p>
 										</div>
 									</section>
@@ -115,7 +148,7 @@ export default class Home extends React.Component {
 					<div className="footer">
 						<div className="sizer">
 							<div>
-								<h1>weve.</h1>
+								<h1 className="unselectable">weve.</h1>
 								<span>Built with <span role="img" aria-label="Purple heart">💜</span> in <a href="https://github.com/anish-agnihotri/weve" target="_blank" rel="noopener noreferrer">open-source</a>.</span>
 							</div>
 							<div>
@@ -214,3 +247,5 @@ class Usage extends React.Component {
 		);
 	}
 }
+
+export default withRouter(Home);

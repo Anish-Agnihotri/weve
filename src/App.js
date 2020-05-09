@@ -4,18 +4,36 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from './pages/Home';
 import Mail from './pages/Mail';
 
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/mail" exact component={Mail} />
-          <Route component={Home} />
-        </Switch>
-      </Router>
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isAuthenticated: false,
+    }
+  }
+  getAuthStatus = () => {
+    if (sessionStorage.getItem('keyfile') !== null) {
+      this.setState({isAuthenticated: true});
+    } else {
+      this.setState({isAuthenticated: false});
+    }
+  }
+  componentDidMount() {
+    this.getAuthStatus();
+  }
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Switch>
+            <Route path="/" exact component={this.state.isAuthenticated ? Mail : props => <Home {...props} key={Date.now()} />} />
+            <Route component={this.state.isAuthenticated ? Mail : Home} />
+          </Switch>
+        </Router>
+      </div>
+    );
+  }
 }
 
 export default App;
