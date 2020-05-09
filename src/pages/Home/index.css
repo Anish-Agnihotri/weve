@@ -158,8 +158,8 @@
 }
 
 .tech {
-	margin-block-start: -65px;
-	padding-bottom: 500px;
+	margin-block-start: -45px;
+	padding-bottom: 100px;
 }
 
 .tech > h1 {
@@ -168,6 +168,95 @@
 
 .tech > p {
 	margin-block-start: 10px;
+	margin-block-end: 40px;
+}
+
+.usage-wide > div {
+	vertical-align: middle;
+	display: inline-block;
+}
+
+.usage-wide > div:nth-child(1) {
+	width: 350px;
+}
+
+.usage-wide > div:nth-child(1) > button {
+	width: calc(100% - 30px);
+	height: 80px;
+	border-radius: 10px;
+	box-shadow: 0 0 35px rgba(127,150,174,.125);
+	border: 1px solid #e7eaf3;
+	margin: 15px;
+	transition: 100ms ease-in-out;
+	padding: 0px;
+	text-align: left;
+}
+
+.usage-wide > div:nth-child(1) > button::-moz-focus-inner {
+    padding: 0;
+    border: 0
+}
+
+.usage-wide > div:nth-child(1) > button:focus {
+	outline: none;
+}
+
+.usage-wide > div:nth-child(1) > button:hover {
+	border-color: #AC80FF;
+}
+
+.usage-wide > div:nth-child(1) > button > div {
+	display: inline-block;
+	vertical-align: top;
+	height: 77px;
+}
+
+.usage-wide > div:nth-child(1) > button > div:nth-child(1) {
+	width: 75px;
+}
+
+.usage-wide > div:nth-child(1) > button > div:nth-child(1) > div {
+	background-color: #000;
+	height: 45px;
+	width: 45px;
+	border-radius: 50%;
+	background-color: #AC80FF;
+	color: #fff;
+	margin: 15px;
+	text-align: center;
+	line-height: 45px;
+}
+
+.usage-wide > div:nth-child(1) > button > div:nth-child(1) > div > h2 {
+	margin-block-start: 0px;
+	margin-block-end: 0px;
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.usage-wide > div:nth-child(1) > button > div:nth-child(2) {
+	width: calc(100% - 75px);
+}
+
+.usage-wide > div:nth-child(1) > button > div:nth-child(2) > h3 {
+	font-size: 17px;
+	margin-block-end: 0px;
+	margin-block-start: 20px;
+}
+
+.usage-wide > div:nth-child(1) > button > div:nth-child(2) > p {
+	font-size: 15px;
+	margin-block-end: 0px;
+	margin-block-start: 0px;
+}
+
+.active-usage-item {
+	border-color: #AC80FF !important;
+}
+
+.usage-wide > div:nth-child(2) {
+	width: calc(100% - 350px);
+	background-color: #fff;
 }
 
 .black {

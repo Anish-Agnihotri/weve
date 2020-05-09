@@ -17,7 +17,7 @@ export default class Home extends React.Component {
 		}
 	}
 	updateDimensions = e => {
-		if (window.innerWidth > 700) {
+		if (window.innerWidth > 850) {
 			this.setState({wide: true});
 		} else {
 			this.setState({wide: false});
@@ -59,7 +59,7 @@ export default class Home extends React.Component {
 					</div>
 				</div>
 				<div>
-					<div className="features sizer">
+					<div className="features sizer" id="features">
 						<h1>End-to-end security</h1>
 						<p>Weve runs on the Arweave network so messages are <i>permanent</i> and <i>uncensorable</i>.</p>
 						<p>Messages are <i>encrypted</i> and delivered using <i>decentralized</i> technologies; cutting the middle-man.</p>
@@ -71,7 +71,7 @@ export default class Home extends React.Component {
 					</div>
 				</div>
 				<div>
-					<div className="tech sizer">
+					<div className="tech sizer" id="technology">
 						<h1>How do I use Weve?</h1>
 						<p>It's a simple <span className="highlight black">3-step process</span>.</p>
 						{this.state.wide ? <UsageWide /> : <UsageMobile />}
@@ -127,10 +127,60 @@ class FeatureItem extends React.Component {
 }
 
 class UsageWide extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			number: 0
+		}
+	}
+	resetNumber = () => {
+		this.setState({number: 0});
+	}
+	componentDidMount() {
+		this.resetNumber();
+	}
 	render() {
 		return (
 			<div className="usage-wide">
-				<p>Wide</p>
+				<div>
+					<button onClick={() => this.setState({number: 0})} className={this.state.number === 0 ? "active-usage-item" : null}>
+						<div>
+							<div>
+								<h2>1</h2>
+							</div>
+						</div>
+						<div>
+							<h3>Create Arweave Wallet</h3>
+							<p>First, create a permaweb wallet.</p>
+						</div>
+					</button>
+					<button onClick={() => this.setState({number: 1})} className={this.state.number === 1 ? "active-usage-item" : null}>
+						<div>
+							<div>
+								<h2>2</h2>
+							</div>
+						</div>
+						<div>
+							<h3>Login to weve</h3>
+							<p>Use your wallet to sign-in.</p>
+						</div>
+					</button>
+					<button onClick={() => this.setState({number: 2})} className={this.state.number === 2 ? "active-usage-item" : null}>
+						<div>
+							<div>
+								<h2>3</h2>
+							</div>
+						</div>
+						<div>
+							<h3>Send messages with weve</h3>
+							<p>Use weve to send and receive!</p>
+						</div>
+					</button>
+				</div>
+				<div>
+					<span>Image {this.state.number} here</span>
+				</div>
 			</div>
 		);
 	}

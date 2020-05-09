@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { HamburgerButton } from 'react-hamburger-button';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
 import './index.css';
 
 export default class HomeHeader extends React.Component {
@@ -36,8 +37,8 @@ export default class HomeHeader extends React.Component {
 						<nav>
 							<ul>
 								<li><NavLink to="/">Home</NavLink></li>
-								<li><a href="#features">Features</a></li>
-								<li><a href="#technology">Technology</a></li>
+								<li><AnchorLink href="#features">Features</AnchorLink></li>
+								<li><AnchorLink href="#technology">Technology</AnchorLink></li>
 								<li><NavLink to="/login">Login</NavLink></li>
 							</ul>
 						</nav>
@@ -57,8 +58,8 @@ export default class HomeHeader extends React.Component {
 						<nav>
 							<ul>
 								<li><NavLink to="/">Home</NavLink></li>
-								<li><a href="#features">Features</a></li>
-								<li><a href="#technology">Technology</a></li>
+								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#features">Features</AnchorLink></li>
+								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#technology">Technology</AnchorLink></li>
 								<li><NavLink to="/login">Login</NavLink></li>
 							</ul>
 						</nav>
