@@ -1,0 +1,124 @@
+.list > div {
+	width: 100%;
+	display: inline-block;
+}
+
+.list > div:nth-child(1) {
+	height: 50px;
+	padding: 10px;
+	border-bottom: 1px solid #e7eaf3;
+}
+
+.list > div:nth-child(1) > h2 {
+	color: #AC80FF;
+	margin-block-start: 2px;
+	margin-block-end: 0px;
+}
+
+.list > div:nth-child(1) > span {
+	font-size: 14px;
+	font-weight: 500;
+	display: inline-block;
+	transform: translateY(-3px);
+}
+
+.list > div:nth-child(2) {
+	height: 32px;
+	background-color: #eff1f7;
+	border-bottom: 1px solid #e7eaf3;
+	text-align: right;
+}
+
+.list > div:nth-child(2) > button {
+	margin: 9px;
+	border: none;
+	background-color: transparent;
+	color: #AC80FF;
+	border-bottom: 1px dotted #AC80FF;
+	padding: 0px;
+	cursor: pointer;
+	transition: 30ms ease-in;
+}
+
+.list > div:nth-child(2) > button:focus {
+	outline: none;
+}
+
+.list > div:nth-child(2) > button:hover {
+	opacity: 0.7;
+}
+
+.list > div:nth-child(3) {
+	width: 100%;
+	height: calc(100vh - 160px);
+	overflow: auto;
+}
+
+.mail-item {
+	border: none;
+	text-align: left;
+	text-decoration: none;
+	border-bottom: 1px solid #e7eaf3;
+	padding-bottom: 12.5px;
+	position: relative;
+	cursor: pointer;
+	transition: 75ms ease-in-out;
+}
+
+.mail-item:hover {
+	background-color: #E7E7EF;
+}
+
+.mail-item:focus {
+	outline: none;
+}
+
+.mail-item > a {
+	font-size: 13px;
+	text-decoration: none;
+	border-bottom: 1px dotted #AC80FF;
+	font-weight: 400;
+	color: #AC80FF;
+	display: inline-block;
+	width: 100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-block-start: 10px;
+	margin-block-end: 5px;
+	transition: 50ms ease-in-out;
+}
+
+.mail-item > a:hover {
+	opacity: 0.8;
+}
+
+.mail-item > span:nth-of-type(1) {
+	font-weight: bold;
+	display: inline-block;
+	font-size: 14px;
+	width: 100%;
+	width: 270px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.mail-item > span:nth-of-type(2) {
+	font-size: 14px;
+	width: 270px;
+	display: inline-block;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: rgb(134, 134, 143);
+}
+
+.mail-item > span:nth-of-type(3) {
+	position: absolute;
+	top: 12.5px;
+	right: 10px;
+	display: inline-block;
+	font-size: 12px;
+	color: rgb(195, 194, 207);
+}

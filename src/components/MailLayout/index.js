@@ -1,4 +1,5 @@
 import React from 'react';
+import Arweave from 'arweave/web';
 import { withRouter, NavLink } from 'react-router-dom';
 import './index.css';
 
@@ -6,17 +7,21 @@ import './index.css';
 
 import Inbox from '../MailLists/Inbox';
 import Drafts from '../MailLists/Drafts';
-import Sent from '../MailLists/Sent';
 
 class MailLayout extends React.Component {
+	constructor() {
+		super();
+
+		this.state = {
+			address: null
+		};
+	}
 	getMailbarContent = () => {
 		switch(this.props.location.pathname) {
 			case "/":
 				return <Inbox />
 			case "/drafts":
 				return <Drafts />
-			case "/sent":
-				return <Sent />
 			default:
 				return <Inbox />
 		}
@@ -26,6 +31,15 @@ class MailLayout extends React.Component {
 		// TODO: modal better way to do this
 		this.props.history.push("/");
 		window.location.reload()
+	}
+	getWalletAddress = () => {
+		const arweave = Arweave.init();
+		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
+			this.setState({address: address});
+		})
+	}
+	componentDidMount() {
+		this.getWalletAddress();
 	}
 	render() {
 		return (
@@ -38,7 +52,7 @@ class MailLayout extends React.Component {
 						<div>
 							<div className="profile">
 								<div>
-									<span>hurhbhehjg1212heu1b2iehb2jeh1hjdwjbwjbdjwbdjbwhe</span>
+									<span>{this.state.address ? this.state.address : "Loading..."}</span>
 									<button onClick={this.logout}>Logout</button>
 								</div>
 								<div>
@@ -52,7 +66,6 @@ class MailLayout extends React.Component {
 						<ul>
 							<li><NavLink to="/" exact activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
 							<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
-							<li><NavLink to="/sent" activeClassName="active-sidebar-button"><i className="fa fa-send-o"></i>Sent</NavLink></li>
 						</ul>
 					</div>
 					<div className="mailbar">
