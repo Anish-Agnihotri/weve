@@ -1,34 +1,64 @@
 import React from 'react';
 import TextLoop from "react-text-loop";
-import { NavLink } from 'react-router-dom';
 import HomeHeader from '../../components/HomeHeader';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
+import Dropzone from 'react-dropzone'
 import './index.css';
 
 import featureOneImage from '../../static/images/private.png';
 import featureTwoImage from '../../static/images/uncensorable.png';
 import featureThreeImage from '../../static/images/decentralized.png';
+import upload from '../../static/images/upload.png';
 
 export default class Home extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
-			modalState: false
+			modalState: false,
+			keyFileName: "Upload keyfile"
 		};
 	}
 
 	toggleModal = () => {
-		this.setState(previousState => ({ modalState: !previousState.modalState }));
+		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile"}));
+	}
+
+	keyFile = file => {
+		this.setState({keyFileName: file[0].name});
 	}
 
 	render() {
 		return (
 			<>
-				<Modal open={this.state.modalState} onClose={this.toggleModal}>
-					<span>Test</span>
+				<Modal 
+					open={this.state.modalState} 
+					onClose={this.toggleModal}
+					center={true}
+					showCloseIcon={false}>
+					<div className="login-modal">
+						<div>
+							<h1>weve.</h1>
+							<p>Drop a <span>keyfile</span> to login</p>
+						</div>
+						<div>
+							<Dropzone onDrop={acceptedFiles => this.keyFile(acceptedFiles)}>
+								{({getRootProps, getInputProps}) => (
+									<section>
+										<div {...getRootProps()}>
+											<input {...getInputProps()} />
+											<img src={upload} alt="Upload" />
+											<p>{this.state.keyFileName}</p>
+										</div>
+									</section>
+								)}
+							</Dropzone>
+							<h3>OR</h3>
+							<a href="https://www.arweave.org/wallet" target="_blank" rel="noopener noreferrer">Get a wallet</a>
+						</div>
+					</div>
 				</Modal>
 				<div className="home" id="top">
 					<div>

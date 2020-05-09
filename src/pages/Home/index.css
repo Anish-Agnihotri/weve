@@ -378,6 +378,7 @@
 	opacity: 0.7;
 }
 
+/* Landing: Responsiveness */
 @media screen and (max-width: 700px) {
 	.landing > div:nth-child(1) {
 		width: 100%;
@@ -415,4 +416,128 @@
 	.usage > div:nth-child(2) {
 		padding-top: 30px;
 	}
+}
+
+@media screen and (max-width: 400px) {
+	.login-modal {
+		width: 90vw;
+	}
+}
+
+/* Modal dialog setup */
+.react-responsive-modal-overlay {
+	background-color: rgba(0, 0, 0, 0.55);
+}
+
+.react-responsive-modal-modal {
+	padding: 0px;
+	background-color: transparent;
+}
+
+.login-modal {
+	display: inline-block;
+	width: 300px;
+	height: 400px;
+	background-color: #eeeeee;
+	border-radius: 10px;
+}
+
+.login-modal > div:nth-child(1) {
+	display: inline-block;
+	width: 100%;
+	height: 100px;
+	background-color: #1a1a1a;
+	border-top-left-radius: 7px;
+	border-top-right-radius: 7px;
+	border-bottom: 2px solid #AC80FF;
+	text-align: center;
+}
+
+.login-modal > div:nth-child(1) > h1 {
+	color: #AC80FF;
+	font-size: 40px;
+	margin-block-start: 10px;
+	margin-block-end: 0px;
+}
+
+.login-modal > div:nth-child(1) > p {
+	color: #fff;
+	font-weight: 500;
+	margin-block-start: 0px;
+}
+
+.login-modal > div:nth-child(1) > p > span {
+	border-bottom: 1px solid #AC80FF;
+	padding-bottom: 1px;
+}
+
+.login-modal > div:nth-child(2) {
+	display: inline-block;
+	width: 100%;
+	height: 298px;
+	text-align: center;
+}
+
+.login-modal > div:nth-child(2) > h3 {
+	display: flex;
+	flex-direction: row;
+	margin-block-end: 0px;
+	margin-block-start: 0px;
+}
+
+.login-modal > div:nth-child(2) > h3:before, .login-modal > div:nth-child(2) > h3:after {
+	content: "";
+	flex: 1 1;
+	border-bottom: 2px solid #AC80FF;
+	margin: auto 10px;
+}
+
+.login-modal > div:nth-child(2) > a {
+	display: inline-block;
+	width: 90%;
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	background-color: #AC80FF;
+	text-decoration: none;
+	border-radius: 25px;
+	font-weight: 500;
+	margin-block-start: 10px;
+	transition: 100ms ease-in-out;
+}
+
+.login-modal > div:nth-child(2) > a:hover {
+	opacity: 0.7;
+}
+
+.login-modal > div:nth-child(2) > section > div {
+	width: 90%;
+	display: inline-block;
+	border: 2px dashed #aaaaaa;
+	border-radius: 5px;
+	margin-block-end: 15px;
+	margin-block-start: 10px;
+	height: 175px;
+	cursor: pointer;
+	transition: 100ms ease-in-out;
+}
+
+.login-modal > div:nth-child(2) > section > div > img {
+	display: inline-block;
+	width: 60px;
+	margin-block-start: 30px;
+}
+
+.login-modal > div:nth-child(2) > section > div > p {
+	font-weight: bold;
+	margin-block-start: 10px;
+	margin-block-end: 10px;
+}
+
+.login-modal > div:nth-child(2) > section > div:hover {
+	background-color: #fdfdfd;
+}
+
+.login-modal > div:nth-child(2) > section > div:focus {
+	outline: none;
 }
