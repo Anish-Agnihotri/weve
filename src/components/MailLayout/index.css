@@ -1,0 +1,191 @@
+.mail {
+	width: 100vw;
+	height: 100vh;
+	background-color: #F9F9F9;
+}
+
+.mail > div {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.header {
+	height: 55px;
+	width: 100%;
+	background-color: #2E304A;
+	border-bottom: 1px solid rgb(79, 82, 126);
+}
+
+.header > div:nth-child(1) {
+	height: 100%;
+	width: 200px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.header > div:nth-child(1) > h1 {
+	color: #AC80FF;
+	font-size: 36px;
+	margin-block-start: 0px;
+	margin-block-end: 0px;
+	line-height: 55px;
+	padding-left: 10px;
+}
+
+.header > div:nth-child(2) {
+	height: 100%;
+	width: calc(100% - 200px);
+	display: inline-block;
+	text-align: right;
+	vertical-align: top;
+}
+
+.profile {
+	height: 40px;
+	transform: translateY(2.5px);
+	background-color: rgb(64, 67, 102);
+	border: 1px solid rgb(79, 82, 126);
+	border-radius: 5px;
+	max-width: 300px;
+	display: inline-block;
+	margin-top: 5px;
+	margin-right: 20px;
+}
+
+.profile > div {
+	display: inline-block;
+	height: 100%;
+	vertical-align: top;
+}
+
+.profile > div:nth-child(1) {
+	width: calc(100% - 70px);
+	text-align: left;
+	padding-left: 10px;
+}
+
+.profile > div:nth-child(1) > span {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	color: rgb(147, 153, 223);
+	font-size: 12px;
+	font-weight: 500;
+	margin-block-start: 5px;
+}
+
+.profile > div:nth-child(1) > button {
+	border: none;
+	background-color: transparent;
+	color: #AC80FF;
+	cursor: pointer;
+	font-size: 12px;
+	padding: 0px;
+	border-bottom: 1px dotted #AC80FF;
+	transition: 100ms ease-in-out;
+	float: right;
+	margin-block-start: -5px;
+}
+
+.profile > div:nth-child(1) > button:hover {
+	opacity: 0.7;
+}
+
+.profile > div:nth-child(1) > button:focus {
+	outline: none;
+}
+
+.profile > div:nth-child(2) {
+	width: 60px;
+}
+
+.profile > div > img {
+	width: 32px;
+	border-radius: 25px;
+	margin-top: 4px;
+	margin-right: 10px;
+}
+
+.sidebar {
+	height: calc(100% - 75px);
+	width: 180px;
+	background-color: rgb(56, 58, 88);
+	border-right: 1px solid rgb(79, 82, 126);
+	padding: 10px;
+}
+
+.sidebar > button {
+	width: 100%;
+	height: 35px;
+	border-radius: 5px;
+	font-size: 13.5px;
+	text-transform: uppercase;
+	font-weight: 500;
+	color: #fff;
+	background-color: #AC80FF;
+	border: none;
+	cursor: pointer;
+	transition: 100ms ease-in-out;
+}
+
+.sidebar > button:focus {
+	outline: none;
+}
+
+.sidebar > button:hover {
+	opacity: 0.8;
+}
+
+.sidebar > ul {
+	list-style-type: none;
+	padding-left: 0px;
+}
+
+.sidebar > ul > li {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.sidebar > ul > li > a {
+	display: inline-block;
+	width: calc(100% - 10px);
+	text-align: left;
+	height: 20px;
+	text-decoration: none;
+	transition: 100ms ease-in-out;
+	padding: 5px;
+	border-radius: 5px;
+	color: #6F7186;
+	font-size: 15px;
+	transition: 100ms ease-in-out;
+}
+
+.sidebar > ul > li > a > i {
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.sidebar > ul > li > a:hover {
+	color: #fff !important;
+	background-color: rgb(35, 37, 56);
+}
+
+.active-sidebar-button {
+	color: #fff !important;
+	background-color: rgb(35, 37, 56);
+}
+
+.mailbar {
+	height: calc(100% - 55px);
+	width: 300px;
+	background-color: #FFFFFF;
+	border-right: 1px solid #e7eaf3;
+}
+
+.content {
+	height: calc(100% - 55px);
+	width: calc(100% - 502px);
+	background-color: #F9F9F9;
+}

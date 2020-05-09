@@ -47,8 +47,8 @@ class Home extends React.Component {
 				if (keyfile.kty === "RSA") {
 					sessionStorage.setItem('keyfile', reader.result);
 					this.toggleModal();
-					// TODO: moddle better way to do this
-					window.location.reload()
+					// TODO: modal better way to do this
+					window.location.reload();
 				} else {
 					this.setState({
 						keyFileName: "Error: Not a keyfile",
