@@ -39,7 +39,7 @@ export default class HomeHeader extends React.Component {
 								<li><NavLink to="/">Home</NavLink></li>
 								<li><AnchorLink href="#features">Features</AnchorLink></li>
 								<li><AnchorLink href="#technology">Technology</AnchorLink></li>
-								<li><NavLink to="/login">Login</NavLink></li>
+								<li><button onClick={this.props.loginToggle}>Login</button></li>
 							</ul>
 						</nav>
 						<div className="hamburger">

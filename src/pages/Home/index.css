@@ -67,7 +67,7 @@
 	line-height: 26px;
 }
 
-.landing > div:nth-child(1) > a {
+.landing > div:nth-child(1) > button {
 	background-color: rgba(172, 128, 255, 0.144);
 	padding: 12px 25px;
 	border-radius: 25px;
@@ -78,9 +78,15 @@
 	font-weight: 500;
 	display: inline-block;
 	margin-block-start: 10px;
+	font-size: 15px;
+	cursor: pointer;
 }
 
-.landing > div:nth-child(1) > a:hover {
+.landing > div:nth-child(1) > button:focus {
+	outline: none;
+}
+
+.landing > div:nth-child(1) > button:hover {
 	background-color: rgba(172, 128, 255, 0.3);
 	color: #fff;
 }
@@ -275,7 +281,7 @@
 	color: #fff;
 }
 
-.cta > div > a {
+.cta > div > a, .cta > div > button {
 	display: inline-block;
 	margin: 5px;
 	padding: 12px 18px;
@@ -285,9 +291,16 @@
 	font-weight: 500;
 	color: #fff;
 	transition: 100ms ease-in-out;
+	background-color: transparent;
+	font-size: 15px;
+	cursor: pointer;
 }
 
-.cta > div > a:hover {
+.cta > div > button:focus {
+	outline: none;
+}
+
+.cta > div > a:hover, .cta > div > button:hover {
 	background-color: #fff;
 	color: #AC80FF;
 }

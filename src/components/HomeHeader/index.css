@@ -64,16 +64,22 @@
 	margin-right: 0px !important;
 }
 
-.menu > nav > ul > li:last-child > a {
+.menu > nav > ul > li:last-child > button {
 	background-color: rgba(172, 128, 255, 0.144);
 	padding: 8px 18px;
 	border-radius: 25px;
 	color: #fff;
 	transition: 200ms ease-in-out;
 	border: 2px solid #AC80FF;
+	font-size: 16px;
+	cursor: pointer;
 }
 
-.menu > nav > ul > li:last-child > a:hover {
+.menu > nav > ul > li:last-child > button:focus {
+	outline: none;
+}
+
+.menu > nav > ul > li:last-child > button:hover {
 	background-color: rgba(172, 128, 255, 0.3);
 	color: #fff;
 }
