@@ -9,27 +9,6 @@ import featureTwoImage from '../../static/images/uncensorable.png';
 import featureThreeImage from '../../static/images/decentralized.png';
 
 export default class Home extends React.Component {
-	constructor() {
-		super();
-
-		this.state = {
-			wide: true
-		}
-	}
-	updateDimensions = e => {
-		if (window.innerWidth > 850) {
-			this.setState({wide: true});
-		} else {
-			this.setState({wide: false});
-		}
-	}
-	componentDidMount() {
-		this.updateDimensions();
-		window.addEventListener('resize', this.updateDimensions.bind(this));
-	}
-	componentWillUnmount() {
-		window.removeEventListener('resize', this.updateDimensions.bind(this));
-	}
 	render() {
 		return (
 			<div className="home">
@@ -74,7 +53,7 @@ export default class Home extends React.Component {
 					<div className="tech sizer" id="technology">
 						<h1>How do I use Weve?</h1>
 						<p>It's a simple <span className="highlight black">3-step process</span>.</p>
-						{this.state.wide ? <UsageWide /> : <UsageMobile />}
+						<Usage />
 					</div>
 				</div>
 				<div className="cta">
@@ -126,7 +105,7 @@ class FeatureItem extends React.Component {
 	}
 }
 
-class UsageWide extends React.Component {
+class Usage extends React.Component {
 	constructor() {
 		super();
 
@@ -142,7 +121,7 @@ class UsageWide extends React.Component {
 	}
 	render() {
 		return (
-			<div className="usage-wide">
+			<div className="usage">
 				<div>
 					<button onClick={() => this.setState({number: 0})} className={this.state.number === 0 ? "active-usage-item" : null}>
 						<div>
@@ -181,16 +160,6 @@ class UsageWide extends React.Component {
 				<div>
 					<span>Image {this.state.number} here</span>
 				</div>
-			</div>
-		);
-	}
-}
-
-class UsageMobile extends React.Component {
-	render() {
-		return (
-			<div className="usage-thin">
-				<p>Thin</p>
 			</div>
 		);
 	}
