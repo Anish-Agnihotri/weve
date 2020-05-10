@@ -195,3 +195,21 @@
 .mail-view > div:nth-child(3) > div:nth-child(2) > button > i {
 	margin-right: 10px;
 }
+
+.no-mail-selected {
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	height: 90px;
+	transform: translateY(calc((100vh - 145px) / 2));
+}
+
+.no-mail-selected > img {
+	height: 60px;
+}
+
+.no-mail-selected > h3 {
+	font-size: 18px;
+	margin-block-start: 5px;
+	color: rgb(133, 133, 133);
+}

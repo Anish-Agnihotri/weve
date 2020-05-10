@@ -4,6 +4,8 @@ import MailLayout from '../../components/MailLayout';
 import ReactMarkdown from 'react-markdown';
 import './index.css';
 
+import no_mail_selected from '../../static/images/no_mail_selected.png';
+
 export default class Mail extends React.Component {
 	constructor() {
 		super();
@@ -46,7 +48,10 @@ export default class Mail extends React.Component {
 				{this.state.id !== null ? (
 					<MailItem id={this.state.id} />
 				) : (
-					<span>Empty placeholder here</span>
+					<div className="no-mail-selected">
+						<img src={no_mail_selected} alt="No mail selected" />
+						<h3>No mail selected</h3>
+					</div>
 				)}
 			</MailLayout>
 		);
