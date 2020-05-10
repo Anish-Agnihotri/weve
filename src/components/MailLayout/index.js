@@ -63,7 +63,7 @@ class MailLayout extends React.Component {
 						</div>
 					</div>
 					<div className="sidebar">
-						<button>New Email</button>
+						<button>New Mail</button>
 						<ul>
 							<li><NavLink to="/inbox" activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
 							<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
