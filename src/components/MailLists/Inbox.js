@@ -16,6 +16,16 @@ export default class Inbox extends React.Component {
 			loading: true
 		};
 	}
+	sortByDate = () => {
+		let array = this.state.mail;
+		let arrayLength = array.length;
+		for (let i = 0; i < arrayLength / 2; i++) {
+			let t = array[i];
+			array[i] = array[arrayLength - 1 - i];
+			array[arrayLength - 1 - i] = t;
+		}
+		this.setState({mail: array});
+	}
 	retrieveMail = () => {
 		const arweave = Arweave.init();
 
@@ -59,7 +69,7 @@ export default class Inbox extends React.Component {
 					<span>View latest weve mails</span>
 				</div>
 				<div>
-					<button>Sort by date</button>
+					<button onClick={this.sortByDate}>Sort by date</button>
 				</div>
 				<div>
 					{this.state.loading ? (
@@ -79,7 +89,6 @@ export default class Inbox extends React.Component {
 							</div>
 						)
 					)}
-					{}
 				</div>
 			</div>
 		);
@@ -89,7 +98,7 @@ export default class Inbox extends React.Component {
 class MailItem extends React.Component {
 	render() {
 		return (
-			<NavLink to={`/inbox/${this.props.id}`} className="mail-item">
+			<NavLink to={`/inbox/${this.props.id}`} activeClassName="active-mail-item" className="mail-item">
 				<h6>{this.props.from}</h6>
 				<span>{this.props.subject ? this.props.subject : ""}</span>
 				<span>{this.props.body ? this.props.body : ""}</span>

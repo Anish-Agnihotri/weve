@@ -165,7 +165,7 @@
 
 .tech {
 	margin-block-start: -45px;
-	padding-bottom: 100px;
+	padding-bottom: 70px;
 }
 
 .tech > h1 {
@@ -264,6 +264,10 @@
 .usage > div:nth-child(2) {
 	width: calc(100% - 350px);
 	background-color: #fff;
+}
+
+.usage-image {
+	max-width: 100%;
 }
 
 .black {

@@ -12,6 +12,9 @@ import featureOneImage from '../../static/images/private.png';
 import featureTwoImage from '../../static/images/uncensorable.png';
 import featureThreeImage from '../../static/images/decentralized.png';
 import upload from '../../static/images/upload.png';
+import step_one from '../../static/images/steps1.png';
+import step_two from '../../static/images/steps2.png';
+import step_three from '../../static/images/steps3.png';
 
 class Home extends React.Component {
 	constructor() {
@@ -193,7 +196,8 @@ class Usage extends React.Component {
 		super();
 
 		this.state = {
-			number: 0
+			number: 0,
+			images: [step_one, step_two, step_three]
 		}
 	}
 	resetNumber = () => {
@@ -241,7 +245,7 @@ class Usage extends React.Component {
 					</button>
 				</div>
 				<div>
-					<span>Image {this.state.number} here</span>
+					<span><img src={this.state.images[this.state.number]} className="usage-image" alt={`Step ${this.state.number}`} /></span>
 				</div>
 			</div>
 		);

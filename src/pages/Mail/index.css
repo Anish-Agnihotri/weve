@@ -115,6 +115,10 @@
 	height: calc(100% - 130px);
 }
 
+.mail-view > div:nth-child(2) > div img {
+	max-width: 100%;
+}
+
 .mail-view > div:nth-child(2) > div {
 	max-height: 94%;
 	overflow: auto;

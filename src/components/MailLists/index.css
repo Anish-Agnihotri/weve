@@ -72,6 +72,10 @@
 	background-color: #E7E7EF;
 }
 
+.active-mail-item {
+	background-color: #E7E7EF;
+}
+
 .mail-item:focus {
 	outline: none;
 }

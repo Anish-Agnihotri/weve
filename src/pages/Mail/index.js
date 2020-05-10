@@ -9,7 +9,9 @@ export default class Mail extends React.Component {
 		super();
 
 		this.state = {
-			keyfile: null
+			keyfile: null,
+			id: null,
+			content: []
 		}
 	}
 
@@ -18,29 +20,40 @@ export default class Mail extends React.Component {
 	}
 
 	getContent = () => {
-		let {location, id} = this.props.match.params;
+		const {location, id} = this.props.match.params;
 
 		if (location === 'inbox' && typeof id !== 'undefined') {
-			return <MailItem id={id} />
+			this.setState({id: id});
 		} else {
-			return `${location} ${id}`;
+			this.setState({id: null});
 		}
 	}
 
 	componentDidMount() {
 		this.getKeyFile();
+		this.getContent();
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.location.pathname !== prevProps.location.pathname) {
+			this.getContent();
+		}
 	}
 
 	render() {
 		return (
 			<MailLayout keyFile={this.state.keyfile ? this.state.keyfile : null} location={this.props.match.params}>
-				{this.getContent()}
+				{this.state.id !== null ? (
+					<MailItem id={this.state.id} />
+				) : (
+					<span>Empty placeholder here</span>
+				)}
 			</MailLayout>
 		);
 	}
 }
 
-// TODO: Fix rendering if items are not present
+// TODO: Download and reply
 class MailItem extends React.Component {
 	constructor() {
 		super();
@@ -60,6 +73,12 @@ class MailItem extends React.Component {
 	componentDidMount() {
 		let id = this.props.id;
 		this.getMail(id);
+	}
+
+	componentDidUpdate(prevProps) { 
+		if (prevProps.id !== this.props.id) {
+			this.getMail(this.props.id);
+		}
 	}
 
 	render() {
