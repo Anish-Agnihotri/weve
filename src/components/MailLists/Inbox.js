@@ -2,7 +2,7 @@ import React from 'react';
 import Arweave from 'arweave/web';
 import moment from 'moment';
 import {NavLink} from 'react-router-dom';
-import {wallet_to_key, decrypt_mail} from '../../utils/crypto';
+import {get_mail_from_tx} from '../../utils/crypto';
 import './index.css';
 
 import emptyInbox from '../../static/images/emptyinbox.png';
@@ -35,27 +35,15 @@ export default class Inbox extends React.Component {
 				}
 			}
 
-			arweave.api.post(`arql`, get_blocks_with_mail).then(response => {
+			arweave.api.post(`arql`, get_blocks_with_mail).then(async response => {
 				let transactions = response.data;
 
-				for (let i = 0; i < transactions.length; i++) {
-					arweave.transactions.get(transactions[i]).then(async tx => {
-						let key = await wallet_to_key(JSON.parse(sessionStorage.getItem('keyfile')));
-						let mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(tx.data), key)));
-
-						let mail_item = {
-							"timestamp": tx.get('tags')[2].get('value', { decode: true, string: true }),
-							"id": tx.id,
-							"from": await arweave.wallets.ownerToAddress(tx.owner),
-							"fee": tx.reward / 1000000000000,
-							"amount": tx.quantity / 1000000000000,
-							"subject": mailParse.subject,
-							"body": mailParse.body,
-						};
-
-						this.setState(previousState => ({mail: [...previousState.mail, mail_item]}));
+				transactions.forEach(async transaction => {
+					get_mail_from_tx(transaction).then(response => {
+						this.setState(previousState => ({mail: [...previousState.mail, response]}));
 					})
-				}
+				})
+
 				this.setState({loading: false});
 			})
 		})
@@ -82,7 +70,7 @@ export default class Inbox extends React.Component {
 					) : (
 						this.state.mail.length ? (
 							this.state.mail.map((mail, i) => (
-								<MailItem key={i} id={mail.id} from={mail.from} subject={mail.subject} body={mail.body} timestamp={mail.timestamp} />
+								<MailItem key={i} id={mail.id ? mail.id : ""} from={mail.from} subject={mail.subject} body={mail.body} timestamp={mail.timestamp} />
 							))
 						) : (
 							<div className="empty">
