@@ -27,7 +27,7 @@ class App extends React.Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/:location" component={this.state.isAuthenticated ? props => <Mail {...props} key={Date.now()} /> : props => <Home {...props} key={Date.now()} />} />
+            <Route path="/:location/:id" component={this.state.isAuthenticated ? Mail : Home} />
             <Route component={this.state.isAuthenticated ? Mail : Home} />
           </Switch>
         </Router>

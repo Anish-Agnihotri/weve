@@ -5,19 +5,19 @@ import {NavLink} from 'react-router-dom';
 import {wallet_to_key, decrypt_mail} from '../../utils/crypto';
 import './index.css';
 
+import emptyInbox from '../../static/images/emptyinbox.png';
+
 export default class Inbox extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
 			mail: [],
-			retrieved: false
+			loading: true
 		};
 	}
 	retrieveMail = () => {
 		const arweave = Arweave.init();
-
-		let all_mail = [];
 
 		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
 			
@@ -41,7 +41,7 @@ export default class Inbox extends React.Component {
 				for (let i = 0; i < transactions.length; i++) {
 					arweave.transactions.get(transactions[i]).then(async tx => {
 						let key = await wallet_to_key(JSON.parse(sessionStorage.getItem('keyfile')));
-						let mail = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(tx.data), key)));
+						let mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(tx.data), key)));
 
 						let mail_item = {
 							"timestamp": tx.get('tags')[2].get('value', { decode: true, string: true }),
@@ -49,18 +49,16 @@ export default class Inbox extends React.Component {
 							"from": await arweave.wallets.ownerToAddress(tx.owner),
 							"fee": tx.reward / 1000000000000,
 							"amount": tx.quantity / 1000000000000,
-							"subject": mail.subject,
-							"body": mail.body,
+							"subject": mailParse.subject,
+							"body": mailParse.body,
 						};
 
-						all_mail.push(mail_item);
+						this.setState(previousState => ({mail: [...previousState.mail, mail_item]}));
 					})
 				}
+				this.setState({loading: false});
 			})
 		})
-
-		console.log("mail: " + all_mail);
-		this.setState({mail: all_mail, retrieved: true});
 	}
 	componentDidMount() {
 		this.retrieveMail();
@@ -76,9 +74,24 @@ export default class Inbox extends React.Component {
 					<button>Sort by date</button>
 				</div>
 				<div>
-					{this.state.mail.map((mail, i) => (
-						<MailItem key={i} id={mail.id} from={mail.from} subject={mail.subject} body={mail.body} timestamp={mail.timestamp} />
-					))}
+					{this.state.loading ? (
+						<div className="loading">
+							<i className="fa fa-spinner fa-spin"></i>
+							<h5>Retrieving emails</h5>
+						</div>
+					) : (
+						this.state.mail.length ? (
+							this.state.mail.map((mail, i) => (
+								<MailItem key={i} id={mail.id} from={mail.from} subject={mail.subject} body={mail.body} timestamp={mail.timestamp} />
+							))
+						) : (
+							<div className="empty">
+								<img src={emptyInbox} alt="Empty inbox" />
+								<h4>No mails found</h4>
+							</div>
+						)
+					)}
+					{}
 				</div>
 			</div>
 		);
@@ -88,12 +101,12 @@ export default class Inbox extends React.Component {
 class MailItem extends React.Component {
 	render() {
 		return (
-			<button to="/" className="mail-item">
-				<a href={`https://viewblock.io/arweave/address/${this.props.from}`} target="_blank" rel="noopener noreferrer">{this.props.from}</a>
+			<NavLink to={`/inbox/${this.props.id}`} className="mail-item">
+				<h6>{this.props.from}</h6>
 				<span>{this.props.subject ? this.props.subject : ""}</span>
 				<span>{this.props.body ? this.props.body : ""}</span>
 				<span>{this.props.timestamp ? moment.unix(this.props.timestamp).fromNow() : ""}</span>
-			</button>
+			</NavLink>
 		);
 	}
 }

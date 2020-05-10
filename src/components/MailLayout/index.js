@@ -13,17 +13,18 @@ class MailLayout extends React.Component {
 		super();
 
 		this.state = {
-			address: null
+			address: null,
+			inbox: true,
 		};
 	}
 	getMailbarContent = () => {
-		switch(this.props.location.pathname) {
-			case "/":
-				return <Inbox />
-			case "/drafts":
-				return <Drafts />
-			default:
-				return <Inbox />
+		if (this.props.location.pathname.startsWith("/drafts")) {
+			return <Drafts />;
+		} else if (this.props.location.pathname === "/") {
+			this.props.history.push("/inbox");
+			return <Inbox />;
+		} else {
+			return <Inbox />;
 		}
 	}
 	logout = () => {
@@ -64,7 +65,7 @@ class MailLayout extends React.Component {
 					<div className="sidebar">
 						<button>New Email</button>
 						<ul>
-							<li><NavLink to="/" exact activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
+							<li><NavLink to="/inbox" activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
 							<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
 						</ul>
 					</div>
@@ -72,7 +73,7 @@ class MailLayout extends React.Component {
 						{this.getMailbarContent()}
 					</div>
 					<div className="content">
-						<span>Test</span>
+						{this.props.children}
 					</div>
 				</div>
 			) : null
