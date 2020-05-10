@@ -1,5 +1,7 @@
 import React from 'react';
-import {get_mail_from_tx} from '../../utils/crypto';
+import { get_mail_from_tx } from '../../utils/crypto';
+import { Modal } from 'react-responsive-modal';
+import Compose from '../../components/Compose';
 import MailLayout from '../../components/MailLayout';
 import ReactMarkdown from 'react-markdown';
 import './index.css';
@@ -13,6 +15,7 @@ export default class Mail extends React.Component {
 		this.state = {
 			keyfile: null,
 			id: null,
+			modelState: false,
 			content: []
 		}
 	}
@@ -31,6 +34,10 @@ export default class Mail extends React.Component {
 		}
 	}
 
+	toggleModal = () => {
+		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
+	}
+
 	componentDidMount() {
 		this.getKeyFile();
 		this.getContent();
@@ -44,16 +51,24 @@ export default class Mail extends React.Component {
 
 	render() {
 		return (
-			<MailLayout keyFile={this.state.keyfile ? this.state.keyfile : null} location={this.props.match.params}>
-				{this.state.id !== null ? (
-					<MailItem id={this.state.id} />
-				) : (
-					<div className="no-mail-selected">
-						<img src={no_mail_selected} alt="No mail selected" />
-						<h3>No mail selected</h3>
-					</div>
-				)}
-			</MailLayout>
+			<>
+				<Modal 
+					open={this.state.modalState} 
+					onClose={this.toggleModal}
+					center={true}>
+					<Compose toggleSelf={this.toggleModal} />
+				</Modal>
+				<MailLayout compose={this.toggleModal} keyFile={this.state.keyfile ? this.state.keyfile : null} location={this.props.match.params}>
+					{this.state.id !== null ? (
+						<MailItem id={this.state.id} />
+					) : (
+						<div className="no-mail-selected">
+							<img src={no_mail_selected} alt="No mail selected" />
+							<h3>No mail selected</h3>
+						</div>
+					)}
+				</MailLayout>
+			</>
 		);
 	}
 }

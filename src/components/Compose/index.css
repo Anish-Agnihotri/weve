@@ -1,0 +1,178 @@
+.compose-modal {
+	width: 600px;
+	max-height: 80vh;
+	display: inline-block;
+	background-color: #F9F9F9;
+	border-radius: 5px;
+}
+
+.compose-modal > div {
+	width: 100%;
+	display: inline-block;
+}
+
+.compose-modal > div:nth-child(1) {
+	height: 50px;
+	background-color: rgb(56, 58, 88);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 10px;
+	color: #AC80FF;
+	width: calc(100% - 20px);
+	border-bottom: 1px solid rgb(79, 82, 126);
+}
+
+.compose-modal > div:nth-child(1) > h2 {
+	margin-block-start: 3px;
+	margin-block-end: 0px;
+}
+
+.compose-modal > div:nth-child(1) > span {
+	font-size: 14px;
+	color: #fff;
+	transform: translateY(-4px);
+	display: inline-block;
+}
+
+.react-responsive-modal-closeButton {
+	border-radius: 5px;
+	transition: 50ms ease-in-out;
+}
+
+.react-responsive-modal-closeButton:focus {
+	outline: none;
+}
+
+.react-responsive-modal-closeButton:hover {
+	background-color: rgb(74, 77, 116);
+}
+
+.react-responsive-modal-closeButton {
+	fill: #AC80FF;
+}
+
+.compose-modal > div:nth-child(2) {
+	height: calc(100% - 145px);
+	width: calc(100% - 20px);
+	padding: 10px;
+}
+
+.compose-modal > div:nth-child(2) > div {
+	display: inline-block;
+	width: 100%;
+	margin-block-end: 7.5px;
+}
+
+.compose-modal > div:nth-child(2) > div > span {
+	display: inline-block;
+	width: 100%;
+	font-size: 13.5px;
+	font-weight: 600;
+	color: rgb(68, 68, 68);
+	padding-left: 3px;
+}
+
+.compose-modal > div:nth-child(2) > div > input {
+	padding-left: 5px;
+	font-size: 14px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+	border-radius: 5px;
+	border: 1px solid #e7eaf3;
+	width: calc(100% - 10px);
+	transition: 100ms ease-in-out;
+}
+
+.compose-modal > div:nth-child(2) > div > input::placeholder {
+	color: #b8bbc2;
+}
+
+.compose-modal > div:nth-child(2) > div > input:hover {
+	background-color: #e7eaf3;
+}
+
+.compose-modal > div:nth-child(2) > div > input:focus {
+	outline: none;
+}
+
+.editor-wrapper {
+	border-radius: 5px;
+	background-color: #fff;
+	border: 1px solid #e7eaf3;
+	width: calc(100% - 5px);
+}
+
+.editor-toolbar {
+	border-bottom: 1px solid #e7eaf3;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	background-color: transparent;
+}
+
+.editor {
+	padding: 0px 10px;
+	overflow: auto;
+	max-height: calc(100vh - 600px);
+}
+
+.editor > div {
+	margin-block-start: -5px;
+}
+
+.rdw-option-wrapper, .rdw-dropdown-wrapper {
+	border: 1px solid #e7eaf3;
+	border-radius: 3px;
+	transition: 50ms ease-in-out;
+}
+
+.rdw-option-wrapper:hover, .rdw-dropdown-wrapper:hover, .rdw-option-wrapper:active, .rdw-dropdown-wrapper:active, .rdw-option-active {
+	box-shadow: none;
+	background-color: #e7eaf3;
+}
+
+.compose-modal > div:nth-child(3) {
+	height: 50px;
+	width: calc(100% - 4px);
+	background-color: #fff;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-top: 1px solid #e7eaf3;
+	text-align: right;
+	padding-right: 4px;
+}
+
+.compose-modal > div:nth-child(3) > button {
+	padding: 6px 18px;
+	border-radius: 25px;
+	margin: 9px 6px;
+	font-size: 14px;
+	border: 2px solid #AC80FF;
+	font-weight: 500;
+	transition: 75ms ease-in-out;
+	cursor: pointer;
+}
+
+.compose-modal > div:nth-child(3) > button:nth-of-type(1):hover {
+	background-color: #AC80FF;
+	color: #fff;
+}
+
+.compose-modal > div:nth-child(3) > button:nth-of-type(2):hover {
+	opacity: 0.7;
+}
+
+.compose-modal > div:nth-child(3) > button:focus {
+	outline: none;
+}
+
+.compose-modal > div:nth-child(3) > button:nth-of-type(2) {
+	background-color: #AC80FF;
+	color: #fff;
+}
+
+.compose-modal > div:nth-child(3) > button > i {
+	margin-right: 5px;
+}

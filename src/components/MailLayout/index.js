@@ -29,7 +29,7 @@ class MailLayout extends React.Component {
 	}
 	logout = () => {
 		sessionStorage.removeItem('keyfile');
-		// TODO: modal better way to do this
+		sessionStorage.removeItem('drafts');
 		this.props.history.push("/");
 		window.location.reload()
 	}
@@ -63,7 +63,7 @@ class MailLayout extends React.Component {
 						</div>
 					</div>
 					<div className="sidebar">
-						<button>New Mail</button>
+						<button onClick={this.props.compose}>New Mail</button>
 						<ul>
 							<li><NavLink to="/inbox" activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
 							<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
