@@ -100,8 +100,8 @@ class MailItem extends React.Component {
 		return (
 			<NavLink to={`/inbox/${this.props.id}`} activeClassName="active-mail-item" className="mail-item">
 				<h6>{this.props.from}</h6>
-				<span>{this.props.subject ? this.props.subject : ""}</span>
-				<span>{this.props.body ? this.props.body : ""}</span>
+				<span>{this.props.subject ? this.props.subject : "No Subject"}</span>
+				<span>{this.props.body ? this.props.body : "No Body"}</span>
 				<span>{this.props.timestamp ? moment.unix(this.props.timestamp).fromNow() : ""}</span>
 			</NavLink>
 		);

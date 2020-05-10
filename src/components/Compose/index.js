@@ -43,7 +43,8 @@ class Compose extends React.Component {
 			"to": this.state.recipient,
 			"subject": this.state.subject,
 			"body": markdown,
-			"amount": this.state.numTokens
+			"amount": this.state.numTokens,
+			"timestamp": Date.now()
 		};
 
 		let sessionDrafts = sessionStorage.getItem('drafts');
