@@ -91,7 +91,7 @@
 	font-weight: 400;
 	color: #AC80FF;
 	display: inline-block;
-	width: 100px;
+	max-width: 100px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
