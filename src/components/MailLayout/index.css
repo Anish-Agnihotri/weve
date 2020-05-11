@@ -18,7 +18,7 @@
 
 .header > div:nth-child(1) {
 	height: 100%;
-	width: 200px;
+	width: 110px;
 	display: inline-block;
 	vertical-align: top;
 }
@@ -34,7 +34,7 @@
 
 .header > div:nth-child(2) {
 	height: 100%;
-	width: calc(100% - 200px);
+	width: calc(100% - 110px);
 	display: inline-block;
 	text-align: right;
 	vertical-align: top;
@@ -188,4 +188,52 @@
 	height: calc(100% - 55px);
 	width: calc(100% - 502px);
 	background-color: #F9F9F9;
+}
+
+@media screen and (max-width: 1060px) {
+	.sidebar {
+		width: 120px;
+	}
+	.mailbar {
+		width: 200px;
+	}
+	.content {
+		width: calc(100% - 342px);
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.sidebar {
+		width: calc(100% - 20px);
+		height: 75px;
+		padding: 0 10px;
+	}
+	.sidebar > button {
+		display: inline-block;
+		width: 100px;
+	}
+	.sidebar > ul {
+		display: inline-block;
+		padding-left: 20px;
+	}
+	.sidebar > ul > li {
+		display: inline-block;
+	}
+	.mailbar {
+		height: calc(100% - 131px);
+	}
+	.content {
+		width: calc(100% - 201px);
+		height: calc(100% - 131px);
+	}
+}
+
+@media screen and (max-width: 760px) {
+	.mailbar {
+		width: 100%;
+		height: 196px;
+	}
+	.content {
+		width: 100%;
+	}
 }

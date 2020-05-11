@@ -72,7 +72,7 @@ class Compose extends React.Component {
 		let tokens = arweave.ar.arToWinston(this.state.numTokens);
 		let pub_key = await get_public_key(this.state.recipient);
 
-		if (pub_key == undefined) {
+		if (pub_key === undefined) {
 			notify.show("Error: Recipient has to send a transaction to the network, first!", "error");
 			return
 		}

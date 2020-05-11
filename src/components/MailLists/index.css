@@ -105,7 +105,6 @@
 	display: inline-block;
 	font-size: 14px;
 	width: 100%;
-	width: 270px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -114,7 +113,7 @@
 
 .mail-item > span:nth-of-type(2) {
 	font-size: 14px;
-	width: 270px;
+	width: 100%;
 	display: inline-block;
 	white-space: nowrap;
 	overflow: hidden;
@@ -164,4 +163,29 @@
 	margin-block-start: 5px;
 	margin-block-end: 0px;
 	color: #6b6d72;
+}
+
+@media screen and (max-width: 760px) {
+	.mail-item {
+		display: inline-block;
+		width: 200px;
+		white-space: normal;
+		border-left: 1px solid #E7E7EF;
+		padding-right: 10px;
+	}
+	.list > div:nth-child(1) {
+		width: calc(100% - 20px);
+	}
+	.list > div:nth-child(3) {
+		width: 100%;
+		height: 100px;
+		overflow-x: scroll;
+		white-space: nowrap;
+	}
+	.empty {
+		transform: translateY(20px);
+	}
+	.empty > img {
+		width: 40px;
+	}
 }
