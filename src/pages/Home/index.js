@@ -50,7 +50,6 @@ class Home extends React.Component {
 				if (keyfile.kty === "RSA") {
 					sessionStorage.setItem('keyfile', reader.result);
 					this.toggleModal();
-					// TODO: modal better way to do this
 					window.location.reload();
 				} else {
 					this.setState({

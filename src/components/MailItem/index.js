@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { get_mail_from_tx } from '../../utils/crypto';
+import FileSaver from 'file-saver';
 
 // TODO: buttons
 class MailItem extends React.Component {
@@ -41,11 +42,13 @@ class MailItem extends React.Component {
 	}
 
 	button_download = () => {
-		console.log("download");
+		let blob = new Blob([JSON.stringify(this.state.mail)], {type: "application/json;charset=utf-8"});
+		FileSaver.saveAs(blob, 'mail.json');
 	}
 
 	button_reply = () => {
-		console.log("reply");
+		this.props.updateExistingData(["reply", this.state.mail.from, this.state.mail.subject]);
+		this.props.toggleModal();
 	}
 
 	button_delete = () => {
@@ -63,7 +66,8 @@ class MailItem extends React.Component {
 	}
 
 	button_edit = () => {
-		console.log("edit");
+		this.props.updateExistingData(["edit", this.state.mail]);
+		this.props.toggleModal();
 	}
 
 	render() {

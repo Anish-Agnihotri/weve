@@ -3,8 +3,6 @@ import Arweave from 'arweave/web';
 import { withRouter, NavLink } from 'react-router-dom';
 import './index.css';
 
-// TODO: rewrite layout for mobile display
-
 import Inbox from '../MailLists/Inbox';
 import Drafts from '../MailLists/Drafts';
 

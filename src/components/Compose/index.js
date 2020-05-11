@@ -1,7 +1,8 @@
 import React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { withRouter } from 'react-router-dom'
-import { EditorState, convertToRaw } from 'draft-js';
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
+import { markdownToDraft } from 'markdown-draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './index.css';
@@ -60,6 +61,25 @@ class Compose extends React.Component {
 		sessionStorage.setItem('drafts', JSON.stringify(drafts));
 		this.props.toggleSelf();
 		this.props.history.push(`/drafts/${randomID}`);
+	}
+
+	fillExistingData = () => {
+		if (this.props.existingData !== null) {
+			if (this.props.existingData[0] === 'reply') {
+				this.setState({recipient: this.props.existingData[1], subject: 'RE: ' + this.props.existingData[2]});
+			} else if (this.props.existingData[0] === 'edit') {
+				this.setState({
+					recipient: this.props.existingData[1].to, 
+					subject: this.props.existingData[1].subject, 
+					numTokens: this.props.existingData[1].amount,
+					editorState: EditorState.createWithContent(convertFromRaw(markdownToDraft(this.props.existingData[1].body)))
+				})
+			}
+		}
+	};
+
+	componentDidMount() {
+		this.fillExistingData();
 	}
 
 	render() {
