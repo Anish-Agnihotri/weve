@@ -1,3 +1,4 @@
+// TODO: Add documentation
 import Arweave from 'arweave/web';
 const arweave = Arweave.init();
 
@@ -25,7 +26,16 @@ export const get_mail_from_tx = async tx => {
 
     await arweave.transactions.get(tx).then(async tx => {
         let key = await wallet_to_key(JSON.parse(sessionStorage.getItem('keyfile')));
-        let mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(tx.data), key)));
+        let mailParse;
+
+        if (tx.format === 1) {
+            mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(tx.data), key)));
+        } else if (tx.format === 2) {
+            await arweave.transactions.getData(tx.id).then(async data => {
+                mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(data), key)));
+            })
+        }
+
         let timestamp = tx.get('tags')[2].get('value', { decode: true, string: true });
         let from = await arweave.wallets.ownerToAddress(tx.owner);
 

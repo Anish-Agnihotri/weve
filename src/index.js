@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Notifications from 'react-notify-toast';
-import './index.css';
+import Notifications from 'react-notify-toast'; // Toast notifications container at top-level
+import './index.css'; // Global CSS
 import App from './App';
-
 
 ReactDOM.render(
   <React.StrictMode>

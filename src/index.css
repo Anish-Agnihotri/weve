@@ -1,4 +1,7 @@
-@import url('https://rsms.me/inter/inter.css');
+/*
+	Root CSS Config
+*/
+@import url('https://rsms.me/inter/inter.css'); /* Inter font */
 
 body {
 	margin: 0;

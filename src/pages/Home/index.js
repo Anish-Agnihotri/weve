@@ -21,52 +21,59 @@ class Home extends React.Component {
 		super();
 
 		this.state = {
-			modalState: false,
-			keyFileName: "Upload keyfile",
-			isLoading: false,
+			modalState: false, // Modal state
+			keyFileName: "Upload keyfile", // Modal dropzone text
+			isLoading: false, // Modal loading status
 		};
 	}
 
+	// Toggle login modal state
 	toggleModal = () => {
 		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
-	}
+	};
 
+	// Keyfile upload and parsing
 	keyFile = file => {
+		// If filename ends in '.json'
 		if (file[0].name.split('.').pop().toLowerCase() === "json") {
-			const upload = file[0];
-			let fileName = upload.name.length > 15 ? upload.name.substring(0, 10) + "....json" : upload.name;
+			const upload = file[0]; // Get uploaded file
+			let fileName = upload.name.length > 15 ? upload.name.substring(0, 10) + "....json" : upload.name; // Concatenate filename for dropzone
 
 			this.setState({
 				keyFileName: fileName,
-				isLoading: true,
+				isLoading: true, // Set loading to true
 			});
 
-			const reader = new FileReader();
-			reader.readAsText(upload);
+			const reader = new FileReader(); // Initiate FileReader
+			reader.readAsText(upload); // Read content as text
 			reader.onload = () => {
-				const keyfile = JSON.parse(reader.result);
+				const keyfile = JSON.parse(reader.result); // Parse text to JSON object
 
 
-				if (keyfile.kty === "RSA") {
-					sessionStorage.setItem('keyfile', reader.result);
-					this.toggleModal();
-					window.location.reload();
+				if (keyfile.kty === "RSA") { // Confirm that uploaded file is indeed keyfile
+					sessionStorage.setItem('keyfile', reader.result); // Set keyfile to sessionStorage
+					this.toggleModal(); // Close login modal
+					window.location.reload(); // Reload page to get authenticated status
 				} else {
+					// If uploaded JSON is not keyfile
 					this.setState({
+						// Throw error
 						keyFileName: "Error: Not a keyfile",
 						isLoading: false
 					});
 				}
 			}
 		} else {
+			// If filename does not end in '.json'
 			this.setState({
+				// Throw error
 				keyFileName: "Error: Not a keyfile"
 			})
 		}
 	}
 
 	componentDidMount() {
-		document.title = 'Weve | Home'
+		document.title = 'Weve | Home' // Set head on mount
 	}
 
 	render() {
@@ -204,7 +211,7 @@ class Usage extends React.Component {
 		}
 	}
 	resetNumber = () => {
-		this.setState({number: 0});
+		this.setState({number: 0}); // Render image depending on currently selected element
 	}
 	componentDidMount() {
 		this.resetNumber();

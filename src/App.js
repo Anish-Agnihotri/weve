@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; // Navigation setup
 import Home from './pages/Home';
 import Mail from './pages/Mail';
 
@@ -8,17 +8,21 @@ class App extends React.Component {
     super();
 
     this.state = {
-      isAuthenticated: false,
+      isAuthenticated: false, // Default authenticated value is false
     }
   }
   getAuthStatus = () => {
+    // If keyfile is present in sessionStorage
     if (sessionStorage.getItem('keyfile') !== null) {
+      // Change authenticated value to true
       this.setState({isAuthenticated: true});
     } else {
+      // Else, keep authenticated value at false
       this.setState({isAuthenticated: false});
     }
   }
   componentDidMount() {
+    // Get authentication status when app loads
     this.getAuthStatus();
   }
   render() {

@@ -78,6 +78,7 @@ class Compose extends React.Component {
 		}
 
 		let content = await encrypt_mail(draftToMarkdown(convertToRaw(this.state.editorState.getCurrentContent())), this.state.subject, pub_key);
+
 		let tx = await arweave.createTransaction({
 			target: this.state.recipient,
 			data: arweave.utils.concatBuffers([content]),
@@ -92,6 +93,7 @@ class Compose extends React.Component {
 		let tx_id = tx.id;
 		
 		await arweave.transactions.post(tx);
+		console.log(tx);
 		notify.show(`Success: Transaction sent, id: ${tx_id}.`, 'success');
 		this.props.toggleSelf();
 	}
