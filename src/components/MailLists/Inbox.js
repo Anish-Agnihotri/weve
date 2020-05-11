@@ -2,6 +2,7 @@ import React from 'react';
 import Arweave from 'arweave/web';
 import moment from 'moment';
 import {NavLink} from 'react-router-dom';
+import {sort} from '../../utils/sort';
 import {get_mail_from_tx} from '../../utils/crypto';
 import './index.css';
 
@@ -18,13 +19,7 @@ export default class Inbox extends React.Component {
 	}
 	sortByDate = () => {
 		let array = this.state.mail;
-		let arrayLength = array.length;
-		for (let i = 0; i < arrayLength / 2; i++) {
-			let t = array[i];
-			array[i] = array[arrayLength - 1 - i];
-			array[arrayLength - 1 - i] = t;
-		}
-		this.setState({mail: array});
+		this.setState({mail: sort(array)});
 	}
 	retrieveMail = () => {
 		const arweave = Arweave.init();

@@ -18,6 +18,7 @@ class Compose extends React.Component {
 			recipient: '',
 			subject: '',
 			numTokens: 0,
+			transactionLoading: false,
 			editorState: EditorState.createEmpty()
 		}
 	}
@@ -67,6 +68,7 @@ class Compose extends React.Component {
 	}
 
 	send = async () => {
+		this.setState({transactionLoading: true});
 		let arweave = Arweave.init();
 		let wallet = JSON.parse(sessionStorage.getItem('keyfile'));
 		let tokens = arweave.ar.arToWinston(this.state.numTokens);
@@ -93,7 +95,7 @@ class Compose extends React.Component {
 		let tx_id = tx.id;
 		
 		await arweave.transactions.post(tx);
-		console.log(tx);
+		this.setState({transactionLoading: false});
 		notify.show(`Success: Transaction sent, id: ${tx_id}.`, 'success');
 		this.props.toggleSelf();
 	}
@@ -101,7 +103,8 @@ class Compose extends React.Component {
 	fillExistingData = () => {
 		if (this.props.existingData !== null) {
 			if (this.props.existingData[0] === 'reply') {
-				this.setState({recipient: this.props.existingData[1], subject: 'RE: ' + this.props.existingData[2]});
+				let subject = this.props.existingData[2].startsWith('RE: ') ? this.props.existingData[2] : 'RE: ' + this.props.existingData[2];
+				this.setState({recipient: this.props.existingData[1], subject: subject});
 			} else if (this.props.existingData[0] === 'edit') {
 				this.setState({
 					recipient: this.props.existingData[1].to, 
@@ -151,7 +154,7 @@ class Compose extends React.Component {
 				</div>
 				<div>
 					<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save and close</button>
-					<button onClick={this.send}><i className="fa fa-send-o"></i>Send</button>
+					<button onClick={this.send}><i className={this.state.transactionLoading ? "fa fa-spinner fa-spin" : "fa fa-send-o"}></i>Send</button>
 				</div>
 			</div>
 		);
