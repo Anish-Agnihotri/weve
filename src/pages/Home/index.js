@@ -65,6 +65,10 @@ class Home extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		document.title = 'Weve | Home'
+	}
+
 	render() {
 		return (
 			<>

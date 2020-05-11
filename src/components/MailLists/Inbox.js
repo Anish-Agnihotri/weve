@@ -59,6 +59,7 @@ export default class Inbox extends React.Component {
 		})
 	}
 	componentDidMount() {
+		document.title="Weve | Inbox";
 		this.retrieveMail();
 	}
 	render() {

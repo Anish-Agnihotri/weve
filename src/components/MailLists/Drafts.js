@@ -33,6 +33,7 @@ class Drafts extends React.Component {
 		this.setState({loading: false});
 	}
 	componentDidMount() {
+		document.title="Weve | Drafts";
 		this.retrieveMail();
 	}
 	componentDidUpdate(prevProps) {
