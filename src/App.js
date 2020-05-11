@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 import Home from './pages/Home';
 import Mail from './pages/Mail';
 

@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { get_mail_from_tx } from '../../utils/crypto';
 import FileSaver from 'file-saver';
 
-// TODO: buttons
 class MailItem extends React.Component {
 	constructor() {
 		super();

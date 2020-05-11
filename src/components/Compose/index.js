@@ -1,6 +1,9 @@
 import React from 'react';
+import Arweave from 'arweave/web';
 import { Editor } from 'react-draft-wysiwyg';
+import { get_public_key, encrypt_mail } from '../../utils/crypto';
 import { withRouter } from 'react-router-dom'
+import {notify} from 'react-notify-toast';
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
@@ -63,6 +66,36 @@ class Compose extends React.Component {
 		this.props.history.push(`/drafts/${randomID}`);
 	}
 
+	send = async () => {
+		let arweave = Arweave.init();
+		let wallet = JSON.parse(sessionStorage.getItem('keyfile'));
+		let tokens = arweave.ar.arToWinston(this.state.numTokens);
+		let pub_key = await get_public_key(this.state.recipient);
+
+		if (pub_key == undefined) {
+			notify.show("Error: Recipient has to send a transaction to the network, first!", "error");
+			return
+		}
+
+		let content = await encrypt_mail(draftToMarkdown(convertToRaw(this.state.editorState.getCurrentContent())), this.state.subject, pub_key);
+		let tx = await arweave.createTransaction({
+			target: this.state.recipient,
+			data: arweave.utils.concatBuffers([content]),
+			quantity: tokens
+		}, wallet);
+
+		tx.addTag('App-Name', 'permamail');
+		tx.addTag('App-Version', '0.0.2');
+		tx.addTag('Unix-Time', Math.round((new Date()).getTime() / 1000));
+
+		await arweave.transactions.sign(tx, wallet);
+		let tx_id = tx.id;
+		
+		await arweave.transactions.post(tx);
+		notify.show(`Success: Transaction sent, id: ${tx_id}.`, 'success');
+		this.props.toggleSelf();
+	}
+
 	fillExistingData = () => {
 		if (this.props.existingData !== null) {
 			if (this.props.existingData[0] === 'reply') {
@@ -116,7 +149,7 @@ class Compose extends React.Component {
 				</div>
 				<div>
 					<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save and close</button>
-					<button><i className="fa fa-send-o"></i>Send</button>
+					<button onClick={this.send}><i className="fa fa-send-o"></i>Send</button>
 				</div>
 			</div>
 		);
