@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { NavLink, withRouter } from 'react-router-dom';
+import Address from '../../components/Address';
 
 import emptyInbox from '../../static/images/emptyinbox.png';
 
@@ -81,7 +82,7 @@ class MailItem extends React.Component {
 	render() {
 		return (
 			<NavLink to={`/drafts/${this.props.id}`} activeClassName="active-mail-item" className="mail-item">
-				<h6>{this.props.to}</h6>
+				<h6>{this.props.to ? (<Address address={this.props.to} />) : ""}</h6>
 				<span>{this.props.subject ? this.props.subject : "No Subject"}</span>
 				<span>{this.props.body ? this.props.body : "No Body"}</span>
 				<span>{this.props.timestamp ? moment(this.props.timestamp).fromNow() : ""}</span>

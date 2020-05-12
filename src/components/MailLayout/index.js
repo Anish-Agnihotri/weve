@@ -1,10 +1,12 @@
 import React from 'react';
 import Arweave from 'arweave/web';
 import { withRouter, NavLink } from 'react-router-dom';
+import { identity } from '../../utils/crypto';
 import './index.css';
 
 import Inbox from '../MailLists/Inbox';
 import Drafts from '../MailLists/Drafts';
+import Address from '../Address';
 
 class MailLayout extends React.Component {
 	constructor() {
@@ -33,8 +35,9 @@ class MailLayout extends React.Component {
 	}
 	getWalletAddress = () => {
 		const arweave = Arweave.init();
-		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
+		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(async address => {
 			this.setState({address: address});
+			console.log(await identity(address));
 		})
 	}
 	componentDidMount() {
@@ -51,7 +54,7 @@ class MailLayout extends React.Component {
 						<div>
 							<div className="profile">
 								<div>
-									<span>{this.state.address ? this.state.address : "Loading..."}</span>
+									<span>{this.state.address ? <Address address={this.state.address} /> : "Loading..."}</span>
 									<button onClick={this.logout}>Logout</button>
 								</div>
 								<div>

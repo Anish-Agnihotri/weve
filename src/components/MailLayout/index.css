@@ -74,6 +74,7 @@
 	font-size: 12px;
 	font-weight: 500;
 	margin-block-start: 5px;
+	text-align: right;
 }
 
 .profile > div:nth-child(1) > button {

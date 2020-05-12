@@ -2,6 +2,7 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 import { get_mail_from_tx } from '../../utils/crypto';
+import Address from '../../components/Address';
 import FileSaver from 'file-saver';
 
 class MailItem extends React.Component {
@@ -85,7 +86,7 @@ class MailItem extends React.Component {
 									<img src={`https://api.adorable.io/avatars/100/${this.props.type === 'inbox' ? this.state.mail.from : this.state.mail.to}.png`} alt="Avatar" />
 								</div>
 								<div>
-									<span><strong>{this.props.type === 'inbox' ? "From" : "To"}:</strong> <a href={`https://viewblock.io/arweave/address/${this.props.type === 'inbox' ? this.state.mail.from : this.state.mail.to}`} target="_blank" rel="noopener noreferrer">{this.props.type === 'inbox' ? this.state.mail.from : this.state.mail.to}</a></span>
+									<span><strong>{this.props.type === 'inbox' ? "From" : "To"}:</strong> <a href={`https://viewblock.io/arweave/address/${this.props.type === 'inbox' ? this.state.mail.from : this.state.mail.to}`} target="_blank" rel="noopener noreferrer">{this.props.type === 'inbox' ? (<Address address={this.state.mail.from} />) : (<Address address={this.state.mail.to} />)}</a></span>
 									{this.props.type === 'inbox' ? (
 										<span><strong>Tx ID:</strong> <a href={`https://viewblock.io/arweave/tx/${this.state.mail.id}`} target="_blank" rel="noopener noreferrer">{this.state.mail.id}</a></span>
 									) : null}
