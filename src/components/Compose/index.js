@@ -164,7 +164,7 @@ class Compose extends React.Component {
 export default withRouter(Compose);
 
 const toolbarOptions = {
-	options: ['inline', 'fontSize', 'list', 'link', 'image'],
+	options: ['inline', 'list', 'link', 'image'],
 	inline: {
 		options: ['bold', 'italic', 'underline', 'strikethrough'],
 	},

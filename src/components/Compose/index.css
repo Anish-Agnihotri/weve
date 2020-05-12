@@ -116,6 +116,7 @@
 	padding: 0px 10px;
 	overflow: auto;
 	max-height: calc(100vh - 600px);
+	font-size: 14px;
 }
 
 .editor > div {
