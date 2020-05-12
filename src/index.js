@@ -7,6 +7,7 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
       <App />
+      {/* zIndex attribute to bring notifications above modals */}
       <Notifications options={{zIndex: 9999}}/>
   </React.StrictMode>,
   document.getElementById('root')

@@ -11,6 +11,7 @@ class App extends React.Component {
       isAuthenticated: false, // Default authenticated value is false
     }
   }
+
   getAuthStatus = () => {
     // If keyfile is present in sessionStorage
     if (sessionStorage.getItem('keyfile') !== null) {
@@ -20,17 +21,21 @@ class App extends React.Component {
       // Else, keep authenticated value at false
       this.setState({isAuthenticated: false});
     }
-  }
+  };
+
   componentDidMount() {
     // Get authentication status when app loads
     this.getAuthStatus();
   }
+
   render() {
     return (
       <div className="App">
         <Router>
           <Switch>
+            {/* / Path is dynamically changed depending on authenticated status */}
             <Route path="/:location/:id" component={this.state.isAuthenticated ? Mail : Home} />
+            {/* Default fall-back path is dynamically changed depending on authenticated status */}
             <Route component={this.state.isAuthenticated ? Mail : Home} />
           </Switch>
         </Router>

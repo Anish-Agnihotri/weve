@@ -1,13 +1,14 @@
 import React from 'react';
-import TextLoop from "react-text-loop";
-import HomeHeader from '../../components/HomeHeader';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
-import Dropzone from 'react-dropzone'
-import { withRouter } from 'react-router-dom';
+import TextLoop from "react-text-loop"; // Text loop for main header
+import HomeHeader from '../../components/HomeHeader'; // Navigation header
+import { Modal } from 'react-responsive-modal'; // Login modal
+import 'react-responsive-modal/styles.css'; // Login modal css
+import AnchorLink from 'react-anchor-link-smooth-scroll'; // Smooth scroll for in-page anchor links
+import Dropzone from 'react-dropzone' // Dropzone for uploading keyfile
+import { withRouter } from 'react-router-dom'; // Used to access history props to programatically change page
 import './index.css';
 
+// Image imports
 import featureOneImage from '../../static/images/private.png';
 import featureTwoImage from '../../static/images/uncensorable.png';
 import featureThreeImage from '../../static/images/decentralized.png';
@@ -29,6 +30,7 @@ class Home extends React.Component {
 
 	// Toggle login modal state
 	toggleModal = () => {
+		// Access previousState, and toggle it
 		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
 	};
 
@@ -189,6 +191,7 @@ class Home extends React.Component {
 	}
 }
 
+// Individual feature items
 class FeatureItem extends React.Component {
 	render() {
 		return (
@@ -201,6 +204,7 @@ class FeatureItem extends React.Component {
 	}
 }
 
+// Responsive technology/usage vertical image carousel
 class Usage extends React.Component {
 	constructor() {
 		super();

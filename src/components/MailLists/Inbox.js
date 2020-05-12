@@ -1,12 +1,13 @@
 import React from 'react';
-import Arweave from 'arweave/web';
-import moment from 'moment';
-import {NavLink} from 'react-router-dom';
-import {sort} from '../../utils/sort';
-import {get_mail_from_tx} from '../../utils/crypto';
-import Address from '../../components/Address';
+import Arweave from 'arweave/web'; // Arweave
+import moment from 'moment'; // Unix timestamp parsing
+import {NavLink} from 'react-router-dom'; // Navigation
+import {sort} from '../../utils/sort'; // Sorting by date
+import {get_mail_from_tx} from '../../utils/crypto'; // Retrieving mail items from tx
+import Address from '../../components/Address'; // Arweave ID
 import './index.css';
 
+// Image imports
 import emptyInbox from '../../static/images/emptyinbox.png';
 
 export default class Inbox extends React.Component {
@@ -14,19 +15,25 @@ export default class Inbox extends React.Component {
 		super();
 
 		this.state = {
-			mail: [],
-			loading: true
+			mail: [], // Initialize empty mails array
+			loading: true // Set loading to true on load
 		};
 	}
+
+	// Sort by date function
 	sortByDate = () => {
 		let array = this.state.mail;
+		// Use sort() function to sort array
 		this.setState({mail: sort(array)});
-	}
+	};
+
 	retrieveMail = () => {
 		const arweave = Arweave.init();
 
+		// Use keyfile from sessionStorage to get address
 		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
 			
+			// Feed address to arql get_blocks_with_mail query
 			let get_blocks_with_mail = {
 				op: 'and',
 				expr1:{
@@ -40,24 +47,30 @@ export default class Inbox extends React.Component {
 					expr2: 'permamail'
 				}
 			}
-
+			
+			// Perform query to find permamail tagged emails
 			arweave.api.post(`arql`, get_blocks_with_mail).then(async response => {
 				let transactions = response.data;
 
+				// For each tx tagged permamail:
 				transactions.forEach(async transaction => {
+					// Get mail from tx
 					get_mail_from_tx(transaction).then(response => {
+						// Append mail to mail array
 						this.setState(previousState => ({mail: [...previousState.mail, response]}));
 					})
 				})
 
-				this.setState({loading: false});
+				this.setState({loading: false}); // Set loading to false (a.k.a complete)
 			})
 		})
 	}
+
 	componentDidMount() {
-		document.title="Weve | Inbox";
-		this.retrieveMail();
+		document.title="Weve | Inbox"; // Set page title
+		this.retrieveMail(); // Retrieve mail on load
 	}
+
 	render() {
 		return (
 			<div className="list inbox">

@@ -1,62 +1,74 @@
 import React from 'react';
-import { Modal } from 'react-responsive-modal';
-import Compose from '../../components/Compose';
-import MailLayout from '../../components/MailLayout';
-
+import { Modal } from 'react-responsive-modal'; // Compose modal setup
+import Compose from '../../components/Compose'; // Compose modal content
+import MailLayout from '../../components/MailLayout'; // Inbox UI layout
+import MailItem from '../../components/MailItem'; // Individual mail item import
 import './index.css';
 
+// Image imports
 import no_mail_selected from '../../static/images/no_mail_selected.png';
-
-import MailItem from '../../components/MailItem';
 
 export default class Mail extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
-			keyfile: null,
-			id: null,
-			type: null,
-			modalState: false,
-			content: [],
-			existingData: null
+			keyfile: null, // Initialize keyfile to empty
+			id: null, // Initialize selected email id to empty
+			type: null, // Initialize type of email (inbox/draft) to empty
+			modalState: false, // Modal is not toggled by default
+			content: [], // Initialize content array
+			existingData: null // Initialize existingData to hold data from reply/edit buttons
 		}
 	}
 
+	// Collect keyfile from sessionStorage on load
 	getKeyFile = () => {
 		this.setState({keyfile: JSON.parse(sessionStorage.getItem('keyfile'))});
-	}
+	};
 
+	// Programatically display emails
+	// TODO: Error handling for random URL
 	getContent = () => {
+		// Collect location + id from URL
 		const {location, id} = this.props.match.params;
-
-		// TODO: Error handling for random URL
+		
+		// If an email in inbox is selected:
 		if (location === 'inbox' && typeof id !== 'undefined') {
+			// Update type and id
 			this.setState({id: id, type: 'inbox'});
 		} else if (location === 'drafts' && typeof id !== 'undefined') {
+			// Else if an email in drafts is selected, update type and id
 			this.setState({id: id, type: 'drafts'});
 		} else {
+			// Else, set id to null
 			this.setState({id: null});
 		}
-	}
+	};
 
+	// Toggle compose modal
 	toggleModal = () => {
+		// If no existingData (i.e, not toggled by reply or edit buttons):
 		if (this.state.modalState && this.state.existingData !== null) {
+			// Keep existingData at null or rest to null
 			this.setState({existingData: null});
 		}
 		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
-	}
+	};
 
 	componentDidMount() {
-		this.getKeyFile();
-		this.getContent();
+		this.getKeyFile(); // Get keyfile on mount
+		this.getContent(); // Get email + sidebar content on mount
 	}
 
+	// Function passed down to children to update existingData (for reply/edit buttons)
 	updateExistingData = data => {
 		this.setState({existingData: data});
-	}
+	};
 
 	componentDidUpdate(prevProps) {
+		// Call a complete update on pathname change
+		// Used when navigating between /inbox and /drafts
 		if (this.props.location.pathname !== prevProps.location.pathname) {
 			this.getContent();
 		}

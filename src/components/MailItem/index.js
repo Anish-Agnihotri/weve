@@ -1,72 +1,92 @@
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
-import { withRouter } from 'react-router-dom';
-import { get_mail_from_tx } from '../../utils/crypto';
-import Address from '../../components/Address';
-import FileSaver from 'file-saver';
+import ReactMarkdown from 'react-markdown'; // Display markdown from mail
+import { withRouter } from 'react-router-dom'; // Navigation
+import { get_mail_from_tx } from '../../utils/crypto'; // Retrieve mail function
+import Address from '../../components/Address'; // Arweave ID parsing
+import FileSaver from 'file-saver'; // Save file (download button)
 
 class MailItem extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
-			loading: true,
-			mail: null,
+			loading: true, // Set mail loading to true by default
+			mail: null, // Hold mail item
 		};
 	}
 
 	getMail = id => {
+		// If mail type is "inbox":
 		if (this.props.type === 'inbox') {
+			// Get mail from permaweb
 			get_mail_from_tx(id).then(r => {
 				this.setState({mail: r, loading: false});
 			})
 		} else {
-			let drafts = JSON.parse(sessionStorage.getItem('drafts'));
+			// Else, if mail type is "draft":
+			let drafts = JSON.parse(sessionStorage.getItem('drafts')); // Get drafts array from sessionStorage
 			for (let i = 0; i < drafts.length; i++) {
+				// Find draft with matching URL id
 				if (drafts[i].id === id) {
+					// Get mail from drafts
 					this.setState({mail: drafts[i], loading: false});
 				}
 			}
 		}
-	}
+	};
 
 	componentDidMount() {
 		let id = this.props.id;
-		this.getMail(id);
+		this.getMail(id); // Get mail information on mount
 	}
 
 	componentDidUpdate(prevProps) { 
+		// If ID updates, selected mail has changed
 		if (prevProps.id !== this.props.id) {
+			// Re-get data about new mail
 			this.getMail(this.props.id);
 		}
 	}
 
+	// Individual button functions
+	// Download button
 	button_download = () => {
+		// Create blob with JSON mail content
 		let blob = new Blob([JSON.stringify(this.state.mail)], {type: "application/json;charset=utf-8"});
+		// Use FileSaver to save blob as mail.json
 		FileSaver.saveAs(blob, 'mail.json');
-	}
+	};
 
+	// Reply button
 	button_reply = () => {
+		// Add from and subject to existingData
 		this.props.updateExistingData(["reply", this.state.mail.from, this.state.mail.subject]);
+		// Open compose modal
 		this.props.toggleModal();
 	}
 
+	// Delete button
 	button_delete = () => {
-		let drafts = JSON.parse(sessionStorage.getItem('drafts'));
+		let drafts = JSON.parse(sessionStorage.getItem('drafts')); // Collect drafts array from sessionStorage
 		let newDrafts = [];
 
 		for (let i = 0; i < drafts.length; i++) {
+			// Add all drafts that are not this one
 			if (drafts[i].id !== this.props.id) {
+				// to the newDrafts array
 				newDrafts.push(drafts[i]);
 			}
 		}
 
-		sessionStorage.setItem('drafts', JSON.stringify(newDrafts));
-		this.props.history.push('/drafts');
+		sessionStorage.setItem('drafts', JSON.stringify(newDrafts)); // Update sessionStorage with new array excluding this draft id
+		this.props.history.push('/drafts'); // Redirect to /drafts
 	}
 
+	// Edit button
 	button_edit = () => {
+		// Add all mail items to existingData
 		this.props.updateExistingData(["edit", this.state.mail]);
+		// Open compose modal
 		this.props.toggleModal();
 	}
 

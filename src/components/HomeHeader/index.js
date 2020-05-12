@@ -1,7 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { HamburgerButton } from 'react-hamburger-button';
-import AnchorLink from 'react-anchor-link-smooth-scroll';
+import { NavLink } from 'react-router-dom'; // Navigation
+import { HamburgerButton } from 'react-hamburger-button'; // Mobile menu button
+import AnchorLink from 'react-anchor-link-smooth-scroll'; // Smooth scroll for anchor links
 import './index.css';
 
 export default class HomeHeader extends React.Component {
@@ -9,21 +9,29 @@ export default class HomeHeader extends React.Component {
 		super();
 
 		this.state = {
-			open: false,
+			open: false, // Mobile menu is closed by default
 		}
 	}
+
 	updateDimensions = e => {
+		// If window width > 700
 		if (window.innerWidth > 700) {
+			// Keep mobile menu closed
 			this.setState({open: false});
 		}
-	}
+	};
+
 	componentDidMount() {
-		this.updateDimensions();
+		this.updateDimensions(); // Update dimensions on load
+		// Setup an event listener for resize
 		window.addEventListener('resize', this.updateDimensions.bind(this));
 	}
+
 	componentWillUnmount() {
+		// Remove event listener on component unmount for performance
 		window.removeEventListener('resize', this.updateDimensions.bind(this));
 	}
+
 	render() {
 		return (
 			<div className="homeheader">

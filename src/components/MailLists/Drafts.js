@@ -1,8 +1,10 @@
 import React from 'react';
-import moment from 'moment';
-import { NavLink, withRouter } from 'react-router-dom';
-import Address from '../../components/Address';
+import moment from 'moment'; // Unix timestamp parsing
+import {sort} from '../../utils/sort'; // Sorting by date
+import { NavLink, withRouter } from 'react-router-dom'; // Navigation
+import Address from '../../components/Address'; // Arweave ID
 
+// Image imports
 import emptyInbox from '../../static/images/emptyinbox.png';
 
 class Drafts extends React.Component {
@@ -10,38 +12,44 @@ class Drafts extends React.Component {
 		super();
 
 		this.state = {
-			mail: [],
-			loading: true
+			mail: [], // Initialize mails array to empty
+			loading: true // Set loading mail to default at load
 		};
 	}
+
+	// Sort by date function
 	sortByDate = () => {
 		let array = this.state.mail;
-		let arrayLength = array.length;
-		for (let i = 0; i < arrayLength / 2; i++) {
-			let t = array[i];
-			array[i] = array[arrayLength - 1 - i];
-			array[arrayLength - 1 - i] = t;
-		}
-		this.setState({mail: array});
-	}
+		// Use sort() function to sort array
+		this.setState({mail: sort(array)});
+	};
+
+	// Retrieve drafts function
 	retrieveMail = () => {
-		let drafts = sessionStorage.getItem('drafts');
+		let drafts = sessionStorage.getItem('drafts'); // Get drafts array from sessionStorage
 		
+		// If drafts array contains drafts
 		if (drafts !== null) {
+			// Parse those drafts and sort automatically
 			this.setState({mail: JSON.parse(drafts)}, () => this.sortByDate());
 		}
 
-		this.setState({loading: false});
+		this.setState({loading: false}); // Set loading to false (a.k.a complete)
 	}
+
 	componentDidMount() {
-		document.title="Weve | Drafts";
-		this.retrieveMail();
+		document.title="Weve | Drafts"; // Set page title
+		this.retrieveMail(); // Retrieve drafts on load
 	}
+
 	componentDidUpdate(prevProps) {
+		// On path change
 		this.props.history.listen(() => {
+			// Update mail
 			this.retrieveMail();
 		});
 	}
+
 	render() {
 		return (
 			<div className="list drafts">
