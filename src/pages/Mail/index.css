@@ -213,3 +213,22 @@
 	margin-block-start: 5px;
 	color: rgb(133, 133, 133);
 }
+
+@media screen and (max-width: 570px) {
+	.mail-view {
+		height: auto;
+	}
+	.mail-view > div:nth-child(3) {
+		height: 85px;
+	}
+	.mail-view > div:nth-child(3) > div {
+		height: 50px;
+		width: 100% !important;
+	}
+	.mail-view > div:nth-child(3) > div:nth-child(2) {
+		text-align: center;
+	}
+	.mail-view > div:nth-child(3) > div:nth-child(2) > button {
+		font-size: 13px;
+	}
+}
