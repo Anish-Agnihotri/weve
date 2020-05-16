@@ -7,9 +7,6 @@ import {get_mail_from_tx} from '../../utils/crypto'; // Retrieving mail items fr
 import Address from '../../components/Address'; // Arweave ID
 import './index.css';
 
-// Image imports
-import emptyInbox from '../../static/images/emptyinbox.png';
-
 export default class Inbox extends React.Component {
 	constructor() {
 		super();
@@ -94,7 +91,7 @@ export default class Inbox extends React.Component {
 							))
 						) : (
 							<div className="empty">
-								<img src={emptyInbox} alt="Empty inbox" />
+								<img src="https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/emptyinbox.png" alt="Empty inbox" />
 								<h4>No mails found</h4>
 							</div>
 						)
