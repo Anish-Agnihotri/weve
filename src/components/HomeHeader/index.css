@@ -104,7 +104,7 @@
 	height: auto !important;
 	background-color: #fff;
 	box-shadow: 0 0px 18px 2px rgba(151,164,175,.2);
-	z-index: 9999;
+	z-index: 1000;
 }
 
 .menu-mobile > nav > ul {
@@ -126,21 +126,28 @@
 	transition: 100ms ease-in-out;
 }
 
-.menu-mobile > nav > ul > li:last-child > a {
+.menu-mobile > nav > ul > li:last-child > button {
 	background-color: rgba(172, 128, 255, 0.144);
 	color: #AC80FF !important;
 	border-radius: 5px;
 	padding: 8px 18px;
 	margin-top: 5px;
 	border: 2px solid #AC80FF;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
 }
 
-.menu-mobile > nav > ul > li:last-child > a:hover {
+.menu-mobile > nav > ul > li:last-child > button:focus {
+	outline: none;
+}
+
+.menu-mobile > nav > ul > li:last-child > button:hover {
 	background-color: rgba(172, 128, 255, 0.3);
 	color: #fff;
 }
 
-.menu-mobile > nav > ul > li > a:hover {
+.menu-mobile > nav > ul > li > button:hover {
 	color: #AC80FF;
 }
 
