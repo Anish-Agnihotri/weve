@@ -150,7 +150,7 @@ class Inbox extends React.Component {
 						this.state.mail.length ? (
 							<AutoSizer>
 								{({width, height}) => 
-									<List height={height} width={width} itemCount={this.state.mail.length} itemSize={this.state.mobile ? 220 : 90.5} layout={this.state.mobile ? "horizontal" : "vertical"}>
+									<List height={height} width={width} itemCount={this.state.mail.length} itemSize={this.state.mobile ? 220 : 90.5} layout={this.state.mobile ? "horizontal" : "vertical"} sortChange={this.state.mail[0]}>
 										{this.rowRenderer}
 									</List>
 								}
