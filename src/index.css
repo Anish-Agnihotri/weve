@@ -8,7 +8,7 @@ body {
 	font-family: 'Inter', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background-color: #1a1a1a;
+	background-color: rgb(56, 58, 88);
 }
 
 .sizer {

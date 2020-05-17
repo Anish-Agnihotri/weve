@@ -53,6 +53,22 @@ export const get_mail_from_tx = async tx => {
     return mail_item;
 }
 
+export const get_sent_mail_from_tx = async tx => {
+    let sent_mail_item;
+
+    await arweave.transactions.get(tx).then(async tx => {
+        let timestamp = tx.get('tags')[2].get('value', { decode: true, string: true });
+
+        sent_mail_item = {
+            "timestamp": timestamp,
+            "id": tx.id,
+            "to": tx.target,
+        }
+    });
+
+    return sent_mail_item;
+}
+
 export const encrypt_mail = async (content, subject, pub_key) => {
     var content_encoder = new TextEncoder()
     var newFormat = JSON.stringify({ 'subject': subject, 'body': content })
