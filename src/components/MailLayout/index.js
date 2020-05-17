@@ -7,6 +7,7 @@ import './index.css';
 // Individual mailboxes
 import Inbox from '../MailLists/Inbox';
 import Drafts from '../MailLists/Drafts';
+import Sent from '../MailLists/Sent';
 
 class MailLayout extends React.Component {
 	constructor() {
@@ -24,6 +25,9 @@ class MailLayout extends React.Component {
 		if (this.props.location.pathname.startsWith("/drafts")) {
 			// Return drafts mailbox
 			return <Drafts />;
+		} else if (this.props.location.pathname.startsWith("/sent")) {
+			// Return outbox
+			return <Sent />;
 		} else if (this.props.location.pathname === "/") {
 			// If URL starts with '/'
 			this.props.history.push("/inbox");
@@ -80,12 +84,13 @@ class MailLayout extends React.Component {
 						<ul>
 							<li><NavLink to="/inbox" activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
 							<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
+							<li><NavLink to="/sent" activeClassName="active-sidebar-button"><i className="fa fa-paper-plane-o"></i>Sent</NavLink></li>
 						</ul>
 					</div>
-					<div className="mailbar">
+					<div className={this.props.location.pathname.startsWith("/sent") ? "mailbar display-mailbar-wide" : "mailbar"}>
 						{this.getMailbarContent()}
 					</div>
-					<div className="content">
+					<div className={this.props.location.pathname.startsWith("/sent") ? "content display-content-none" : "content"}>
 						{this.props.children}
 					</div>
 				</div>

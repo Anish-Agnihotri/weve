@@ -168,6 +168,10 @@
 	padding-left: 10px;
 }
 
+.fa-paper-plane-o {
+	margin-left: -3px;
+}
+
 .sidebar > ul > li > a:hover {
 	color: #fff !important;
 	background-color: rgb(35, 37, 56);
@@ -191,9 +195,20 @@
 	background-color: #F9F9F9;
 }
 
+.display-mailbar-wide {
+	width: calc(100% - 202px) !important;
+}
+
+.display-content-none {
+	display: none !important;
+}
+
 @media screen and (max-width: 1060px) {
 	.sidebar {
 		width: 120px;
+	}
+	.display-mailbar-wide {
+		width: calc(100% - 142px) !important;
 	}
 	.mailbar {
 		width: 200px;
@@ -227,6 +242,9 @@
 	.mailbar {
 		height: calc(100% - 131px);
 	}
+	.display-mailbar-wide {
+		width: 100% !important;
+	}
 	.content {
 		width: calc(100% - 201px);
 		height: calc(100% - 131px);
@@ -237,6 +255,9 @@
 	.mailbar {
 		width: 100%;
 		height: 196px;
+	}
+	.display-mailbar-wide {
+		height: calc(100vh - 140px);
 	}
 	.content {
 		width: 100%;
@@ -249,7 +270,7 @@
 	}
 }
 
-@media screen and (max-width: 340px) {
+@media screen and (max-width: 420px) {
 	.profile > div:nth-child(1) {
 		padding-right: 7.5px;
 	}
