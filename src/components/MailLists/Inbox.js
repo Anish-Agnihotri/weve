@@ -5,7 +5,9 @@ import {NavLink} from 'react-router-dom'; // Navigation
 import {sort} from '../../utils/sort'; // Sorting by date
 import {get_mail_from_tx} from '../../utils/crypto'; // Retrieving mail items from tx
 import Address from '../../components/Address'; // Arweave ID
-import Store from '../../stores';
+import Store from '../../stores'; // Store to save inbox on load
+import {FixedSizeList as List} from 'react-window'; // React-window list to efficiently render inbox
+import AutoSizer from 'react-virtualized-auto-sizer'; // Auto-sizer for react-window parent dimensions
 import './index.css';
 
 // Image imports
@@ -17,9 +19,20 @@ class Inbox extends React.Component {
 
 		this.state = {
 			mail: [], // Initialize empty mails array
-			loading: true // Set loading to true on load
+			loading: true, // Set loading to true on load
+			mobile: false // Set mobile to true on load
 		};
 	}
+
+	// Handle window resizing impact on itemWidth of react-window list
+	updateDimensions = e => {
+		// If window width > 760
+		if (window.innerWidth > 760) {
+			this.setState({mobile: false}); // Mobile layout to false
+		} else {
+			this.setState({mobile: true}); // Mobile layout to true
+		}
+	};
 
 	// Sort by date function
 	sortByDate = () => {
@@ -89,8 +102,33 @@ class Inbox extends React.Component {
 
 	componentDidMount() {
 		document.title="Weve | Inbox"; // Set page title
+		this.updateDimensions(); // Update dimensions on load
+		window.addEventListener('resize', this.updateDimensions.bind(this)); // Setup an event listener for resize
 		this.retrieveMail(); // Retrieve mail on load
 	}
+
+	componentWillUnmount() {
+		// Remove event listener on component unmount for performance
+		window.removeEventListener('resize', this.updateDimensions.bind(this));
+	}
+
+	// Render inbox rows
+	rowRenderer = ({key, index, style}) => {
+		let mail = this.state.mail[index]; // Access individual row item
+		return (
+			// Render row item
+			<div key={key} style={style}>
+				<MailItem 
+					key={key} 
+					id={mail.id ? mail.id : ""} 
+					from={mail.from} 
+					subject={mail.subject} 
+					body={mail.body} 
+					timestamp={mail.timestamp} 
+				/>
+			</div>
+		);
+	};
 
 	render() {
 		return (
@@ -110,9 +148,13 @@ class Inbox extends React.Component {
 						</div>
 					) : (
 						this.state.mail.length ? (
-							this.state.mail.map((mail, i) => (
-								<MailItem key={i} id={mail.id ? mail.id : ""} from={mail.from} subject={mail.subject} body={mail.body} timestamp={mail.timestamp} />
-							))
+							<AutoSizer>
+								{({width, height}) => 
+									<List height={height} width={width} itemCount={this.state.mail.length} itemSize={this.state.mobile ? 220 : 90.5} layout={this.state.mobile ? "horizontal" : "vertical"}>
+										{this.rowRenderer}
+									</List>
+								}
+							</AutoSizer>
 						) : (
 							<div className="empty">
 								<img src={emptyInbox} alt="Empty inbox" />

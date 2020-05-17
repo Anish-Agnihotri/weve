@@ -188,4 +188,7 @@
 	.empty > img {
 		width: 40px;
 	}
+	.loading {
+		transform: translateY(20px);
+	}
 }
