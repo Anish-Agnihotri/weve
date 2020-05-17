@@ -177,3 +177,9 @@
 .compose-modal > div:nth-child(3) > button > i {
 	margin-right: 5px;
 }
+
+@media screen and (max-width: 640px) {
+	.compose-modal {
+		width: calc(100vw - 40px);
+	}
+}

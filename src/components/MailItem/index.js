@@ -16,6 +16,7 @@ class MailItem extends React.Component {
 	}
 
 	getMail = id => {
+		this.setState({loading: true});
 		// If mail type is "inbox":
 		if (this.props.type === 'inbox') {
 			// Get mail from permaweb

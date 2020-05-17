@@ -23,7 +23,7 @@ class Home extends React.Component {
 
 		this.state = {
 			modalState: false, // Modal state
-			keyFileName: "Upload keyfile", // Modal dropzone text
+			keyFileName: "Drop keyfile here", // Modal dropzone text
 			isLoading: false, // Modal loading status
 		};
 	}
@@ -31,7 +31,7 @@ class Home extends React.Component {
 	// Toggle login modal state
 	toggleModal = () => {
 		// Access previousState, and toggle it
-		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
+		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Drop keyfile here", isLoading: false}));
 	};
 
 	// Keyfile upload and parsing

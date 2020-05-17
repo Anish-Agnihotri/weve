@@ -53,7 +53,7 @@ export default class Mail extends React.Component {
 			// Keep existingData at null or rest to null
 			this.setState({existingData: null});
 		}
-		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Upload keyfile", isLoading: false}));
+		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Drop keyfile here", isLoading: false}));
 	};
 
 	componentDidMount() {

@@ -62,22 +62,26 @@ class Inbox extends React.Component {
 					let transactions = response.data;
 					let counter = 0; // Setup current mail counter
 
-					// For each tx tagged permamail:
-					transactions.forEach(transaction => {
-						// Get mail from tx
-						get_mail_from_tx(transaction).then(response => {
-							// Append mail to mail array
-							this.setState(previousState => ({mail: [...previousState.mail, response]}), () => {
-								counter++; // Increment current mail counter
+					if (transactions.length > 0) {
+						// For each tx tagged permamail:
+						transactions.forEach(transaction => {
+							// Get mail from tx
+							get_mail_from_tx(transaction).then(response => {
+								// Append mail to mail array
+								this.setState(previousState => ({mail: [...previousState.mail, response]}), () => {
+									counter++; // Increment current mail counter
 
-								// If all mails have been collected
-								if (counter === transactions.length) {
-									store.set('inbox')(this.state.mail); // Update inbox in undux store
-									this.setState({loading: false}); // Toggle loading
-								}
+									// If all mails have been collected
+									if (counter === transactions.length) {
+										store.set('inbox')(this.state.mail); // Update inbox in undux store
+										this.setState({loading: false}); // Toggle loading
+									}
+								})
 							})
 						})
-					})
+					} else {
+						this.setState({loading: false});
+					}
 				})
 			})
 		}

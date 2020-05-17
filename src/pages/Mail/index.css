@@ -231,4 +231,8 @@
 	.mail-view > div:nth-child(3) > div:nth-child(2) > button {
 		font-size: 13px;
 	}
+	.mail-view-loading {
+		transform: none;
+		padding-top: 10px;
+	}
 }

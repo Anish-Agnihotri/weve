@@ -219,6 +219,10 @@
 	}
 	.sidebar > ul > li {
 		display: inline-block;
+		padding-right: 10px;
+	}
+	.sidebar > ul > li > a {
+		padding-right: 7.5px;
 	}
 	.mailbar {
 		height: calc(100% - 131px);
@@ -245,7 +249,7 @@
 	}
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 340px) {
 	.profile > div:nth-child(1) {
 		padding-right: 7.5px;
 	}
@@ -265,5 +269,8 @@
 	}
 	.sidebar > ul > li {
 		width: 100%;
+	}
+	.sidebar > ul > li > a {
+		padding-right: 5px;
 	}
 }
