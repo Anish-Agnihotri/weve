@@ -5,12 +5,13 @@ import {NavLink} from 'react-router-dom'; // Navigation
 import {sort} from '../../utils/sort'; // Sorting by date
 import {get_mail_from_tx} from '../../utils/crypto'; // Retrieving mail items from tx
 import Address from '../../components/Address'; // Arweave ID
+import Store from '../../stores';
 import './index.css';
 
 // Image imports
 import emptyInbox from '../../static/images/emptyinbox.png';
 
-export default class Inbox extends React.Component {
+class Inbox extends React.Component {
 	constructor() {
 		super();
 
@@ -28,42 +29,58 @@ export default class Inbox extends React.Component {
 	};
 
 	retrieveMail = () => {
+		let store = this.props.store; // Setup undux store
 		const arweave = Arweave.init();
 
-		// Use keyfile from sessionStorage to get address
-		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
-			
-			// Feed address to arql get_blocks_with_mail query
-			let get_blocks_with_mail = {
-				op: 'and',
-				expr1:{
-					op: 'equals',
-					expr1: 'to',
-					expr2: address
-				},
-				expr2:{
-					op: 'equals',
-					expr1: 'App-Name',
-					expr2: 'permamail'
-				}
-			}
-			
-			// Perform query to find permamail tagged emails
-			arweave.api.post(`arql`, get_blocks_with_mail).then(async response => {
-				let transactions = response.data;
+		let cachedInbox = store.get('inbox'); // Collect cached inbox
 
-				// For each tx tagged permamail:
-				transactions.forEach(async transaction => {
-					// Get mail from tx
-					get_mail_from_tx(transaction).then(response => {
-						// Append mail to mail array
-						this.setState(previousState => ({mail: [...previousState.mail, response]}));
+		// If cached inbox contains emails
+		if (cachedInbox.length > 0) {
+			// Set mail to cached emails and toggle loading
+			this.setState({mail: cachedInbox, loading: false});
+		} else {
+			// Use keyfile from sessionStorage to get address
+			arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
+				
+				// Feed address to arql get_blocks_with_mail query
+				let get_blocks_with_mail = {
+					op: 'and',
+					expr1:{
+						op: 'equals',
+						expr1: 'to',
+						expr2: address
+					},
+					expr2:{
+						op: 'equals',
+						expr1: 'App-Name',
+						expr2: 'permamail'
+					}
+				}
+				
+				// Perform query to find permamail tagged emails
+				arweave.api.post(`arql`, get_blocks_with_mail).then(async response => {
+					let transactions = response.data;
+					let counter = 0; // Setup current mail counter
+
+					// For each tx tagged permamail:
+					transactions.forEach(transaction => {
+						// Get mail from tx
+						get_mail_from_tx(transaction).then(response => {
+							// Append mail to mail array
+							this.setState(previousState => ({mail: [...previousState.mail, response]}), () => {
+								counter++; // Increment current mail counter
+
+								// If all mails have been collected
+								if (counter === transactions.length) {
+									store.set('inbox')(this.state.mail); // Update inbox in undux store
+									this.setState({loading: false}); // Toggle loading
+								}
+							})
+						})
 					})
 				})
-
-				this.setState({loading: false}); // Set loading to false (a.k.a complete)
 			})
-		})
+		}
 	}
 
 	componentDidMount() {
@@ -104,6 +121,8 @@ export default class Inbox extends React.Component {
 		);
 	}
 }
+
+export default Store.withStore(Inbox);
 
 class MailItem extends React.Component {
 	render() {

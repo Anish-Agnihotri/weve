@@ -131,6 +131,5 @@ export const identity = async address => {
 	}
 
 	const tx = await arweave.api.get((txs.data)[0]);
-
 	return tx.data;
 };

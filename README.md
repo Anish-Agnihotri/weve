@@ -1,6 +1,10 @@
 <p align="center">
 	<img src="https://i.imgur.com/VywMXTB.png" alt="weve showcase">
+	[![Website weve.email](https://img.shields.io/website-up-down-green-red/http/weve.email.svg)](http://shields.io/)
 </p>
+<h4 align="center">
+	Latest beta is deployed at <a href="http://weve.email" target="_blank" rel="noopener noreferrer">weve.email</a> and in the <a href="https://github.com/Anish-Agnihotri/weve/tree/deploy">deploy branch</a>. <br />The master branch is for feature development only.
+</h4>
 
 # weve.
 

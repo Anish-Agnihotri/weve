@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"; // Navigation setup
 import Home from './pages/Home';
 import Mail from './pages/Mail';
+import Store from './stores';
 
 class App extends React.Component {
   constructor() {
@@ -31,14 +32,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router>
-          <Switch>
-            {/* / Path is dynamically changed depending on authenticated status */}
-            <Route path="/:location/:id" component={this.state.isAuthenticated ? Mail : Home} />
-            {/* Default fall-back path is dynamically changed depending on authenticated status */}
-            <Route component={this.state.isAuthenticated ? Mail : Home} />
-          </Switch>
-        </Router>
+        <Store.Container>
+          <Router>
+            <Switch>
+              {/* / Path is dynamically changed depending on authenticated status */}
+              <Route path="/:location/:id" component={this.state.isAuthenticated ? Mail : Home} />
+              {/* Default fall-back path is dynamically changed depending on authenticated status */}
+              <Route component={this.state.isAuthenticated ? Mail : Home} />
+            </Switch>
+          </Router>
+        </Store.Container>
       </div>
     );
   }

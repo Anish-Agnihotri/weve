@@ -3,11 +3,10 @@ import {identity} from '../../utils/crypto'; // Import identity function
 
 export default class Address extends React.Component {
 	state = {
-		address: 'Loading...' // Default return "Loading..."
+		address: this.props.address // Default return "Loading..."
 	}
 
 	getAddress = async address => {
-		// Return either identity or address
 		let addr = await identity(address);
 		this.setState({address: addr});
 	};
