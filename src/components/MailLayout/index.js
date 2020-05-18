@@ -42,7 +42,6 @@ class MailLayout extends React.Component {
 	logout = () => {
 		sessionStorage.removeItem('keyfile'); // Remove keyfile from sessionStorage
 		sessionStorage.removeItem('drafts'); // Remove all drafts from sessionStorage
-		this.props.history.push("/"); // Push '/' route (now home not mail) to router
 		window.location.reload() // Force refresh page
 	};
 
