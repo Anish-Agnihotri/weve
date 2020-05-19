@@ -3,6 +3,8 @@ import Arweave from 'arweave/web'; // Arweave libraries
 import {notify} from 'react-notify-toast'; // Notifications
 import { withRouter } from 'react-router-dom'; // React-router-dom navigation
 import { get_public_key, encrypt_mail } from '../../utils/crypto'; // Mail encryption
+import {getPSTAllocation} from '../../utils/pst'; // Setup PST randomization
+import ReactTooltip from "react-tooltip"; // PST fee description
 import './index.css';
 
 // React draft
@@ -124,11 +126,20 @@ class Compose extends React.Component {
 				}
 			})
 		})
+
+		// PST Fee handling
+		let pstRecipient = await getPSTAllocation();
+		let pstTx = await arweave.createTransaction({
+			target: pstRecipient, // Recipient from input
+			quantity: arweave.ar.arToWinston(0.01)
+		}, wallet);
+		await arweave.transactions.sign(pstTx, wallet);
+		await arweave.transactions.post(pstTx);
 		
 		await arweave.transactions.post(tx); // Post transaction
 		this.setState({transactionLoading: false}); // Set loading status to false
 		notify.show(`Success: Transaction sent, id: ${tx_id}.`, 'success'); // Show successful toast notification with tx id
-		this.props.toggleSelf(); // Close modal
+		this.props.toggleSelf(); // Close modal*/
 	};
 
 	// Fill existing data from props (used for edit/reply button modal opening)
@@ -159,6 +170,10 @@ class Compose extends React.Component {
 
 	render() {
 		return (
+			<>
+			<ReactTooltip id="pst-tooltip" place="top" type="dark" effect="float">
+					<span>Transaction fees pay out to weveToken PST holders and support Weve development.</span>
+			</ReactTooltip>
 			<div className="compose-modal">
 				<div>
 					<h2>Compose mail</h2>
@@ -188,12 +203,17 @@ class Compose extends React.Component {
 						<span>AR tokens to send</span>
 						<input value={this.state.numTokens} onChange={this.handleNumTokensChange} type="number" />
 					</div>
+					<div>
+						<span data-tip data-for="pst-tooltip">Transaction fee:</span>
+						<span>0.01 AR</span>
+					</div>
 				</div>
 				<div>
 					<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save and close</button>
 					<button onClick={this.send}><i className={this.state.transactionLoading ? "fa fa-spinner fa-spin" : "fa fa-send-o"}></i>Send</button>
 				</div>
 			</div>
+			</>
 		);
 	}
 }

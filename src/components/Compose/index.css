@@ -95,6 +95,34 @@
 	outline: none;
 }
 
+/* Compose modal PST fee */
+.compose-modal > div:nth-child(2) > div:nth-last-child(1) {
+	text-align: right;
+	margin-bottom: 0px;
+}
+
+.compose-modal > div:nth-child(2) > div:nth-last-child(1) > span {
+	font-size: 14px;
+	display: inline;
+	font-weight: 400;
+	padding-left: 0px;
+}
+
+.compose-modal > div:nth-child(2) > div:nth-last-child(1) > span:nth-child(1) {
+	color: #AC80FF;
+	border-bottom: 1px dotted #AC80FF;
+	margin-right: 8px;
+}
+
+.compose-modal > div:nth-child(2) > div:nth-last-child(1) > span:nth-child(2) {
+	background-color: rgb(235, 235, 235);
+	padding: 2px 5px;
+	border-radius: 5px;
+	font-weight: 500;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
 .editor-wrapper {
 	border-radius: 5px;
 	background-color: #fff;

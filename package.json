@@ -23,6 +23,7 @@
     "react-scripts": "3.4.1",
     "react-table-6": "^6.11.0",
     "react-text-loop": "^2.3.0",
+    "react-tooltip": "^4.2.6",
     "react-virtualized-auto-sizer": "^1.0.2",
     "react-window": "^1.8.5",
     "undux": "^5.2.0"

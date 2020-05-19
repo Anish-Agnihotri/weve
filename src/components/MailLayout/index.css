@@ -172,6 +172,10 @@
 	margin-left: -3px;
 }
 
+.fa-money {
+	margin-left: -3.5px;
+}
+
 .sidebar > ul > li > a:hover {
 	color: #fff !important;
 	background-color: rgb(35, 37, 56);
