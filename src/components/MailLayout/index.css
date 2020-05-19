@@ -274,7 +274,7 @@
 	}
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 510px) {
 	.profile > div:nth-child(1) {
 		padding-right: 7.5px;
 	}
