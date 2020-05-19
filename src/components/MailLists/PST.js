@@ -10,23 +10,29 @@ class PST extends React.Component {
 		super();
 
 		this.state = {
-			tokenInfo: [],
-			loading: true
+			tokenInfo: [], // Initialize tokenInfo
+			loading: true // Set loading to true by default
 		};
 	}
+
+	// Get token holder information
 	collectTokenInfo = async () => {
+		// Call getWalletList to retrieve token holders
 		getWalletList().then(response => {
+			// Set token holder information and set loading to false
 			this.setState({tokenInfo: response, loading: false});
 		})
-	}
+	};
+
 	componentDidMount() {
-		this.collectTokenInfo();
+		this.collectTokenInfo(); // Collect token info on load
 	}
+
 	render() {
 		const columns = [
 			{Header: 'Address', accessor: 'addr', Cell: props => <To address={props.value} />},
-			{Header: 'Tokens', accessor: 'balance', Cell: props => <span>{(props.value / 1000000).toLocaleString()}</span>},
-			{Header: 'Percentage', accessor: 'balance', Cell: props => <span>{props.value / 10000000000}%</span>}
+			{Header: 'Tokens', accessor: 'balance', Cell: props => <span>{(props.value / 1000000).toLocaleString()}</span>}, // Calculate number of tokens owned
+			{Header: 'Percentage', accessor: 'balance', Cell: props => <span>{props.value / 10000000000}%</span>} // Calculate percentage of total tokens owned
 		];
 
 		return (
