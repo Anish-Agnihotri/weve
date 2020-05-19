@@ -118,7 +118,7 @@ class Compose extends React.Component {
 			// Collect balance
 			arweave.wallets.getBalance(address).then(async balance => {
 				// Convert winston to AR and check for minimum fee balance
-				if (arweave.ar.winstonToAr(balance) < 0.00000001) {
+				if (arweave.ar.winstonToAr(balance) < 0.01000001) {
 					// Throw a toast notification error
 					notify.show("Error: Insufficient balance to send mail", "error");
 					// Stop further execution
