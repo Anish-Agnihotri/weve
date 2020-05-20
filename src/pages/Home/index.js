@@ -8,15 +8,6 @@ import Dropzone from 'react-dropzone' // Dropzone for uploading keyfile
 import { withRouter } from 'react-router-dom'; // Used to access history props to programatically change page
 import './index.css';
 
-// Image imports
-import featureOneImage from '../../static/images/private.png';
-import featureTwoImage from '../../static/images/uncensorable.png';
-import featureThreeImage from '../../static/images/decentralized.png';
-import upload from '../../static/images/upload.png';
-import step_one from '../../static/images/steps1.png';
-import step_two from '../../static/images/steps2.png';
-import step_three from '../../static/images/steps3.png';
-
 class Home extends React.Component {
 	constructor() {
 		super();
@@ -97,7 +88,7 @@ class Home extends React.Component {
 									<section>
 										<div {...getRootProps()}>
 											<input {...getInputProps()} />
-											{this.state.isLoading ? <i className="fa fa-spinner fa-spin"></i> : <img src={upload} alt="Upload" />}
+											{this.state.isLoading ? <i className="fa fa-spinner fa-spin"></i> : <img src="https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/upload.png" alt="Upload" />}
 											<p>{this.state.keyFileName}</p>
 										</div>
 									</section>
@@ -140,9 +131,9 @@ class Home extends React.Component {
 							<p>Weve runs on the Arweave network so messages are <i>permanent</i> and <i>uncensorable</i>.</p>
 							<p>Messages are <i>encrypted</i> and delivered using <i>decentralized</i> technologies; cutting the middle-man.</p>
 							<div className="feature-showcase">
-								<FeatureItem image={featureOneImage} header="Encrypted" text="Weve encrypts your data with RSA-OAEP to ensure security." />
-								<FeatureItem image={featureTwoImage} header="Uncensorable" text="Hosted on the Arweave permaweb, Weve can't be censored." />
-								<FeatureItem image={featureThreeImage} header="Decentralized" text="Weve skips the middle-man and harnesses the blockchain." />
+								<FeatureItem image="https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/private.png" header="Encrypted" text="Weve encrypts your data with RSA-OAEP to ensure security." />
+								<FeatureItem image="https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/uncensorable.png" header="Uncensorable" text="Hosted on the Arweave permaweb, Weve can't be censored." />
+								<FeatureItem image="https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/decentralized.png" header="Decentralized" text="Weve skips the middle-man and harnesses the blockchain." />
 							</div>
 						</div>
 					</div>
@@ -211,7 +202,11 @@ class Usage extends React.Component {
 
 		this.state = {
 			number: 0,
-			images: [step_one, step_two, step_three]
+			images: [
+				"https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/steps1.png", 
+				"https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/steps2.png", 
+				"https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/steps3.png"
+			]
 		}
 	}
 	resetNumber = () => {

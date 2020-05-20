@@ -5,9 +5,6 @@ import MailLayout from '../../components/MailLayout'; // Inbox UI layout
 import MailItem from '../../components/MailItem'; // Individual mail item import
 import './index.css';
 
-// Image imports
-import no_mail_selected from '../../static/images/no_mail_selected.png';
-
 export default class Mail extends React.Component {
 	constructor() {
 		super();
@@ -101,7 +98,7 @@ export default class Mail extends React.Component {
 						<MailItem id={this.state.id} type={this.state.type} toggleModal={this.toggleModal} updateExistingData={this.updateExistingData} />
 					) : (
 						<div className="no-mail-selected">
-							<img src={no_mail_selected} alt="No mail selected" />
+							<img src="https://pspfqlx3qgd7.arweave.net/Il2bA6IuoancZwMYqH9t3nPOdKRP94WqbGmrQwc_b_0/no_mail_selected.png" alt="No mail selected" />
 							<h3>No mail selected</h3>
 						</div>
 					)}
