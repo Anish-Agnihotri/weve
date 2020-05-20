@@ -125,20 +125,18 @@ class Compose extends React.Component {
 		let tx_id = tx.id; // Get transaction id from signed transaction
 
 		// Check if sending wallet has enough AR to cover transaction fees
-		arweave.wallets.jwkToAddress(wallet).then(async address => {
-			// Collect balance
-			arweave.wallets.getBalance(address).then(async balance => {
-				// Convert winston to AR and check for minimum fee balance
-				if (arweave.ar.winstonToAr(balance) < 0.00000001) {
-					// Throw a toast notification error
-					notify.show("Error: Insufficient balance to send mail", "error");
-					// Stop loading status
-					this.setState({transactionLoading: false});
-					// Stop further execution
-					return
-				}
-			})
-		})
+		let jwk_wallet = await arweave.wallets.jwkToAddress(wallet);
+		let wallet_balance = await arweave.wallets.getBalance(jwk_wallet); // Collect balance
+		let balance_in_ar = await arweave.ar.winstonToAr(wallet_balance); // Convert winston to AR
+
+		if (balance_in_ar < 0.00000001 + tokens) {
+			// Throw a toast notification error
+			notify.show("Error: Insufficient balance to send mail", "error");
+			// Stop loading status
+			this.setState({transactionLoading: false});
+			// Stop further execution
+			return
+		}
 		
 		await arweave.transactions.post(tx); // Post transaction
 		this.setState({transactionLoading: false}); // Set loading status to false
