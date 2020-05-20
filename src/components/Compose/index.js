@@ -84,11 +84,20 @@ class Compose extends React.Component {
 		let wallet = JSON.parse(sessionStorage.getItem('keyfile')); // Collect wallet from sessionStorage
 		let tokens = arweave.ar.arToWinston(this.state.numTokens); // Collect number of tokens to send
 		let pub_key = await get_public_key(this.state.recipient); // Collect recipient public key
+		let pub_key_holder = await arweave.wallets.jwkToAddress(wallet); // Collect sender public key
 
 		// If public key returns as undefined, thus, address has not sent a transaction to network:
 		if (pub_key === undefined) {
 			// Throw a toast notification error
 			notify.show("Error: Recipient has to send a transaction to the network, first!", "error");
+			// Stop further execution
+			return
+		}
+
+		// If public key is also recipient, a.k.a self-mail
+		if (pub_key_holder === this.state.recipient) {
+			// Throw a toast notification error
+			notify.show("Error: Cannot send mail to yourself", "error");
 			// Stop further execution
 			return
 		}
@@ -128,6 +137,19 @@ class Compose extends React.Component {
 		await arweave.transactions.post(tx); // Post transaction
 		this.setState({transactionLoading: false}); // Set loading status to false
 		notify.show(`Success: Transaction sent, id: ${tx_id}.`, 'success'); // Show successful toast notification with tx id
+		
+		// Add new pending notification to sessionStorage
+		// If notifications array is present in sessionStorage
+		if (sessionStorage.getItem('notifications') !== null) {
+			let notifications = JSON.parse(sessionStorage.getItem('notifications')); // Collect notifications item and parse
+			notifications.push({id: tx_id, timestamp: Date.now(), pending: true}); // Append to notifications
+			sessionStorage.setItem('notifications', JSON.stringify(notifications)); // Update notifications in sessionStorage
+		} else {
+			let notifications = [];
+			notifications.push({id: tx_id, timestamp: Date.now(), pending: true}); // Append to notifications
+			sessionStorage.setItem('notifications', JSON.stringify(notifications)); // Set notifications in sessionStorage
+		}
+		
 		this.props.toggleSelf(); // Close modal
 	};
 

@@ -69,6 +69,18 @@ export const get_sent_mail_from_tx = async tx => {
     return sent_mail_item;
 }
 
+export const get_tx_status = async tx => {
+    let isPending = true;
+
+    await arweave.transactions.getStatus(tx).then(async status => {
+        if (status.confirmed !== null && status.confirmed.number_of_confirmations > 0) {
+            isPending = false;
+        }
+    });
+
+    return isPending;
+}
+
 export const encrypt_mail = async (content, subject, pub_key) => {
     var content_encoder = new TextEncoder()
     var newFormat = JSON.stringify({ 'subject': subject, 'body': content })

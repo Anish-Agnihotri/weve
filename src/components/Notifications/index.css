@@ -34,6 +34,95 @@
 	background-color: #F9F9F9;
 }
 
+.notification-item {
+	width: 100%;
+	text-decoration: none;
+	display: inline-block;
+	border-bottom: 1px solid #e7eaf3;
+	transition: 75ms ease-in-out;
+}
+
+.notification-item:hover {
+	background-color: #E7E7EF;
+}
+
+.notification-item > div:nth-child(1) {
+	width: 80px;
+	height: 100%;
+	display: inline-block;
+	text-align: center;
+}
+
+.notification-item > div:nth-child(1) > div {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	background-color: #AC80FF;
+	color: #fff;
+	display: inline-block;
+	text-align: center;
+	transform: translateY(10px);
+}
+
+.confirmed-notification {
+	background-color: #4BB543 !important;
+}
+
+.notification-item > div:nth-child(1) > div > i {
+	font-size: 18px;
+	margin-top: 11px;
+}
+
+.notification-item > div:nth-child(2) {
+	width: calc(100% - 80px);
+	height: 100%;
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+}
+
+.notification-item > div:nth-child(2) > p {
+	color: #000;
+	font-size: 14px;
+	display: inline-block;
+	word-break: break-all;
+	width: 90%;
+	margin-block-start: 35px;
+	margin-block-end: 20px;
+}
+
+.notification-item > div:nth-child(2) > p > span {
+	color: #AC80FF;
+	border-bottom: 1px dotted #AC80FF;
+}
+
+.notification-item > div:nth-child(2) > span {
+	top: 12.5px;
+	right: 10px;
+	display: inline-block;
+	font-size: 12px;
+	color: rgb(195, 194, 207);
+	position: absolute;
+}
+
+.notifications-loading {
+	transform: translateY(calc((100vh - 55px) / 2)) !important;
+}
+
+.notifications-empty {
+	transform: translateY(calc((100vh - 97.5px) / 2)) !important;
+}
+
+.notifications-empty > i {
+	font-size: 30px;
+	color: #AC80FF;
+	margin-block-end: 5px;
+}
+
+.notifications-empty > span {
+	font-size: 15px;
+}
+
 @media screen and (max-width: 500px) {
 	.notifications-pane {
 		width: 95% !important;

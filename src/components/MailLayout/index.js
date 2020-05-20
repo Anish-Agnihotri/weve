@@ -48,6 +48,7 @@ class MailLayout extends React.Component {
 	logout = () => {
 		sessionStorage.removeItem('keyfile'); // Remove keyfile from sessionStorage
 		sessionStorage.removeItem('drafts'); // Remove all drafts from sessionStorage
+		sessionStorage.removeItem('notifications'); // Remove all notifications from sessionStorage
 		window.location.reload() // Force refresh page
 	};
 
