@@ -36,7 +36,20 @@ export default class Mail extends React.Component {
 		// If an email in inbox is selected:
 		if (location === 'inbox' && typeof id !== 'undefined') {
 			// Update type and id
-			this.setState({id: id, type: 'inbox'});
+			// If quicklink compose
+			if (id.startsWith("to=")) {
+				// Open compose modal
+				this.updateExistingData(['edit', {
+					to: id.slice(3),
+					subject: '',
+					amount: 0,
+					body: ''
+				}]);
+				this.toggleModal();
+			} else {
+				// Else, show email in inbox
+				this.setState({id: id, type: 'inbox'});
+			}
 		} else if (location === 'drafts' && typeof id !== 'undefined') {
 			// Else if an email in drafts is selected, update type and id
 			this.setState({id: id, type: 'drafts'});
