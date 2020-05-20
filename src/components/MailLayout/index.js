@@ -2,7 +2,12 @@ import React from 'react';
 import Arweave from 'arweave/web'; // Arweave
 import { withRouter, NavLink } from 'react-router-dom'; // Navigation
 import Address from '../Address'; // Arweave ID
+import SlidingPane from 'react-sliding-pane'; // Sliding pane for notifications
+import 'react-sliding-pane/dist/react-sliding-pane.css';
 import './index.css';
+
+// Sliding pane notifications
+import Notifications from '../Notifications';
 
 // Individual mailboxes
 import Inbox from '../MailLists/Inbox';
@@ -16,6 +21,7 @@ class MailLayout extends React.Component {
 		this.state = {
 			address: null, // Initialize address to null
 			inbox: true, // Set inbox as default mailbox
+			notificationsOpen: false // Initialize notifications sliding pane to closed
 		};
 	}
 
@@ -61,38 +67,49 @@ class MailLayout extends React.Component {
 	render() {
 		return (
 			this.props.keyFile ? (
-				<div className="mail">
-					<div className="header">
-						<div>
-							<h1 className="unselectable">weve.</h1>
-						</div>
-						<div>
-							<div className="profile">
-								<div>
-									<span>{this.state.address ? <Address address={this.state.address} /> : "Loading..."}</span>
-									<button onClick={this.logout}>Logout</button>
-								</div>
-								<div>
-									<img src={`https://api.adorable.io/avatars/100/${this.props.keyFile.n}.png`} alt="Avatar" />
+				<>
+					<SlidingPane
+					isOpen={this.state.notificationsOpen}
+					className="notifications-pane"
+					title="Notifications"
+					subtitle="Sent mail details"
+					onRequestClose={() => this.setState({notificationsOpen: false})}>
+						<Notifications />
+					</SlidingPane>
+					<div className="mail">
+						<div className="header">
+							<div>
+								<h1 className="unselectable">weve.</h1>
+							</div>
+							<div>
+								<button className="notifications" onClick={() => this.setState({notificationsOpen: true})}><i className="fa fa-bell"></i></button>
+								<div className="profile">
+									<div>
+										<span>{this.state.address ? <Address address={this.state.address} /> : "Loading..."}</span>
+										<button onClick={this.logout}>Logout</button>
+									</div>
+									<div>
+										<img src={`https://api.adorable.io/avatars/100/${this.props.keyFile.n}.png`} alt="Avatar" />
+									</div>
 								</div>
 							</div>
 						</div>
+						<div className="sidebar">
+							<button onClick={this.props.compose}>New Mail</button>
+							<ul>
+								<li><NavLink to="/inbox" activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
+								<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
+								<li><NavLink to="/sent" activeClassName="active-sidebar-button"><i className="fa fa-paper-plane-o"></i>Sent</NavLink></li>
+							</ul>
+						</div>
+						<div className={this.props.location.pathname.startsWith("/sent") ? "mailbar display-mailbar-wide" : "mailbar"}>
+							{this.getMailbarContent()}
+						</div>
+						<div className={this.props.location.pathname.startsWith("/sent") ? "content display-content-none" : "content"}>
+							{this.props.children}
+						</div>
 					</div>
-					<div className="sidebar">
-						<button onClick={this.props.compose}>New Mail</button>
-						<ul>
-							<li><NavLink to="/inbox" activeClassName="active-sidebar-button"><i className="fa fa-inbox"></i>Inbox</NavLink></li>
-							<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
-							<li><NavLink to="/sent" activeClassName="active-sidebar-button"><i className="fa fa-paper-plane-o"></i>Sent</NavLink></li>
-						</ul>
-					</div>
-					<div className={this.props.location.pathname.startsWith("/sent") ? "mailbar display-mailbar-wide" : "mailbar"}>
-						{this.getMailbarContent()}
-					</div>
-					<div className={this.props.location.pathname.startsWith("/sent") ? "content display-content-none" : "content"}>
-						{this.props.children}
-					</div>
-				</div>
+				</>
 			) : null
 		);
 	}

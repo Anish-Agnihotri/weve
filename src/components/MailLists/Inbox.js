@@ -144,7 +144,7 @@ class Inbox extends React.Component {
 					{this.state.loading ? (
 						<div className="loading">
 							<i className="fa fa-spinner fa-spin"></i>
-							<h5>Retrieving emails</h5>
+							<h5>Retrieving {this.state.mail.length} emails</h5>
 						</div>
 					) : (
 						this.state.mail.length ? (

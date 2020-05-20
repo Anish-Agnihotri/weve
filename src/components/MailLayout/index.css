@@ -45,7 +45,7 @@
 	transform: translateY(2.5px);
 	background-color: rgb(64, 67, 102);
 	border: 1px solid rgb(79, 82, 126);
-	border-radius: 5px;
+	border-radius: 25px;
 	max-width: 300px;
 	display: inline-block;
 	margin-top: 5px;
@@ -107,6 +107,29 @@
 	border-radius: 25px;
 	margin-top: 4px;
 	margin-right: 10px;
+}
+
+.notifications {
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+	margin-top: 8.5px;
+	margin-right: 10px;
+	border: 1px solid rgb(79, 82, 126);
+	display: inline-block;
+	vertical-align: top;
+	color: #AC80FF;
+	background-color: rgb(64, 67, 102);
+	cursor: pointer;
+	transition: 75ms ease-in-out;
+}
+
+.notifications:focus {
+	outline: none;
+}
+
+.notifications:hover {
+	background-color: rgb(82, 86, 129);
 }
 
 .sidebar {
@@ -293,5 +316,23 @@
 	}
 	.sidebar > ul > li > a {
 		padding-right: 5px;
+	}
+}
+
+@media screen and (max-width: 305px) {
+	.header > div:nth-child(1) {
+		width: 90px;
+	}
+	.header > div:nth-child(2) {
+		width: calc(100% - 90px);
+	}
+	.header > div:nth-child(1) > h1 {
+		font-size: 25px;
+	}
+	.notifications {
+		margin-right: 5px;
+	}
+	.profile {
+		margin-right: 5px;
 	}
 }

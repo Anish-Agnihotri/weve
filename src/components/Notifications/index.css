@@ -1,0 +1,41 @@
+.notifications-pane {
+	width: 400px !important;
+}
+
+.notifications-pane > div:nth-child(1) {
+	flex: 0 0 55px;
+	height: 55px;
+	border-bottom: 1px solid rgb(79, 82, 126);
+	background-color: #2E304A;
+}
+
+.notifications-pane svg {
+	transform: translateY(2.5px);
+}
+
+.notifications-pane svg > path {
+	fill: #AC80FF;
+	transition: 50ms ease-in-out;
+}
+
+.slide-pane__title {
+	color: #AC80FF;
+	font-weight: 600 !important;
+}
+
+.slide-pane__subtitle {
+	color: #fff;
+	font-size: 13px;
+	margin-top: -3px;
+}
+
+.notifications-pane > div:nth-child(2) {
+	padding: 0px;
+	background-color: #F9F9F9;
+}
+
+@media screen and (max-width: 500px) {
+	.notifications-pane {
+		width: 95% !important;
+	}
+}
