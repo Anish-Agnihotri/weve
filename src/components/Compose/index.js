@@ -90,6 +90,8 @@ class Compose extends React.Component {
 		if (pub_key === undefined) {
 			// Throw a toast notification error
 			notify.show("Error: Recipient has to send a transaction to the network, first!", "error");
+			// Stop loading status
+			this.setState({transactionLoading: false});
 			// Stop further execution
 			return
 		}
@@ -98,6 +100,8 @@ class Compose extends React.Component {
 		if (pub_key_holder === this.state.recipient) {
 			// Throw a toast notification error
 			notify.show("Error: Cannot send mail to yourself", "error");
+			// Stop loading status
+			this.setState({transactionLoading: false});
 			// Stop further execution
 			return
 		}
@@ -128,6 +132,8 @@ class Compose extends React.Component {
 				if (arweave.ar.winstonToAr(balance) < 0.00000001) {
 					// Throw a toast notification error
 					notify.show("Error: Insufficient balance to send mail", "error");
+					// Stop loading status
+					this.setState({transactionLoading: false});
 					// Stop further execution
 					return
 				}
@@ -212,8 +218,12 @@ class Compose extends React.Component {
 					</div>
 				</div>
 				<div>
-					<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save and close</button>
-					<button onClick={this.send}><i className={this.state.transactionLoading ? "fa fa-spinner fa-spin" : "fa fa-send-o"}></i>Send</button>
+					<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save as draft</button>
+					{this.state.recipient === '' ? (
+						<button onClick={this.send} className="disabled-send" disabled>Enter recipient</button>
+					) : (
+						<button onClick={this.send}><i className={this.state.transactionLoading ? "fa fa-spinner fa-spin" : "fa fa-send-o"}></i>Send</button>
+					)}
 				</div>
 			</div>
 		);

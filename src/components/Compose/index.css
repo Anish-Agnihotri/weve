@@ -178,8 +178,21 @@
 	margin-right: 5px;
 }
 
+.disabled-send {
+	background-color: rgb(145, 145, 145) !important;
+	border-color: rgb(145, 145, 145) !important;
+	cursor: not-allowed !important;
+}
+
+.disabled-send:hover {
+	opacity: 1.0 !important;
+}
+
 @media screen and (max-width: 640px) {
 	.compose-modal {
 		width: calc(100vw - 40px);
+	}
+	.compose-modal > div:nth-child(3) {
+		height: auto;
 	}
 }
