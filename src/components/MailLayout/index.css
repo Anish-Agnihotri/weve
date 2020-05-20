@@ -195,6 +195,10 @@
 	margin-left: -3px;
 }
 
+.fa-address-book {
+	margin-left: -2.5px;
+}
+
 .sidebar > ul > li > a:hover {
 	color: #fff !important;
 	background-color: rgb(35, 37, 56);
@@ -293,7 +297,7 @@
 	}
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 540px) {
 	.profile > div:nth-child(1) {
 		padding-right: 7.5px;
 	}
