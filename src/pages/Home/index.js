@@ -5,6 +5,8 @@ import 'react-responsive-modal/styles.css'; // Login modal css
 import AnchorLink from 'react-anchor-link-smooth-scroll'; // Smooth scroll for in-page anchor links
 import Dropzone from 'react-dropzone' // Dropzone for uploading keyfile
 import { withRouter } from 'react-router-dom'; // Used to access history props to programatically change page
+import Fade from 'react-reveal/Fade'; // React-reveal animations
+import Image from 'react-graceful-image'; // React graceful image rendering
 import './index.css';
 
 // Image imports
@@ -121,17 +123,23 @@ class Home extends React.Component {
 						<HomeHeader loginToggle={this.toggleModal} />
 						<div className="sizer">
 							<div className="landing">
-								<div>
-									<h1>Private mail.<br/>
-									<span>Forever.</span></h1>
-									<p><span className="highlight">Weve</span> is the first mail network with an <span className="line"><span className="highlight">immutable privacy policy.</span></span></p>
-									<p>It can <span className="highlight">never</span> sell your data, read your <span className="line">mail, or be taken down.</span></p>
-								</div>
+								<Fade bottom cascade>
+									<div>
+										<h1>Private mail.<br/>
+										<span>Forever.</span></h1>
+										<p><span className="highlight">Weve</span> is the first mail network with an <span className="line"><span className="highlight">immutable privacy policy.</span></span></p>
+										<p>It can <span className="highlight">never</span> sell your data, read your <span className="line">mail, or be taken down.</span></p>
+									</div>
+								</Fade>
 							</div>
 						</div>
 					</div>
 					<div className="client">
-						<img src={step_three} alt="Weve inbox" />
+						<Image 
+							src={step_three} 
+							alt="Weve inbox"
+							placeholderColor='transparent' 
+						/>
 					</div>
 					<div>
 						<div className="others sizer">
@@ -213,7 +221,7 @@ class FeatureItem extends React.Component {
 	render() {
 		return (
 			<div className="feature-item">
-				<img src={this.props.image} alt="Feature item" />
+				<Image src={this.props.image} alt="Feature item" placeholderColor="#fff" />
 				<h3>{this.props.header}</h3>
 				<p>{this.props.text}</p>
 			</div>
@@ -276,7 +284,7 @@ class Usage extends React.Component {
 					</button>
 				</div>
 				<div>
-					<span><img src={this.state.images[this.state.number]} className="usage-image" alt={`Step ${this.state.number}`} /></span>
+					<span><Image src={this.state.images[this.state.number]} className="usage-image" alt={`Step ${this.state.number}`} placeholderColor="#fff" /></span>
 				</div>
 			</div>
 		);
