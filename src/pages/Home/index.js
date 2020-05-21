@@ -197,7 +197,7 @@ class Home extends React.Component {
 									<li><a href="https://www.arweave.org/" target="_blank" rel="noopener noreferrer">Arweave</a></li>
 									<li><a href="https://www.arweave.org/technology#permaweb" target="_blank" rel="noopener noreferrer">Permaweb</a></li>
 									<li><a href="https://www.arweave.org/get-involved/community" target="_blank" rel="noopener noreferrer">Community</a></li>
-									<li><a href="https://www.arweave.org/mine/learn-more" target="_blank" rel="noopener noreferrer">Learn more</a></li>
+									<li><a href="https://www.arweave.org/mine/learn-more" target="_blank" rel="noopener noreferrer">Mining</a></li>
 								</ul>
 							</div>
 							<div>
