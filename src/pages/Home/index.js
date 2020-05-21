@@ -117,14 +117,15 @@ class Home extends React.Component {
 					<div>
 						<span>Built on Arweave. <a href="https://arweave.org" target="_blank" rel="noopener noreferrer">Find out more.</a></span>
 					</div>
-					<div>
+					<div className="rounder-sizer">
 						<HomeHeader loginToggle={this.toggleModal} />
 						<div className="sizer">
 							<div className="landing">
 								<div>
 									<h1>Private mail.<br/>
 									<span>Forever.</span></h1>
-									<p><span className="highlight">Weve</span> is the first mail network with an <span className="highlight">immutable privacy policy</span>.<br/>It can <span className="highlight">never</span> sell your data, read your mail, or be taken down.</p>
+									<p><span className="highlight">Weve</span> is the first mail network with an <span className="line"><span className="highlight">immutable privacy policy.</span></span></p>
+									<p>It can <span className="highlight">never</span> sell your data, read your <span className="line">mail, or be taken down.</span></p>
 								</div>
 							</div>
 						</div>
@@ -135,8 +136,8 @@ class Home extends React.Component {
 					<div>
 						<div className="others sizer">
 							<h1>Weve vs. Others</h1>
-							<p><span>14 pages</span> have been added to <img src="https://i.pinimg.com/originals/ae/47/fa/ae47fa9a8fd263aa364018517020552d.png" alt="Gmail logo" />'s privacy policy since inception.</p>
-							<p>Don't just take our word for it. The New York Times <a href="https://www.nytimes.com/interactive/2019/07/10/opinion/google-privacy-policy.html" target="_blank" rel="noopener noreferrer">wrote a whole piece on it</a>.</p>
+							<p><span className="highlight-red">14 pages</span> have been added to <span className="line"><img src="https://i.imgur.com/A0zIBJY.png" alt="Gmail logo" />'s privacy policy since inception.</span></p>
+							<p>Don't just take our word for it. <span className="line">New York Times <a href="https://www.nytimes.com/interactive/2019/07/10/opinion/google-privacy-policy.html" target="_blank" rel="noopener noreferrer">wrote a whole piece on it</a>.</span></p>
 							<div>
 								<div>
 									<h4>What Gmail collects:</h4>
