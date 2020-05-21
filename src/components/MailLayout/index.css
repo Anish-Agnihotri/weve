@@ -25,11 +25,12 @@
 
 .header > div:nth-child(1) > h1 {
 	color: #AC80FF;
-	font-size: 36px;
+	font-size: 45px;
 	margin-block-start: 0px;
 	margin-block-end: 0px;
 	line-height: 55px;
 	padding-left: 10px;
+	font-family: 'Josefin Sans', sans-serif;
 }
 
 .header > div:nth-child(2) {

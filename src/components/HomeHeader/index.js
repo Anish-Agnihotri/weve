@@ -44,9 +44,8 @@ export default class HomeHeader extends React.Component {
 					<div className="menu">
 						<nav>
 							<ul>
-								<li><NavLink to="/">Home</NavLink></li>
 								<li><AnchorLink href="#features">Features</AnchorLink></li>
-								<li><AnchorLink href="#technology">Technology</AnchorLink></li>
+								<li><AnchorLink href="#quickstart">Quickstart</AnchorLink></li>
 								<li><button onClick={this.props.loginToggle}>Login</button></li>
 							</ul>
 						</nav>
@@ -65,9 +64,8 @@ export default class HomeHeader extends React.Component {
 					<div className={`menu-mobile ${this.state.open ? "shown" : "hidden"}`}>
 						<nav>
 							<ul>
-								<li><NavLink to="/">Home</NavLink></li>
 								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#features">Features</AnchorLink></li>
-								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#technology">Technology</AnchorLink></li>
+								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#quickstart">Quickstart</AnchorLink></li>
 								<li><button onClick={this.props.loginToggle}>Login</button></li>
 							</ul>
 						</nav>

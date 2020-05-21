@@ -1,5 +1,4 @@
 import React from 'react';
-import TextLoop from "react-text-loop"; // Text loop for main header
 import HomeHeader from '../../components/HomeHeader'; // Navigation header
 import { Modal } from 'react-responsive-modal'; // Login modal
 import 'react-responsive-modal/styles.css'; // Login modal css
@@ -79,6 +78,12 @@ class Home extends React.Component {
 	}
 
 	render() {
+		// List of items collected by gmail (used for mapped rendering)
+		const gmailCollects = ['Your name', 'Your password', 'Phone number', 'Payment information', 'Created content', 'Received content',
+		'Uploaded content', 'Search terms', 'Viewed emails', 'Interacted ads', 'Frequent contacts', 'Browsing history', 'Audio file information',
+		'Purchase activity', 'Browser type', 'Unique identifiers', 'Device type', 'Operating system', 'Mobile network', 'IP Address', 'System activity',
+		'Referrer URL', 'Marketing partner info', 'Advertising info', 'GPS location', 'Device sensor data', 'WiFi data', 'Installed apps'];
+
 		return (
 			<>
 				<Modal 
@@ -117,19 +122,31 @@ class Home extends React.Component {
 						<div className="sizer">
 							<div className="landing">
 								<div>
-									<h1>Email made <br/><TextLoop interval={2000}>
-									<span>safer.</span>
-									<span>faster.</span>
-									<span>better.</span>
-									<span>easier.</span>
-									<span>quicker.</span>
-									<span>permanent.</span>
-									</TextLoop>{" "}</h1>
-									<p><span className="highlight">Weve</span> lets you communicate with <span className="highlight">safety and security</span>.<br/>Begin <span className="highlight">sending messages</span> on the Arweave permaweb.</p>
-									<button onClick={this.toggleModal}>Get Started</button>
+									<h1>Private mail.<br/>
+									<span>Forever.</span></h1>
+									<p><span className="highlight">Weve</span> is the first mail network with an <span className="highlight">immutable privacy policy</span>.<br/>It can <span className="highlight">never</span> sell your data, read your mail, or be taken down.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div className="client">
+						<img src={step_three} alt="Weve inbox" />
+					</div>
+					<div>
+						<div className="others sizer">
+							<h1>Weve vs. Others</h1>
+							<p><span>14 pages</span> have been added to <img src="https://i.pinimg.com/originals/ae/47/fa/ae47fa9a8fd263aa364018517020552d.png" alt="Gmail logo" />'s privacy policy since inception.</p>
+							<p>Don't just take our word for it. The New York Times <a href="https://www.nytimes.com/interactive/2019/07/10/opinion/google-privacy-policy.html" target="_blank" rel="noopener noreferrer">wrote a whole piece on it</a>.</p>
+							<div>
+								<div>
+									<h4>What Gmail collects:</h4>
+									{gmailCollects.map((item, index) => {
+										return <span key={index}>{item}</span>
+									})}
 								</div>
 								<div>
-									
+									<h4>What we collect:</h4>
+									<h1>Nothing.</h1>
 								</div>
 							</div>
 						</div>
@@ -137,17 +154,16 @@ class Home extends React.Component {
 					<div>
 						<div className="features sizer" id="features">
 							<h1>End-to-end security</h1>
-							<p>Weve runs on the Arweave network so messages are <i>permanent</i> and <i>uncensorable</i>.</p>
-							<p>Messages are <i>encrypted</i> and delivered using <i>decentralized</i> technologies; cutting the middle-man.</p>
+							<p>Weve runs on the Arweave permaweb so messages are <i>encrypted</i> and <i>uncensorable</i>.</p>
 							<div className="feature-showcase">
-								<FeatureItem image={featureOneImage} header="Encrypted" text="Weve encrypts your data with RSA-OAEP to ensure security." />
-								<FeatureItem image={featureTwoImage} header="Uncensorable" text="Hosted on the Arweave permaweb, Weve can't be censored." />
-								<FeatureItem image={featureThreeImage} header="Decentralized" text="Weve skips the middle-man and harnesses the blockchain." />
+								<FeatureItem image={featureOneImage} header="Know what you sign up for" text="Weve's privacy policy will never change—because it can't." />
+								<FeatureItem image={featureTwoImage} header="Contact anyone on permaweb" text="We've lets you send messages to anyone with an Arweave address." />
+								<FeatureItem image={featureThreeImage} header="Decentralized &amp; Peer-to-Peer" text="Weve is mail with no middlemen—just you and your recipient." />
 							</div>
 						</div>
 					</div>
 					<div>
-						<div className="tech sizer" id="technology">
+						<div className="tech sizer" id="quickstart">
 							<h1>How do I use Weve?</h1>
 							<p>It's a simple <span className="highlight black">3-step process</span>.</p>
 							<Usage />
@@ -155,9 +171,9 @@ class Home extends React.Component {
 					</div>
 					<div className="cta">
 						<div className="sizer">
-							<h1>Ready to get started?</h1>
-							<a href="https://www.arweave.org/wallet" target="_blank" rel="noopener noreferrer">Get a wallet</a>
-							<button onClick={this.toggleModal}>Login to mail</button>
+							<h1>Ready to get <span>started</span>?</h1>
+							<a href="https://www.arweave.org/wallet" target="_blank" rel="noopener noreferrer">Claim your address</a>
+							<button onClick={this.toggleModal}>Login to weve</button>
 						</div>
 					</div>
 					<div className="footer">
@@ -180,7 +196,7 @@ class Home extends React.Component {
 								<ul>
 									<li><AnchorLink href="#top">Home</AnchorLink></li>
 									<li><AnchorLink href="#features">Features</AnchorLink></li>
-									<li><AnchorLink href="#technology">Technology</AnchorLink></li>
+									<li><AnchorLink href="#quickstart">Quickstart</AnchorLink></li>
 								</ul>
 							</div>
 						</div>

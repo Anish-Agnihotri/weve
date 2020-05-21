@@ -24,8 +24,9 @@
 }
 
 .logo > a > h1 {
-	font-size: 37px;
+	font-size: 50px;
 	color: #AC80FF;
+	font-family: 'Josefin Sans', sans-serif;
 	margin-block-start: 0px;
 	margin-top: 7px;
 }
