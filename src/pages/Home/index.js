@@ -10,9 +10,10 @@ import Image from 'react-graceful-image'; // React graceful image rendering
 import './index.css';
 
 // Image imports
+import gmail from '../../static/images/gmail.png';
 import featureOneImage from '../../static/images/private.png';
-import featureTwoImage from '../../static/images/uncensorable.png';
-import featureThreeImage from '../../static/images/decentralized.png';
+import featureTwoImage from '../../static/images/people.png';
+import featureThreeImage from '../../static/images/uncensorable.png';
 import upload from '../../static/images/upload.png';
 import step_one from '../../static/images/steps1.png';
 import step_two from '../../static/images/steps2.png';
@@ -143,8 +144,8 @@ class Home extends React.Component {
 					</div>
 					<div>
 						<div className="others sizer">
-							<h1>Weve vs. Others</h1>
-							<p><span className="highlight-red">14 pages</span> have been added to <span className="line"><img src="https://i.imgur.com/A0zIBJY.png" alt="Gmail logo" />'s privacy policy since inception.</span></p>
+							<h1>Gmail vs. <span>Weve</span></h1>
+							<p><img src={gmail} alt="Gmail logo" />'s privacy policy has <span className="line">grown <span className="highlight-red">Over 650%</span> since inception.</span></p>
 							<p>Don't just take our word for it. <span className="line">New York Times <a href="https://www.nytimes.com/interactive/2019/07/10/opinion/google-privacy-policy.html" target="_blank" rel="noopener noreferrer">wrote a whole piece on it</a>.</span></p>
 							<div>
 								<div>
@@ -156,6 +157,7 @@ class Home extends React.Component {
 								<div>
 									<h4>What we collect:</h4>
 									<h1>Nothing.</h1>
+									<p>And, this will <i>never</i> change. Built open-source and on the Arweave permaweb, <strong>we can't collect your info.</strong></p>
 								</div>
 							</div>
 						</div>

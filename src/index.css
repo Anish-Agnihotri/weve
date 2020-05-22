@@ -1,8 +1,6 @@
 /*
 	Root CSS Config
 */
-@import url('https://rsms.me/inter/inter.css'); /* Inter font */
-
 body {
 	margin: 0;
 	font-family: 'Inter', sans-serif;
