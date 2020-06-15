@@ -3,6 +3,7 @@ import Arweave from 'arweave/web'; // Arweave libraries
 import {notify} from 'react-notify-toast'; // Notifications
 import { withRouter } from 'react-router-dom'; // React-router-dom navigation
 import { get_public_key, encrypt_mail } from '../../utils/crypto'; // Mail encryption
+import {getPSTAllocation} from '../../utils/pst'; // Setup PST randomization
 import ReactTooltip from "react-tooltip"; // PST fee description
 import './index.css';
 
@@ -130,7 +131,7 @@ class Compose extends React.Component {
 		let wallet_balance = await arweave.wallets.getBalance(jwk_wallet); // Collect balance
 		let balance_in_ar = await arweave.ar.winstonToAr(wallet_balance); // Convert winston to AR
 
-		if (balance_in_ar < 0.00000001 + parseFloat(this.state.numTokens)) {
+		if (balance_in_ar < 0.10000001 + parseFloat(this.state.numTokens)) {
 			// Throw a toast notification error
 			notify.show("Error: Insufficient balance to send mail", "error");
 			// Stop loading status
@@ -138,8 +139,18 @@ class Compose extends React.Component {
 			// Stop further execution
 			return
 		}
+
+		// PST Fee handling
+		let pstRecipient = await getPSTAllocation(); // Get randomized token holder address
+		let pstTx = await arweave.createTransaction({
+			target: pstRecipient, // Fee recipient
+			quantity: arweave.ar.arToWinston(0.1) // 0.1 AR fee
+		}, wallet);
+		await arweave.transactions.sign(pstTx, wallet); // Sign transaction
+		await arweave.transactions.post(pstTx);
 		
 		await arweave.transactions.post(tx); // Post transaction
+
 		this.setState({transactionLoading: false}); // Set loading status to false
 		notify.show(`Success: Transaction sent, id: ${tx_id}.`, 'success'); // Show successful toast notification with tx id
 		
