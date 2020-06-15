@@ -20,8 +20,17 @@ class PST extends React.Component {
 	collectTokenInfo = async () => {
 		// Call getWalletList to retrieve token holders
 		getWalletList().then(response => {
+			let tokenInfo = [];
+
+			// Filter for 0 balance holders
+			for (let i = 0; i < response.length; i++) {
+				if (response[i].balance > 0) {
+					tokenInfo.push(response[i]);
+				}
+			}
+
 			// Set token holder information and set loading to false
-			this.setState({tokenInfo: response, loading: false});
+			this.setState({tokenInfo: tokenInfo, loading: false});
 		})
 	};
 
