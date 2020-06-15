@@ -2,6 +2,7 @@
   "name": "weve",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "arweave": "^1.7.0",
     "draft-js": "^0.11.5",

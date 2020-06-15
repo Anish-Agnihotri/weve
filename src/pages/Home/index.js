@@ -9,16 +9,6 @@ import Fade from 'react-reveal/Fade'; // React-reveal animations
 import Image from 'react-graceful-image'; // React graceful image rendering
 import './index.css';
 
-// Image imports
-import gmail from '../../static/images/gmail.png';
-import featureOneImage from '../../static/images/private.png';
-import featureTwoImage from '../../static/images/people.png';
-import featureThreeImage from '../../static/images/uncensorable.png';
-import upload from '../../static/images/upload.png';
-import step_one from '../../static/images/steps1.png';
-import step_two from '../../static/images/steps2.png';
-import step_three from '../../static/images/steps3.png';
-
 class Home extends React.Component {
 	constructor() {
 		super();
@@ -105,7 +95,7 @@ class Home extends React.Component {
 									<section>
 										<div {...getRootProps()}>
 											<input {...getInputProps()} />
-											{this.state.isLoading ? <i className="fa fa-spinner fa-spin"></i> : <img src={upload} alt="Upload" />}
+											{this.state.isLoading ? <i className="fa fa-spinner fa-spin"></i> : <img src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/upload.png" alt="Upload" />}
 											<p>{this.state.keyFileName}</p>
 										</div>
 									</section>
@@ -137,7 +127,7 @@ class Home extends React.Component {
 					</div>
 					<div className="client">
 						<Image 
-							src={step_three} 
+							src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/steps3.png"
 							alt="Weve inbox"
 							placeholderColor='transparent' 
 						/>
@@ -145,8 +135,8 @@ class Home extends React.Component {
 					<div>
 						<div className="others sizer">
 							<h1>Gmail vs. <span>Weve</span></h1>
-							<p><img src={gmail} alt="Gmail logo" />'s privacy policy has <span className="line">grown <span className="highlight-red">Over 650%</span> since inception.</span></p>
-							<p>Don't just take our word for it. <span className="line">New York Times <a href="https://www.nytimes.com/interactive/2019/07/10/opinion/google-privacy-policy.html" target="_blank" rel="noopener noreferrer">wrote a whole piece on it</a>.</span></p>
+							<p><img src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/gmail.png" alt="Gmail logo" />'s privacy policy has <span className="line">grown <span className="highlight-red">over 650%</span> since inception.</span></p>
+							<p>Don't just take our word for it. <span className="line">Check out what The New York Times <a href="https://www.nytimes.com/interactive/2019/07/10/opinion/google-privacy-policy.html" target="_blank" rel="noopener noreferrer">had to say about it</a>.</span></p>
 							<div>
 								<div>
 									<h4>What Gmail collects:</h4>
@@ -157,7 +147,7 @@ class Home extends React.Component {
 								<div>
 									<h4>What we collect:</h4>
 									<h1>Nothing.</h1>
-									<p>And, this will <i>never</i> change. Built open-source and on the Arweave permaweb, <strong>we can't collect your info.</strong></p>
+									<p>And, this will <i>never</i> change. Weve is open-source and on the Arweave permaweb, so <strong>we can't collect your info.</strong></p>
 								</div>
 							</div>
 						</div>
@@ -167,9 +157,9 @@ class Home extends React.Component {
 							<h1>End-to-end security</h1>
 							<p>Weve runs on the Arweave permaweb so messages are <i>encrypted</i> and <i>uncensorable</i>.</p>
 							<div className="feature-showcase">
-								<FeatureItem image={featureOneImage} header="Know what you sign up for" text="Weve's privacy policy will never change—because it can't." />
-								<FeatureItem image={featureTwoImage} header="Contact anyone on permaweb" text="We've lets you send messages to anyone with an Arweave address." />
-								<FeatureItem image={featureThreeImage} header="Decentralized &amp; Peer-to-Peer" text="Weve is mail with no middlemen—just you and your recipient." />
+								<FeatureItem image="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/private.png" header={`Know what you're signing up for`} text="Weve's privacy policy will never change—because it can't." />
+								<FeatureItem image="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/people.png" header="Contact anyone on the permaweb" text="Weve lets you send messages to anyone with an Arweave address." />
+								<FeatureItem image="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/uncensorable.png" header="Decentralized, Peer-to-Peer Mail" text="Weve is mail with no middlemen—just you and your recipient." />
 							</div>
 						</div>
 					</div>
@@ -238,7 +228,11 @@ class Usage extends React.Component {
 
 		this.state = {
 			number: 0,
-			images: [step_one, step_two, step_three]
+			images: [
+				"https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/steps1.png",
+				"https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/steps2.png",
+				"https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/steps3.png"
+			]
 		}
 	}
 	resetNumber = () => {

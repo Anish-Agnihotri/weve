@@ -164,7 +164,6 @@
 }
 
 .highlight-red {
-	text-transform: uppercase;
 	font-weight: bold;
 	color: #cc0000;
 }
@@ -208,7 +207,7 @@
 	color: #AC80FF;
 	font-size: 40px;
 	background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTcuODY4IiBoZWlnaHQ9IjQuODI2IiB2aWV3Qm94PSIwIDAgMTE3Ljg2OCA0LjgyNiI+CiAgPHBhdGggaWQ9ImRvd25sb2FkIiBkPSJNMTE3LjQzNCwzLjg1M0M1OS4wMjcsNS45MzMsODQuNzg0LTIuNDYsMS41NjYsMy40MzYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjU2NiAtMC4yOTgpIiBmaWxsPSJub25lIiBzdHJva2U9IiNhYzgwZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPgo=");
-	background-size: 100% 7px;
+	background-size: 170px 7px;
 	background-repeat: no-repeat;
 	padding-bottom: 5px;
 	background-position: center bottom;
@@ -239,7 +238,7 @@
 }
 
 .features > h1 {
-	font-size: 2.2em;
+	font-size: 2.1em;
 	margin-block-end: 15px;
 }
 
@@ -277,6 +276,7 @@
 	font-size: 20px;
 	margin-block-start: 10px;
 	margin-block-end: 0px;
+	word-break: wrap;
 }
 
 .feature-item > p {
@@ -410,7 +410,7 @@
 	margin-block-end: 12.5px;
 	color: #fff;
 	background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTcuODY4IiBoZWlnaHQ9IjQuODI2IiB2aWV3Qm94PSIwIDAgMTE3Ljg2OCA0LjgyNiI+CiAgPHBhdGggaWQ9ImRvd25sb2FkIiBkPSJNMTE3LjQzNCwzLjg1M0M1OS4wMjcsNS45MzMsODQuNzg0LTIuNDYsMS41NjYsMy40MzYiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC0wLjU2NiAtMC4yOTgpIiBmaWxsPSJub25lIiBzdHJva2U9IiNhYzgwZmYiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIyIi8+Cjwvc3ZnPgo=");
-	background-size: 100% 11px;
+	background-size: 340px 11px;
 	background-repeat: no-repeat;
 	padding-bottom: 9px;
 	background-position: center bottom;

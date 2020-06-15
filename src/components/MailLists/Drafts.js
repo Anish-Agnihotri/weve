@@ -4,9 +4,6 @@ import {sort} from '../../utils/sort'; // Sorting by date
 import { NavLink, withRouter } from 'react-router-dom'; // Navigation
 import Address from '../../components/Address'; // Arweave ID
 
-// Image imports
-import emptyInbox from '../../static/images/emptyinbox.png';
-
 class Drafts extends React.Component {
 	constructor() {
 		super();
@@ -73,7 +70,7 @@ class Drafts extends React.Component {
 							))
 						) : (
 							<div className="empty">
-								<img src={emptyInbox} alt="Empty drafts" />
+								<img src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/emptyinbox.png" alt="Empty drafts" />
 								<h4>No drafts found</h4>
 							</div>
 						)

@@ -10,9 +10,6 @@ import {FixedSizeList as List} from 'react-window'; // React-window list to effi
 import AutoSizer from 'react-virtualized-auto-sizer'; // Auto-sizer for react-window parent dimensions
 import './index.css';
 
-// Image imports
-import emptyInbox from '../../static/images/emptyinbox.png';
-
 class Inbox extends React.Component {
 	constructor() {
 		super();
@@ -157,7 +154,7 @@ class Inbox extends React.Component {
 							</AutoSizer>
 						) : (
 							<div className="empty">
-								<img src={emptyInbox} alt="Empty inbox" />
+								<img src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/emptyinbox.png" alt="Empty inbox" />
 								<h4>No mails found</h4>
 							</div>
 						)
