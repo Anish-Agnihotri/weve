@@ -186,6 +186,10 @@
 	height: 50px;
 }
 
+.pst > div > div:nth-child(1) {
+	height: auto;
+}
+
 .sent > div > div:nth-child(1) > h2 {
 	color: #AC80FF;
 	margin-block-start: 2px;
@@ -197,6 +201,8 @@
 	font-weight: 500;
 	display: inline-block;
 	transform: translateY(-3px);
+	max-width: 500px;
+	line-height: 20px;
 }
 
 .sent > div > div:nth-child(2) {

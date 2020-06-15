@@ -56,3 +56,16 @@
 .sent-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(3), .sent-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(3) {
 	min-width: 450px;
 }
+
+/* Custom styling for PST table */
+.token-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(1), .token-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(1) {
+	min-width: 450px;
+}
+
+.token-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(2), .token-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(2) {
+	min-width: 315px;
+}
+
+.token-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(3), .token-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(3) {
+	min-width: 315px;
+}
