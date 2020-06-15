@@ -3,6 +3,7 @@ import Arweave from 'arweave/web'; // Arweave libraries
 import {notify} from 'react-notify-toast'; // Notifications
 import { withRouter } from 'react-router-dom'; // React-router-dom navigation
 import { get_public_key, encrypt_mail } from '../../utils/crypto'; // Mail encryption
+import ReactTooltip from "react-tooltip"; // PST fee description
 import './index.css';
 
 // React draft
@@ -185,45 +186,54 @@ class Compose extends React.Component {
 
 	render() {
 		return (
-			<div className="compose-modal">
-				<div>
-					<h2>Compose mail</h2>
-					<span>Send a weve mail.</span>
+			<>
+				<ReactTooltip id="pst-tooltip" place="top" type="dark" effect="float">
+					<span>Transaction fees payout to weveToken PST holders and support Weve development.</span>
+				</ReactTooltip>
+				<div className="compose-modal">
+					<div>
+						<h2>Compose mail</h2>
+						<span>Send a weve mail.</span>
+					</div>
+					<div>
+						<div>
+							<span>Mail recipient</span>
+							<input type="text" value={this.state.recipient} onChange={this.handleRecipientChange} placeholder="cVp3bbGwp9EfSAMPLE9ej3nssi303nn300ns03i"/>
+						</div>
+						<div>
+							<span>Mail subject</span>
+							<input value={this.state.subject} onChange={this.handleSubjectChange} type="text" />
+						</div>
+						<div>
+							<span>Mail body</span>
+							<Editor
+								editorState={this.state.editorState}
+								toolbar={toolbarOptions}
+								toolbarClassName="editor-toolbar"
+								wrapperClassName="editor-wrapper"
+								editorClassName="editor"
+								onEditorStateChange={this.onEditorStateChange}
+							/>
+						</div>
+						<div>
+							<span>AR tokens to send</span>
+							<input value={this.state.numTokens} onChange={this.handleNumTokensChange} type="number" />
+						</div>
+						<div>
+							<span data-tip data-for="pst-tooltip">Transaction fee:</span>
+							<span>0.1 AR</span>
+						</div>
+					</div>
+					<div>
+						<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save as draft</button>
+						{this.state.recipient === '' ? (
+							<button onClick={this.send} className="disabled-send" disabled>Enter recipient</button>
+						) : (
+							<button onClick={this.send}><i className={this.state.transactionLoading ? "fa fa-spinner fa-spin" : "fa fa-send-o"}></i>Send</button>
+						)}
+					</div>
 				</div>
-				<div>
-					<div>
-						<span>Mail recipient</span>
-						<input type="text" value={this.state.recipient} onChange={this.handleRecipientChange} placeholder="cVp3bbGwp9EfSAMPLE9ej3nssi303nn300ns03i"/>
-					</div>
-					<div>
-						<span>Mail subject</span>
-						<input value={this.state.subject} onChange={this.handleSubjectChange} type="text" />
-					</div>
-					<div>
-						<span>Mail body</span>
-						<Editor
-							editorState={this.state.editorState}
-							toolbar={toolbarOptions}
-							toolbarClassName="editor-toolbar"
-							wrapperClassName="editor-wrapper"
-							editorClassName="editor"
-							onEditorStateChange={this.onEditorStateChange}
-						/>
-					</div>
-					<div>
-						<span>AR tokens to send</span>
-						<input value={this.state.numTokens} onChange={this.handleNumTokensChange} type="number" />
-					</div>
-				</div>
-				<div>
-					<button onClick={this.save}><i className="fa fa-floppy-o"></i>Save as draft</button>
-					{this.state.recipient === '' ? (
-						<button onClick={this.send} className="disabled-send" disabled>Enter recipient</button>
-					) : (
-						<button onClick={this.send}><i className={this.state.transactionLoading ? "fa fa-spinner fa-spin" : "fa fa-send-o"}></i>Send</button>
-					)}
-				</div>
-			</div>
+			</>
 		);
 	}
 }
