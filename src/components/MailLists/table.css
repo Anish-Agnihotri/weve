@@ -63,9 +63,41 @@
 }
 
 .token-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(2), .token-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(2) {
-	min-width: 315px;
+	min-width: 215px;
 }
 
 .token-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(3), .token-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(3) {
-	min-width: 315px;
+	min-width: 215px;
+}
+
+.token-table > .rt-table > .rt-thead > .rt-tr > .rt-th:nth-child(4), .token-table > .rt-table > .rt-tbody > .rt-tr-group > .rt-tr > .rt-td:nth-child(4) {
+	min-width: 200px;
+}
+
+.pstInquiry {
+	display: inline-block;
+	font-size: 14px;
+	margin-block-start: -3px;
+	background-color: transparent;
+	border: 1px solid #AC80FF;
+	border-radius: 5px;
+	color: #AC80FF;
+	font-weight: 600;
+	cursor: pointer;
+	transition: 75ms ease-in-out;
+}
+
+.pstInquiry:hover {
+	background-color: #AC80FF;
+	color: #fff;
+}
+
+.pstInquiry:focus {
+	outline: none;
+}
+
+.pstInquiry > i {
+	padding-right: 4px;
+	font-size: 13px;
+	transform: translateY(-0.5px);
 }

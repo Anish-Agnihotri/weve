@@ -8,7 +8,7 @@ export const getPSTAllocation = async () => {
 }
 
 export const getWalletList = async () => {
-	let weveTokenContract = 'VmuX0SkjULd1RJ1CGHf5hPb9A9gtqSty8Hh3Uir84oc';
+	let weveTokenContract = 's_J499lYQl4B-ERlUiN5NB1yGuNG6-nFWnSJCCt8hiI';
 
 	let tipTX = await findContractTip(weveTokenContract);
 	return JSON.parse(getTXState(tipTX)).walletList;

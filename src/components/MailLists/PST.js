@@ -2,6 +2,7 @@ import React from 'react';
 import Address from '../Address'; // Arweave ID
 import ReactTable from 'react-table-6'; // React table
 import {getWalletList} from '../../utils/pst'; // Collect token holders list
+import { withRouter } from 'react-router-dom'; // React-router-dom navigation
 import './index.css'; // Styling
 import './table.css'; // Table styling
 
@@ -18,10 +19,10 @@ class PST extends React.Component {
 	// Get token holder information
 	collectTokenInfo = async () => {
 		// Call getWalletList to retrieve token holders
-		/*getWalletList().then(response => {
+		getWalletList().then(response => {
 			// Set token holder information and set loading to false
 			this.setState({tokenInfo: response, loading: false});
-		})*/
+		})
 	};
 
 	componentDidMount() {
@@ -32,7 +33,8 @@ class PST extends React.Component {
 		const columns = [
 			{Header: 'Address', accessor: 'addr', Cell: props => <To address={props.value} />},
 			{Header: 'Tokens', accessor: 'balance', Cell: props => <span>{(props.value / 1000000).toLocaleString()}</span>}, // Calculate number of tokens owned
-			{Header: 'Percentage', accessor: 'balance', Cell: props => <span>{props.value / 10000000000}%</span>} // Calculate percentage of total tokens owned
+			{Header: 'Percentage', accessor: 'balance', Cell: props => <span>{props.value / 10000000000}%</span>}, // Calculate percentage of total tokens owned
+			{Header: 'Inquiries', accessor: 'addr', Cell: props => <MailButton address={props.value} {...this.props} />}
 		];
 
 		return (
@@ -60,10 +62,22 @@ class PST extends React.Component {
 	}
 }
 
-export default PST;
+export default withRouter(PST);
 
 class To extends React.Component {
 	render() {
 		return <a className="sent-table-link" href={`https://viewblock.io/arweave/address/${this.props.address}`} target="_blank" rel="noopener noreferrer"><Address address={this.props.address} /></a>
+	}
+}
+
+class MailButton extends React.Component {
+	// On click, navigate to directive-based to link to trigger compose
+	mailClick = () => {
+		// Props are passed down from parent via {...props}
+		this.props.history.push(`/inbox/to=${this.props.address}`);
+	}
+
+	render() {
+		return <button className="pstInquiry" onClick={this.mailClick}><i className="fa fa-paper-plane-o"></i>Send Inquiry</button>
 	}
 }
