@@ -78,10 +78,10 @@ class Inbox extends React.Component {
 							})) // After Promise.all
 								.then(() => {
 									store.set('inbox')(this.state.mail); // Update inbox in undux store
-									this.setState({ loading: false }); // Toggle loading
+									t.setState({ loading: false }); // Toggle loading
 								});
 						} else {
-							this.setState({ loading: false });
+							t.setState({ loading: false });
 						}
 					});
 			})

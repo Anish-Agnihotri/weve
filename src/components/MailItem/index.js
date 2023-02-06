@@ -29,9 +29,11 @@ class MailItem extends React.Component {
 				let transactions = results.data.transactions.edges;
 				if(transactions.length == 1) {
 					get_mail_from_tx(transactions[0].node).then(r => {
-						console.log(t);
-						console.log(r);
-						t.setState({mail: r, loading: false});
+						if(r) {
+							t.setState({mail: r, loading: false});
+						} else {
+							t.setState({errorLoading:true})
+						}
 					})
 				} else {
 					console.error(`Wrong number of transactions ${transactions.length}`);
