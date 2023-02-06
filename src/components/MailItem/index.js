@@ -1,9 +1,11 @@
 import React from 'react';
+import Arweave from 'arweave/web'; // Arweave
 import ReactMarkdown from 'react-markdown'; // Display markdown from mail
 import { withRouter } from 'react-router-dom'; // Navigation
 import { get_mail_from_tx } from '../../utils/crypto'; // Retrieve mail function
 import Address from '../../components/Address'; // Arweave ID parsing
 import FileSaver from 'file-saver'; // Save file (download button)
+import { getWeavemailTransactions } from '../../utils/query';
 
 class MailItem extends React.Component {
 	constructor() {
@@ -11,18 +13,33 @@ class MailItem extends React.Component {
 
 		this.state = {
 			loading: true, // Set mail loading to true by default
+			errorLoading: false,
 			mail: null, // Hold mail item
 		};
 	}
 
 	getMail = id => {
-		this.setState({loading: true});
+		const arweave = Arweave.init();
+		this.setState({loading: true, errorLoading: false});
+		let t = this;
 		// If mail type is "inbox":
 		if (this.props.type === 'inbox') {
 			// Get mail from permaweb
-			get_mail_from_tx(id).then(r => {
-				this.setState({mail: r, loading: false});
-			})
+			getWeavemailTransactions(arweave, null, id).then(results => {
+				let transactions = results.data.transactions.edges;
+				if(transactions.length == 1) {
+					get_mail_from_tx(transactions[0].node).then(r => {
+						console.log(t);
+						console.log(r);
+						t.setState({mail: r, loading: false});
+					})
+				} else {
+					console.error(`Wrong number of transactions ${transactions.length}`);
+					t.setState({errorLoading:true});
+				}
+				
+			});
+			
 		} else {
 			// Else, if mail type is "draft":
 			let drafts = JSON.parse(sessionStorage.getItem('drafts')); // Get drafts array from sessionStorage
@@ -96,8 +113,7 @@ class MailItem extends React.Component {
 			<div className="mail-view">
 				{this.state.loading ? (
 					<div className="mail-view-loading">
-						<i className="fa fa-spinner fa-spin"></i>
-						<h5>Retrieving {this.props.type === 'inbox' ? "mail" : "draft"}</h5>
+						{this.state.errorLoading ? (<h5>Unable to load</h5>) : (<><i className="fa fa-spinner fa-spin"></i><h5>Retrieving {this.props.type === 'inbox' ? "mail" : "draft"}</h5></>)}
 					</div>
 				) : (
 					<>

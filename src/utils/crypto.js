@@ -2,12 +2,13 @@ import Arweave from 'arweave/web';
 const arweave = Arweave.init();
 
 export const decrypt_mail = async (enc_data, key) => {
+
     var enc_key = new Uint8Array(enc_data.slice(0, 512))
     var enc_mail = new Uint8Array(enc_data.slice(512))
 
     var symmetric_key = await window.crypto.subtle.decrypt({ name: 'RSA-OAEP' }, key, enc_key)
 
-    return arweave.crypto.decrypt(enc_mail, symmetric_key)
+    return Arweave.crypto.decrypt(enc_mail, symmetric_key)
 };
 
 export const wallet_to_key = async wallet => {
@@ -20,35 +21,50 @@ export const wallet_to_key = async wallet => {
 	return await crypto.subtle.importKey('jwk', w, algo, false, ['decrypt'])
 };
 
-export const get_mail_from_tx = async tx => {
+export const get_mail_from_tx = async node => {
     let mail_item;
+    let key = await wallet_to_key(JSON.parse(sessionStorage.getItem('keyfile')));
+    let mailParse;
 
-    await arweave.transactions.get(tx).then(async tx => {
-        let key = await wallet_to_key(JSON.parse(sessionStorage.getItem('keyfile')));
-        let mailParse;
+    let data = [];
+    let result = await arweave.api.get(`/${node.id}`, { responseType: "arraybuffer" });
+    if (result.status >= 200 && result.status < 300) {
+        console.log(result);
+        data = result.data;
+        try { 
+            console.log(data);
+            let decrypted = await decrypt_mail( data, key);
+            mailParse = JSON.parse(Arweave.utils.bufferToString(decrypted));
+            console.log("MailParse", mailParse);
 
-        if (tx.format === 1) {
-            mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(tx.data), key)));
-        } else if (tx.format === 2) {
-            await arweave.transactions.getData(tx.id).then(async data => {
-                mailParse = JSON.parse(arweave.utils.bufferToString(await decrypt_mail(arweave.utils.b64UrlToBuffer(data), key)));
-            })
+            let unixTime = Math.floor(new Date().valueOf() / 1000.0);
+            let appName = "";
+
+            node.tags.forEach((tag) => {
+                const name = tag.name;
+                const value = tag.value;
+                if (name === 'Unix-Time') { unixTime = parseInt(value, 10); }
+                if (name === 'App-Name') { appName = value; }
+            });
+            
+            let from = node.owner.address;
+
+            console.log(node);
+
+            mail_item = {
+                "timestamp": unixTime,
+                "id": node.id,
+                "from": from,
+                "fee": parseInt(node.fee.winston) / 1000000000000,
+                "amount": parseInt(node.quantity.winston) / 1000000000000,
+                "subject": mailParse.subject,
+                "body": mailParse.body,
+            };
+        } catch(e) {
+            console.log(e.message);
         }
-
-        let timestamp = tx.get('tags')[2].get('value', { decode: true, string: true });
-        let from = await arweave.wallets.ownerToAddress(tx.owner);
-
-        mail_item = {
-            "timestamp": timestamp,
-            "id": tx.id,
-            "from": from,
-            "fee": tx.reward / 1000000000000,
-            "amount": tx.quantity / 1000000000000,
-            "subject": mailParse.subject,
-            "body": mailParse.body,
-        };
-    });
-
+    }
+    
     return mail_item;
 }
 
