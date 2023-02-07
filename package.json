@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "arweave": "^1.7.0",
+    "arweave": "^1.11.,8",
     "draft-js": "^0.11.5",
     "draftjs-to-markdown": "^0.6.0",
     "file-saver": "^2.0.2",

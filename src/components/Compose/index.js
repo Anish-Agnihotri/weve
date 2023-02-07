@@ -3,7 +3,7 @@ import Arweave from 'arweave/web'; // Arweave libraries
 import {notify} from 'react-notify-toast'; // Notifications
 import { withRouter } from 'react-router-dom'; // React-router-dom navigation
 import { get_public_key, encrypt_mail } from '../../utils/crypto'; // Mail encryption
-import ReactTooltip from "react-tooltip"; // PST fee description
+import { arweave } from '../../utils/globals';
 import './index.css';
 
 // React draft
@@ -81,7 +81,6 @@ class Compose extends React.Component {
 		// Set loading status to true
 		this.setState({transactionLoading: true});
 
-		let arweave = Arweave.init();
 		let wallet = JSON.parse(sessionStorage.getItem('keyfile')); // Collect wallet from sessionStorage
 		let tokens = arweave.ar.arToWinston(this.state.numTokens); // Collect number of tokens to send
 		let pub_key = await get_public_key(this.state.recipient); // Collect recipient public key

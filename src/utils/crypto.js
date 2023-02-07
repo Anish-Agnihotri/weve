@@ -1,5 +1,6 @@
-import Arweave from 'arweave/web';
-const arweave = Arweave.init();
+import Arweave from "arweave";
+import { arweave } from "./globals";
+
 
 export const decrypt_mail = async (enc_data, key) => {
 

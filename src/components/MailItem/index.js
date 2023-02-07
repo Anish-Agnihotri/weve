@@ -6,6 +6,7 @@ import { get_mail_from_tx } from '../../utils/crypto'; // Retrieve mail function
 import Address from '../../components/Address'; // Arweave ID parsing
 import FileSaver from 'file-saver'; // Save file (download button)
 import { getWeavemailTransactions } from '../../utils/query';
+import { arweave } from '../../utils/globals';
 
 class MailItem extends React.Component {
 	constructor() {
@@ -19,7 +20,6 @@ class MailItem extends React.Component {
 	}
 
 	getMail = id => {
-		const arweave = Arweave.init();
 		this.setState({loading: true, errorLoading: false});
 		let t = this;
 		// If mail type is "inbox":

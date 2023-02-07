@@ -1,5 +1,4 @@
 import React from 'react';
-import Arweave from 'arweave/web'; // Arweave
 import moment from 'moment'; // Unix timestamp parsing
 import { NavLink } from 'react-router-dom'; // Navigation
 import { sort } from '../../utils/sort'; // Sorting by date
@@ -9,6 +8,7 @@ import Store from '../../stores'; // Store to save inbox on load
 import { FixedSizeList as List } from 'react-window'; // React-window list to efficiently render inbox
 import AutoSizer from 'react-virtualized-auto-sizer'; // Auto-sizer for react-window parent dimensions
 import { getWeavemailTransactions } from '../../utils/query';
+import { arweave } from '../../utils/globals';
 import './index.css';
 
 class Inbox extends React.Component {
@@ -40,8 +40,7 @@ class Inbox extends React.Component {
 	};
 
 	retrieveMail = () => {
-		let store = this.props.store; // Setup undux store
-		const arweave = Arweave.init();
+		let store = this.props.store; // Setup undux store;
 
 		let cachedInbox = store.get('inbox'); // Collect cached inbox
 

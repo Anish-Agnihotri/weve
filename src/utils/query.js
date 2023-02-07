@@ -1,5 +1,4 @@
-import Arweave from 'arweave/web';
-const arweave = Arweave.init();
+import { arweave } from "./globals";
 
 export const getWeavemailTransactions = async (arweave, address, mailItemTxid) => {
 

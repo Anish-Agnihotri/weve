@@ -5,6 +5,7 @@ import Address from '../Address'; // Arweave ID
 import SlidingPane from 'react-sliding-pane'; // Sliding pane for notifications
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import './index.css';
+import { arweave } from '../../utils/globals';
 
 // Sliding pane notifications
 import Notifications from '../Notifications';
@@ -58,7 +59,6 @@ class MailLayout extends React.Component {
 
 	// Get wallet address
 	getWalletAddress = () => {
-		const arweave = Arweave.init();
 		// Collect wallet from sessionStorage and retrieve address
 		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(async address => {
 			this.setState({address: address});
