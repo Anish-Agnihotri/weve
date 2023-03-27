@@ -5,6 +5,7 @@ import Address from '../Address'; // Arweave ID
 import SlidingPane from 'react-sliding-pane'; // Sliding pane for notifications
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import './index.css';
+import { arweave } from '../../utils/globals';
 
 // Sliding pane notifications
 import Notifications from '../Notifications';
@@ -14,7 +15,6 @@ import Inbox from '../MailLists/Inbox';
 import Drafts from '../MailLists/Drafts';
 import Sent from '../MailLists/Sent';
 import Contacts from '../MailLists/Contacts';
-import PST from '../MailLists/PST';
 
 class MailLayout extends React.Component {
 	constructor() {
@@ -39,9 +39,6 @@ class MailLayout extends React.Component {
 		} else if (this.props.location.pathname === "/contacts") {
 			// Return contacts
 			return <Contacts />;
-		} else if (this.props.location.pathname === "/pst") {
-			// Return pst
-			return <PST />;
 		} else if (this.props.location.pathname === "/") {
 			// If URL starts with '/'
 			this.props.history.push("/inbox");
@@ -62,7 +59,6 @@ class MailLayout extends React.Component {
 
 	// Get wallet address
 	getWalletAddress = () => {
-		const arweave = Arweave.init();
 		// Collect wallet from sessionStorage and retrieve address
 		arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(async address => {
 			this.setState({address: address});
@@ -110,7 +106,6 @@ class MailLayout extends React.Component {
 								<li><NavLink to="/drafts" activeClassName="active-sidebar-button"><i className="fa fa-file-o"></i>Drafts</NavLink></li>
 								<li><NavLink to="/sent" activeClassName="active-sidebar-button"><i className="fa fa-paper-plane-o"></i>Sent</NavLink></li>
 								<li><NavLink to="/contacts" activeClassName="active-sidebar-button"><i className="fa fa-address-book"></i>Contacts</NavLink></li>
-								<li><NavLink to="/pst" activeClassName="active-sidebar-button"><i className="fa fa-money"></i>PST</NavLink></li>
 							</ul>
 						</div>
 						<div className={this.props.location.pathname.startsWith("/sent") || this.props.location.pathname.startsWith("/contacts") || this.props.location.pathname.startsWith("/pst") ? "mailbar display-mailbar-wide" : "mailbar"}>

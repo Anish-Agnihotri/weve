@@ -1,5 +1,4 @@
 import React from 'react';
-import Arweave from 'arweave/web'; // Arweave
 import moment from 'moment'; // Unix timestamp parsing
 import Store from '../../stores'; // Store to save sent on load
 import {get_sent_mail_from_tx} from '../../utils/crypto'; // Retrieving sent mail items from tx
@@ -8,6 +7,7 @@ import ReactTable from 'react-table-6'; // React table
 import 'react-table-6/react-table.css'; // React table styling
 import './index.css'; // Overall styling
 import './table.css'; // Sent table specific styling
+import { arweave } from '../../utils/globals';
 
 class Sent extends React.Component {
 	constructor() {
@@ -21,7 +21,6 @@ class Sent extends React.Component {
 
 	retrieveMail = () => {
 		let store = this.props.store; // Setup undux store
-		const arweave = Arweave.init();
 
 		let cachedOutbox = store.get('sent'); // Collect cached outbox
 		

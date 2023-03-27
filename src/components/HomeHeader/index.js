@@ -17,7 +17,7 @@ export default class HomeHeader extends React.Component {
 		// If window width > 700
 		if (window.innerWidth > 700) {
 			// Keep mobile menu closed
-			this.setState({open: false});
+			this.setState({ open: false });
 		}
 	};
 
@@ -30,6 +30,15 @@ export default class HomeHeader extends React.Component {
 	componentWillUnmount() {
 		// Remove event listener on component unmount for performance
 		window.removeEventListener('resize', this.updateDimensions.bind(this));
+	}
+
+	handleLogin = async () => {
+		if (this.props.isArConnect) {
+			debugger
+			this.props.loginToggle();
+		} else {
+			this.props.arwallet();
+		}
 	}
 
 	render() {
@@ -46,13 +55,13 @@ export default class HomeHeader extends React.Component {
 							<ul>
 								<li><AnchorLink href="#features">Features</AnchorLink></li>
 								<li><AnchorLink href="#quickstart">Quickstart</AnchorLink></li>
-								<li><button onClick={this.props.loginToggle}>Login</button></li>
+								<li><button onClick={this.handleLogin}>Login</button></li>
 							</ul>
 						</nav>
 						<div className="hamburger">
 							<HamburgerButton
 								open={this.state.open}
-								onClick={() => this.setState(previous => ({open: !previous.open}))}
+								onClick={() => this.setState(previous => ({ open: !previous.open }))}
 								width={25}
 								height={12}
 								strokeWidth={2}
@@ -64,8 +73,8 @@ export default class HomeHeader extends React.Component {
 					<div className={`menu-mobile ${this.state.open ? "shown" : "hidden"}`}>
 						<nav>
 							<ul>
-								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#features">Features</AnchorLink></li>
-								<li><AnchorLink onClick={this.state.open ? () => this.setState({open: false}) : null} href="#quickstart">Quickstart</AnchorLink></li>
+								<li><AnchorLink onClick={this.state.open ? () => this.setState({ open: false }) : null} href="#features">Features</AnchorLink></li>
+								<li><AnchorLink onClick={this.state.open ? () => this.setState({ open: false }) : null} href="#quickstart">Quickstart</AnchorLink></li>
 								<li><button onClick={this.props.loginToggle}>Login</button></li>
 							</ul>
 						</nav>

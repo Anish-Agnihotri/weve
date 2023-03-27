@@ -8,6 +8,8 @@ import { withRouter } from 'react-router-dom'; // Used to access history props t
 import Fade from 'react-reveal/Fade'; // React-reveal animations
 import Image from 'react-graceful-image'; // React graceful image rendering
 import './index.css';
+import { ArweaveWebWallet } from "arweave-wallet-connector";
+
 
 class Home extends React.Component {
 	constructor() {
@@ -17,13 +19,17 @@ class Home extends React.Component {
 			modalState: false, // Modal state
 			keyFileName: "Drop keyfile here", // Modal dropzone text
 			isLoading: false, // Modal loading status
+			address: undefined,
+			isArConnect: false,
 		};
 	}
 
 	// Toggle login modal state
 	toggleModal = () => {
 		// Access previousState, and toggle it
-		this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Drop keyfile here", isLoading: false}));
+		if (this.state.isArConnect === true) {
+			this.setState(previousState => ({ modalState: !previousState.modalState, keyFileName: "Drop keyfile here", isLoading: false }));
+		}
 	};
 
 	// Keyfile upload and parsing
@@ -42,7 +48,6 @@ class Home extends React.Component {
 			reader.readAsText(upload); // Read content as text
 			reader.onload = () => {
 				const keyfile = JSON.parse(reader.result); // Parse text to JSON object
-
 
 				if (keyfile.kty === "RSA") { // Confirm that uploaded file is indeed keyfile
 					sessionStorage.setItem('keyfile', reader.result); // Set keyfile to sessionStorage
@@ -66,58 +71,74 @@ class Home extends React.Component {
 		}
 	}
 
+	arconnect = async () => {
+		if (!this.state.address && !window.arweaveWallet) {
+			window.open("https://arconnect.io", "_blank");
+		}
+		const wallet = await window.arweaveWallet.connect(["ACCESS_ADDRESS", "SIGN_TRANSACTION"], {
+		});
+
+		// @TODO Add state handling
+	}
+
+	arwallet = async () => {
+		const wallet = new ArweaveWebWallet({
+			name: "weve",
+		});
+
+		wallet.setUrl("arweave.app");
+		await wallet.connect();
+
+		const addr = await window.arweaveWallet.getActiveAddress();
+		this.setState({ address: addr });
+		this.keyFile(wallet)
+	}
 	componentDidMount() {
 		document.title = 'Weve | Home' // Set head on mount
+		window.addEventListener("arweaveWalletLoaded", (e) => {
+			if (e.target.window.arweaveWallet) {
+				this.setState({ isArConnect: true })
+			}
+		});
 	}
 
 	render() {
 		// List of items collected by gmail (used for mapped rendering)
 		const gmailCollects = ['Your name', 'Your password', 'Phone number', 'Payment information', 'Created content', 'Received content',
-		'Uploaded content', 'Search terms', 'Viewed emails', 'Interacted ads', 'Frequent contacts', 'Browsing history', 'Audio file information',
-		'Purchase activity', 'Browser type', 'Unique identifiers', 'Device type', 'Operating system', 'Mobile network', 'IP Address', 'System activity',
-		'Referrer URL', 'Marketing partner info', 'Advertising info', 'GPS location', 'Device sensor data', 'WiFi data', 'Installed apps'];
+			'Uploaded content', 'Search terms', 'Viewed emails', 'Interacted ads', 'Frequent contacts', 'Browsing history', 'Audio file information',
+			'Purchase activity', 'Browser type', 'Unique identifiers', 'Device type', 'Operating system', 'Mobile network', 'IP Address', 'System activity',
+			'Referrer URL', 'Marketing partner info', 'Advertising info', 'GPS location', 'Device sensor data', 'WiFi data', 'Installed apps'];
 
 		return (
 			<>
-				<Modal 
-					open={this.state.modalState} 
+				<Modal
+					open={this.state.modalState}
 					onClose={this.toggleModal}
 					center={true}
 					showCloseIcon={false}>
 					<div className="login-modal">
 						<div>
 							<h1 className="unselectable">weve.</h1>
-							<p>Drop a <span>keyfile</span> to login</p>
+							<p>Select an option to login</p>
 						</div>
-						<div>
-							<Dropzone onDrop={acceptedFiles => this.keyFile(acceptedFiles)}>
-								{({getRootProps, getInputProps}) => (
-									<section>
-										<div {...getRootProps()}>
-											<input {...getInputProps()} />
-											{this.state.isLoading ? <i className="fa fa-spinner fa-spin"></i> : <img src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/upload.png" alt="Upload" />}
-											<p>{this.state.keyFileName}</p>
-										</div>
-									</section>
-								)}
-							</Dropzone>
-							<h3>OR</h3>
-							<a href="https://www.arweave.org/wallet" target="_blank" rel="noopener noreferrer">Get a wallet</a>
+						<div className="wallet-modal">
+							<a role="button" target="_blank" rel="noopener noreferrer" onClick={this.arconnect}>ArConnect</a>
+							<a role="button" target="_blank" rel="noopener noreferrer" onClick={this.arwallet}>Arweave.app</a>
 						</div>
 					</div>
 				</Modal>
-				<div className="home" id="top">
+				<div className="home modal-overlay" id="top">
 					<div>
 						<span>Built on Arweave. <a href="https://arweave.org" target="_blank" rel="noopener noreferrer">Find out more.</a></span>
 					</div>
 					<div className="rounder-sizer">
-						<HomeHeader loginToggle={this.toggleModal} />
+						<HomeHeader loginToggle={this.toggleModal} isArConnect={this.state.isArConnect} arwallet={this.arwallet} />
 						<div className="sizer">
 							<div className="landing">
 								<Fade bottom cascade>
 									<div>
-										<h1>Private mail.<br/>
-										<span>Forever.</span></h1>
+										<h1>Private mail.<br />
+											<span>Forever.</span></h1>
 										<p><span className="highlight">Weve</span> is the first mail network with an <span className="line"><span className="highlight">immutable privacy policy.</span></span></p>
 										<p>It can <span className="highlight">never</span> sell your data, read your <span className="line">mail, or be taken down.</span></p>
 									</div>
@@ -126,10 +147,10 @@ class Home extends React.Component {
 						</div>
 					</div>
 					<div className="client">
-						<Image 
+						<Image
 							src="https://4w7orsbanx7o.arweave.net/d1jWkewQFS3ZI2xpGH9amsrx-IsNzkoucAbf1T4-4qE/steps3.png"
 							alt="Weve inbox"
-							placeholderColor='transparent' 
+							placeholderColor='transparent'
 						/>
 					</div>
 					<div>
@@ -236,7 +257,7 @@ class Usage extends React.Component {
 		}
 	}
 	resetNumber = () => {
-		this.setState({number: 0}); // Render image depending on currently selected element
+		this.setState({ number: 0 }); // Render image depending on currently selected element
 	}
 	componentDidMount() {
 		this.resetNumber();
@@ -245,7 +266,7 @@ class Usage extends React.Component {
 		return (
 			<div className="usage">
 				<div>
-					<button onClick={() => this.setState({number: 0})} className={this.state.number === 0 ? "active-usage-item" : null}>
+					<button onClick={() => this.setState({ number: 0 })} className={this.state.number === 0 ? "active-usage-item" : null}>
 						<div>
 							<div>
 								<h2>1</h2>
@@ -256,7 +277,7 @@ class Usage extends React.Component {
 							<p>First, create a permaweb wallet.</p>
 						</div>
 					</button>
-					<button onClick={() => this.setState({number: 1})} className={this.state.number === 1 ? "active-usage-item" : null}>
+					<button onClick={() => this.setState({ number: 1 })} className={this.state.number === 1 ? "active-usage-item" : null}>
 						<div>
 							<div>
 								<h2>2</h2>
@@ -267,7 +288,7 @@ class Usage extends React.Component {
 							<p>Use your wallet to sign-in.</p>
 						</div>
 					</button>
-					<button onClick={() => this.setState({number: 2})} className={this.state.number === 2 ? "active-usage-item" : null}>
+					<button onClick={() => this.setState({ number: 2 })} className={this.state.number === 2 ? "active-usage-item" : null}>
 						<div>
 							<div>
 								<h2>3</h2>

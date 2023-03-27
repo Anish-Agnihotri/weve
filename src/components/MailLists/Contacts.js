@@ -1,9 +1,9 @@
 import React from 'react';
-import Arweave from 'arweave/web'; // Arweave
 import { Modal } from 'react-responsive-modal'; // Compose modal setup
 import { withRouter } from 'react-router-dom'; // React-router-dom navigation
 import AddContact from '../AddContact'; // Import add contact modal
 import './index.css';
+import { arweave } from '../../utils/globals';
 
 class Contacts extends React.Component {
 	constructor() {
@@ -22,7 +22,6 @@ class Contacts extends React.Component {
 	}
 
 	getContacts = async () => {
-		const arweave = Arweave.init();
 
 		// Use keyfile from sessionStorage to get address
 		let wallet = JSON.parse(sessionStorage.getItem('keyfile'));

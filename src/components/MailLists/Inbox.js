@@ -1,13 +1,14 @@
 import React from 'react';
-import Arweave from 'arweave/web'; // Arweave
 import moment from 'moment'; // Unix timestamp parsing
-import {NavLink} from 'react-router-dom'; // Navigation
-import {sort} from '../../utils/sort'; // Sorting by date
-import {get_mail_from_tx} from '../../utils/crypto'; // Retrieving mail items from tx
+import { NavLink } from 'react-router-dom'; // Navigation
+import { sort } from '../../utils/sort'; // Sorting by date
+import { get_mail_from_tx } from '../../utils/crypto'; // Retrieving mail items from tx
 import Address from '../../components/Address'; // Arweave ID
 import Store from '../../stores'; // Store to save inbox on load
-import {FixedSizeList as List} from 'react-window'; // React-window list to efficiently render inbox
+import { FixedSizeList as List } from 'react-window'; // React-window list to efficiently render inbox
 import AutoSizer from 'react-virtualized-auto-sizer'; // Auto-sizer for react-window parent dimensions
+import { getWeavemailTransactions } from '../../utils/query';
+import { arweave } from '../../utils/globals';
 import './index.css';
 
 class Inbox extends React.Component {
@@ -25,9 +26,9 @@ class Inbox extends React.Component {
 	updateDimensions = e => {
 		// If window width > 760
 		if (window.innerWidth > 760) {
-			this.setState({mobile: false}); // Mobile layout to false
+			this.setState({ mobile: false }); // Mobile layout to false
 		} else {
-			this.setState({mobile: true}); // Mobile layout to true
+			this.setState({ mobile: true }); // Mobile layout to true
 		}
 	};
 
@@ -35,70 +36,58 @@ class Inbox extends React.Component {
 	sortByDate = () => {
 		let array = this.state.mail;
 		// Use sort() function to sort array
-		this.setState({mail: sort(array)});
+		this.setState({ mail: sort(array) });
 	};
 
 	retrieveMail = () => {
-		let store = this.props.store; // Setup undux store
-		const arweave = Arweave.init();
+		let store = this.props.store; // Setup undux store;
 
 		let cachedInbox = store.get('inbox'); // Collect cached inbox
 
 		// If cached inbox contains emails
 		if (cachedInbox.length > 0) {
 			// Set mail to cached emails and toggle loading
-			this.setState({mail: cachedInbox, loading: false});
+			this.setState({ mail: cachedInbox, loading: false });
 		} else {
 			// Use keyfile from sessionStorage to get address
 			arweave.wallets.jwkToAddress(JSON.parse(sessionStorage.getItem('keyfile'))).then(address => {
-				
-				// Feed address to arql get_blocks_with_mail query
-				let get_blocks_with_mail = {
-					op: 'and',
-					expr1:{
-						op: 'equals',
-						expr1: 'to',
-						expr2: address
-					},
-					expr2:{
-						op: 'equals',
-						expr1: 'App-Name',
-						expr2: 'permamail'
-					}
-				}
-				
-				// Perform query to find permamail tagged emails
-				arweave.api.post(`arql`, get_blocks_with_mail).then(async response => {
-					let transactions = response.data;
-					let counter = 0; // Setup current mail counter
+				getWeavemailTransactions(arweave, address)
+					.then(results => {
+						console.log("GraphQL query results:");
+						console.log(results);
+						let transactions = results.data.transactions.edges;
+						let counter = 0; // Setup current mail counter
+						let t = this;
 
-					if (transactions.length > 0) {
-						// For each tx tagged permamail:
-						transactions.forEach(transaction => {
-							// Get mail from tx
-							get_mail_from_tx(transaction).then(response => {
-								// Append mail to mail array
-								this.setState(previousState => ({mail: [...previousState.mail, response]}), () => {
-									counter++; // Increment current mail counter
-
-									// If all mails have been collected
-									if (counter === transactions.length) {
-										store.set('inbox')(this.state.mail); // Update inbox in undux store
-										this.setState({loading: false}); // Toggle loading
-									}
-								})
-							})
-						})
-					} else {
-						this.setState({loading: false});
-					}
-				})
+						if (transactions.length > 0) {
+							Promise.all(transactions.map(async function (edge, i) {
+								// Get mail from tx
+								return get_mail_from_tx(edge.node)
+									.then(response => {
+										if (response) {
+											console.log(response);
+											console.log(counter);
+											console.log(t);
+											// Append mail to mail array
+											t.setState(previousState => ({ mail: [...previousState.mail, response] }), () => {
+												counter++; // Increment current mail counter
+											})
+										}
+									})
+							})) // After Promise.all
+								.then(() => {
+									store.set('inbox')(this.state.mail); // Update inbox in undux store
+									t.setState({ loading: false }); // Toggle loading
+								});
+						} else {
+							t.setState({ loading: false });
+						}
+					});
 			})
 		}
 	}
-
 	componentDidMount() {
-		document.title="Weve | Inbox"; // Set page title
+		document.title = "Weve | Inbox"; // Set page title
 		this.updateDimensions(); // Update dimensions on load
 		window.addEventListener('resize', this.updateDimensions.bind(this)); // Setup an event listener for resize
 		this.retrieveMail(); // Retrieve mail on load
@@ -110,18 +99,18 @@ class Inbox extends React.Component {
 	}
 
 	// Render inbox rows
-	rowRenderer = ({key, index, style}) => {
+	rowRenderer = ({ key, index, style }) => {
 		let mail = this.state.mail[index]; // Access individual row item
 		return (
 			// Render row item
 			<div key={key} style={style}>
-				<MailItem 
-					key={key} 
-					id={mail.id ? mail.id : ""} 
-					from={mail.from} 
-					subject={mail.subject} 
-					body={mail.body} 
-					timestamp={mail.timestamp} 
+				<MailItem
+					key={key}
+					id={mail.id ? mail.id : ""}
+					from={mail.from}
+					subject={mail.subject}
+					body={mail.body}
+					timestamp={mail.timestamp}
 				/>
 			</div>
 		);
@@ -146,7 +135,7 @@ class Inbox extends React.Component {
 					) : (
 						this.state.mail.length ? (
 							<AutoSizer>
-								{({width, height}) => 
+								{({ width, height }) =>
 									<List height={height} width={width} itemCount={this.state.mail.length} itemSize={this.state.mobile ? 220 : 90.5} layout={this.state.mobile ? "horizontal" : "vertical"} sortChange={this.state.mail[0]}>
 										{this.rowRenderer}
 									</List>

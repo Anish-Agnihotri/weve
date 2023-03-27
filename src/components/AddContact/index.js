@@ -1,7 +1,8 @@
 import React from 'react';
-import Arweave from 'arweave/web'; // Arweave libraries
+import Arweave from 'arweave'; // Arweave libraries
 import {notify} from 'react-notify-toast'; // Notifications
 import './index.css';
+import { arweave } from '../../utils/globals';
 
 export default class AddContact extends React.Component {
 	constructor() {
@@ -29,7 +30,6 @@ export default class AddContact extends React.Component {
 		// Set loading status to true
 		this.setState({transactionLoading: true});
 
-		let arweave = Arweave.init();
 		let wallet = JSON.parse(sessionStorage.getItem('keyfile')); // Collect wallet from sessionStorage
 		let contact = {"name": this.state.contact_name, "contact": this.state.contact_addr}; // Setup contact item
 

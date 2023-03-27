@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "arweave": "^1.7.0",
+    "arweave": "^1.11.,8",
     "draft-js": "^0.11.5",
     "draftjs-to-markdown": "^0.6.0",
     "file-saver": "^2.0.2",
@@ -51,5 +51,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "arweave-wallet-connector": "^1.0.0"
   }
 }
